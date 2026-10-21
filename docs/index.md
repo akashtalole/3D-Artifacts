@@ -66,6 +66,17 @@ dry coolers down to an exploded compute tray, with the live Indian sun and clima
 [Launch app](apps/ai-factory-india/) · [Documentation](projects/ai-factory-india/index.md)
 </div>
 
+<div class="card" markdown>
+[![Brick Builder](assets/brick-builder/cottage.jpg)](apps/brick-builder/)
+
+### Brick Builder
+
+Snap interlocking bricks onto a baseplate in 3D, in the real 8 mm stud system: bricks,
+plates, tiles, slopes and rounds in 24 colours, with undo, replay and export.
+
+[Launch app](apps/brick-builder/) · [Documentation](projects/brick-builder/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

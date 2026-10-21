@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Brick Builder</title>
+  <meta name="description" content="Build with interlocking plastic bricks in 3D: classic dimensions, 34 parts, 24 colours, stud snapping, undo, replay, save and screenshots." />
+  <meta name="theme-color" content="#151a24" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='22' width='52' height='34' rx='4' fill='%23C91A09'/%3E%3Crect x='12' y='12' width='14' height='12' rx='3' fill='%23e0321f'/%3E%3Crect x='38' y='12' width='14' height='12' rx='3' fill='%23e0321f'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene" aria-label="3D building area"></canvas>
+
+    <header class="top">
+      <div class="brand">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="15" width="34" height="21" rx="3" fill="#C91A09"/><rect x="7" y="8" width="10" height="9" rx="2.5" fill="#e0321f"/><rect x="23" y="8" width="10" height="9" rx="2.5" fill="#e0321f"/></svg>
+        <span>Brick <b>Builder</b></span>
+      </div>
+      <div class="seg tools" id="tools" role="group" aria-label="Tool">
+        <button data-tool="build" class="active" title="Build (B)"><svg viewBox="0 0 24 24"><path d="M4 10h16v9H4zM7 6h4v4H7zM13 6h4v4h-4z"/></svg><span>Build</span></button>
+        <button data-tool="paint" title="Paint (P)"><svg viewBox="0 0 24 24"><path d="M4 18c3 0 4-1 4-3l9-9 3 3-9 9c-2 0-3 1-3 3z"/></svg><span>Paint</span></button>
+        <button data-tool="erase" title="Erase (E) · or Shift-click"><svg viewBox="0 0 24 24"><path d="M5 15l8-8 6 6-6 6H9zM9 19h11"/></svg><span>Erase</span></button>
+        <button data-tool="pick" title="Pick part & colour (I) · or Alt-click"><svg viewBox="0 0 24 24"><path d="M14 4l6 6-3 1-7 7-3 1 1-3 7-7z"/></svg><span>Pick</span></button>
+      </div>
+      <div class="seg icons">
+        <button id="rotate" title="Rotate part (R)"><svg viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2-5M19 4v4h-4"/></svg></button>
+        <button id="undo" title="Undo (Ctrl+Z)"><svg viewBox="0 0 24 24"><path d="M9 7H4v5M4 12a8 8 0 1 1 3 6"/></svg></button>
+        <button id="redo" title="Redo (Ctrl+Y)"><svg viewBox="0 0 24 24"><path d="M15 7h5v5M20 12a8 8 0 1 0-3 6"/></svg></button>
+      </div>
+      <div class="spacer"></div>
+      <div class="seg icons">
+        <select id="samples" aria-label="Load a sample build"><option value="">Samples…</option></select>
+        <button id="replay" title="Replay the build brick by brick"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        <button id="shot" title="Save a PNG screenshot"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></button>
+        <button id="export" title="Export build (.json)"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+        <button id="import" title="Import build (.json)"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg></button>
+        <button id="clear" title="Clear the baseplate"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg></button>
+        <button id="sound" title="Sound on/off" class="on"><svg viewBox="0 0 24 24"><path d="M4 10h4l5-4v12l-5-4H4zM16 9a4 4 0 0 1 0 6"/></svg></button>
+      </div>
+      <input type="file" id="file" accept=".json,application/json" hidden />
+    </header>
+
+    <aside class="parts" id="parts">
+      <nav class="cats" id="cats"></nav>
+      <div class="grid" id="grid"></div>
+    </aside>
+
+    <aside class="info" id="info">
+      <div class="stats">
+        <div><b id="s-count" class="mono">0</b><span>pieces</span></div>
+        <div><b id="s-height" class="mono">0</b><span>cm tall</span></div>
+        <div><b id="s-kinds" class="mono">0</b><span>part types</span></div>
+      </div>
+      <div class="base">
+        <span>Baseplate</span>
+        <div class="seg small" id="base-size"><button data-n="16">16</button><button data-n="32">32</button><button data-n="48">48</button></div>
+        <button class="swatch-btn" id="base-color" title="Baseplate colour"></button>
+      </div>
+      <h2>Parts list</h2>
+      <ul class="bom" id="bom"></ul>
+    </aside>
+
+    <footer class="palette">
+      <div class="current"><i id="cur-swatch"></i><div><b id="cur-part">—</b><span id="cur-color">—</span></div></div>
+      <div class="swatches" id="swatches" role="listbox" aria-label="Colour"></div>
+    </footer>
+    <div class="help">Click to place · drag to orbit · right-drag to pan · scroll to zoom · <kbd>R</kbd> rotate · <kbd>Shift</kbd>-click erase · <kbd>Alt</kbd>-click pick</div>
+    <div class="toast" id="toast" role="status"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Sorting bricks…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

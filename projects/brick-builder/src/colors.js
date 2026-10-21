@@ -1,0 +1,28 @@
+/** Classic brick colours (hex values as listed by the Rebrickable colour catalogue). */
+export const COLORS = [
+  { name: 'White', hex: '#F2F3F2' },
+  { name: 'Light Bluish Gray', hex: '#A0A5A9' },
+  { name: 'Dark Bluish Gray', hex: '#6C6E68' },
+  { name: 'Black', hex: '#1B2A34' },
+  { name: 'Red', hex: '#C91A09' },
+  { name: 'Dark Red', hex: '#720E0F' },
+  { name: 'Orange', hex: '#FE8A18' },
+  { name: 'Yellow', hex: '#F2CD37' },
+  { name: 'Lime', hex: '#BBE90B' },
+  { name: 'Green', hex: '#237841' },
+  { name: 'Dark Green', hex: '#184632' },
+  { name: 'Tan', hex: '#E4CD9E' },
+  { name: 'Reddish Brown', hex: '#582A12' },
+  { name: 'Medium Azure', hex: '#36AEBF' },
+  { name: 'Dark Azure', hex: '#078BC9' },
+  { name: 'Blue', hex: '#0055BF' },
+  { name: 'Dark Blue', hex: '#0A3463' },
+  { name: 'Bright Pink', hex: '#E4ADC8' },
+  { name: 'Magenta', hex: '#923978' },
+  { name: 'Medium Lavender', hex: '#AC78BA' },
+  { name: 'Trans-Clear', hex: '#FCFCFC', trans: true },
+  { name: 'Trans-Light Blue', hex: '#AEEFEC', trans: true },
+  { name: 'Trans-Red', hex: '#C91A09', trans: true },
+  { name: 'Trans-Yellow', hex: '#F5CD2F', trans: true },
+];
+export const C = Object.fromEntries(COLORS.map((c, i) => [c.name, i]));
