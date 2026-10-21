@@ -8,6 +8,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [ISS EVA Spacewalk](iss-eva-spacewalk/index.md) | [Launch](../apps/iss-eva-spacewalk/) | International Space Station spacewalks — real dimensions, orbit, Sun and EVA timelines |
 | [CRS-35 Launch to Docking](crs35-launch-to-docking/index.md) | [Launch](../apps/crs35-launch-to-docking/) | Falcon 9 launch, booster landing, 51 h orbit phasing and Dragon docking for NASA's CRS-35 |
 | [Solar System Explorer](solar-system/index.md) | [Launch](../apps/solar-system/) | True-scale, real-time Solar System in the style of NASA's Eyes: real planet positions, time controls, flood or natural lighting |
+| [AI Factory India](ai-factory-india/index.md) | [Launch](../apps/ai-factory-india/) | Illustrative 100 MW Vera Rubin NVL72 AI factory near Hyderabad, from the grid and dry coolers down to the Rubin GPU |
 
 ## Shared conventions
 

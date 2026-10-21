@@ -55,6 +55,17 @@ where it really is today. Fly between worlds and run time forwards or backwards.
 [Launch app](apps/solar-system/) · [Documentation](projects/solar-system/index.md)
 </div>
 
+<div class="card" markdown>
+[![AI Factory India](assets/ai-factory-india/campus.jpg)](apps/ai-factory-india/)
+
+### AI Factory India
+
+A 100 MW Vera Rubin NVL72 AI factory near Hyderabad, from the 220 kV grid and the
+dry coolers down to an exploded compute tray, with the live Indian sun and climate.
+
+[Launch app](apps/ai-factory-india/) · [Documentation](projects/ai-factory-india/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
