@@ -1,0 +1,80 @@
+site_name: 3D Artifacts
+site_description: Interactive three.js visualisations — real engineering, real data, modern UI.
+site_url: https://akashtalole.github.io/3D-Artifacts/
+repo_url: https://github.com/akashtalole/3D-Artifacts
+repo_name: akashtalole/3D-Artifacts
+edit_uri: edit/main/docs/
+copyright: MIT licensed · Earth imagery NASA (via three.js examples)
+
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/orbit
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - content.code.copy
+    - search.highlight
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Projects:
+      - projects/index.md
+      - ISS EVA Spacewalk:
+          - projects/iss-eva-spacewalk/index.md
+          - EVA missions: projects/iss-eva-spacewalk/missions.md
+          - Station reference: projects/iss-eva-spacewalk/reference.md
+          - How it works: projects/iss-eva-spacewalk/architecture.md
+  - Contributing: contributing.md
+
+# Links into the bundled apps (site/apps/…) are not MkDocs pages.
+validation:
+  links:
+    unrecognized_links: ignore
