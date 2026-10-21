@@ -1,0 +1,45 @@
+name: Docs & apps → GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install MkDocs Material
+        run: pip install -r requirements.txt
+
+      - name: Check JavaScript syntax
+        run: |
+          for f in $(find projects -name '*.js'); do node --check "$f"; done
+
+      - name: Build docs and bundle apps
+        run: bash scripts/build-site.sh
+
+      - name: Publish to gh-pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "Deploy site from ${{ github.sha }}"
