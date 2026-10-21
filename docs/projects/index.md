@@ -6,6 +6,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | Project | Live app | What it shows |
 | --- | --- | --- |
 | [ISS EVA Spacewalk](iss-eva-spacewalk/index.md) | [Launch](../apps/iss-eva-spacewalk/) | International Space Station spacewalks — real dimensions, orbit, Sun and EVA timelines |
+| [CRS-35 Launch to Docking](crs35-launch-to-docking/index.md) | [Launch](../apps/crs35-launch-to-docking/) | Falcon 9 launch, booster landing, 51 h orbit phasing and Dragon docking for NASA's CRS-35 |
 
 ## Shared conventions
 

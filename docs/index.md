@@ -33,6 +33,17 @@ battery swaps and Nauka outfitting.
 [Launch app](apps/iss-eva-spacewalk/) · [Documentation](projects/iss-eva-spacewalk/index.md)
 </div>
 
+<div class="card" markdown>
+[![CRS-35 launch to docking](assets/crs35-launch-to-docking/pad.jpg)](apps/crs35-launch-to-docking/)
+
+### CRS-35: Launch to Docking
+
+NASA's SpaceX CRS-35 in three acts: pre-dawn Falcon 9 launch and booster landing,
+51 hours of orbit phasing, and Dragon's autonomous docking to Harmony.
+
+[Launch app](apps/crs35-launch-to-docking/) · [Documentation](projects/crs35-launch-to-docking/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
