@@ -10,6 +10,7 @@ import { createMaterials } from './model/materials.js';
 import { buildISS } from './model/iss.js';
 import { buildAstronaut } from './model/astronaut.js';
 import { buildIROSAPackage } from './model/solar.js';
+import { buildCargoDragon } from './model/vehicles.js';
 import { box, tag } from './model/geom.js';
 import { createEarth, createSky, createEnvironment } from './scene/earth.js';
 import { Orbit, gmst } from './sim/orbit.js';
@@ -152,6 +153,45 @@ function visibleChain(o) {
   return true;
 }
 
+// ── Visiting vehicles: approach zones & thruster glow ───────────────────────
+let vehicle = null; // { group, plumes, def, prev, rate }
+const zones = new THREE.Group();
+{
+  const kos = new THREE.Mesh(
+    new THREE.SphereGeometry(200, 24, 12),
+    new THREE.MeshBasicMaterial({ color: 0x5ce1e6, wireframe: true, transparent: true, opacity: 0.035, depthWrite: false }),
+  );
+  kos.position.set(-4, 0, 0);
+  const corridor = new THREE.Mesh(
+    new THREE.ConeGeometry(225 * Math.tan(THREE.MathUtils.degToRad(10)), 225, 12, 1, true),
+    new THREE.MeshBasicMaterial({ color: 0xffb547, wireframe: true, transparent: true, opacity: 0.09, depthWrite: false }),
+  );
+  corridor.userData.isCorridor = true;
+  zones.add(kos, corridor);
+  zones.visible = false;
+  scene.add(zones);
+}
+const plumeTex = (() => {
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grd.addColorStop(0, 'rgba(255,255,255,1)');
+  grd.addColorStop(0.3, 'rgba(190,215,255,0.6)');
+  grd.addColorStop(1, 'rgba(120,160,255,0)');
+  g.fillStyle = grd;
+  g.fillRect(0, 0, 64, 64);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+})();
+
+function followPos(v) {
+  if (mission?.vehicle && v === 'ev1') return vehicle?.group.position || null;
+  return actors[v]?.suit.root.position || null;
+}
+const followOffset = () => (mission?.vehicle ? new THREE.Vector3(16, 8, 18) : new THREE.Vector3(5.5, 3, 6.5));
+
 // ── Mission loading ──────────────────────────────────────────────────────────
 let firstLoad = true;
 function loadMission(id) {
@@ -203,6 +243,32 @@ function loadMission(id) {
     payloadObjs[p.id] = obj;
   }
 
+  // Visiting vehicle
+  if (vehicle) scene.remove(vehicle.group);
+  vehicle = null;
+  zones.visible = false;
+  if (mission.vehicle) {
+    const vd = mission.vehicle;
+    const built = buildCargoDragon(mats);
+    const plumes = built.thrusters.map((p) => {
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: plumeTex, color: new THREE.Color(2.5, 2.6, 3), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+      sp.position.copy(p);
+      sp.scale.setScalar(0.9);
+      sp.visible = false;
+      built.group.add(sp);
+      return sp;
+    });
+    const label = makeLabel(vd.label, 'vehicle', 'dragonCargo');
+    label.position.set(-1.2, 2.6, 0);
+    built.group.add(label);
+    scene.add(built.group);
+    vehicle = { group: built.group, plumes, def: vd, prev: null, rate: 0, port: new THREE.Vector3(...vd.port), axis: new THREE.Vector3(...vd.axis).normalize() };
+    const corridor = zones.children.find((c) => c.userData.isCorridor);
+    corridor.position.copy(vehicle.port).addScaledVector(vehicle.axis, 112.5);
+    corridor.quaternion.setFromUnitVectors(Y, vehicle.axis.clone().negate());
+    zones.visible = state.tethers;
+  }
+
   // Overview camera on the sunlit side of the station
   const sun0 = orbit.state(0).sun;
   OVERVIEW.pos.set(sun0.x * 0.9 + 0.35, 0.3, Math.sign(sun0.z || 1) * 0.75)
@@ -211,8 +277,9 @@ function loadMission(id) {
   firstLoad = false;
 
   ui.setMission(mission, player);
+  if (mission.startView) setView(mission.startView);
+  else if (['ev1', 'ev2', 'helmet'].includes(state.view) && !followPos(state.view)) setView('orbit');
   ui.toast(mission.title, mission.subtitle + '.');
-  if (!mission.crew.length && ['ev1', 'ev2', 'helmet'].includes(state.view)) setView('orbit');
   select(null);
   seek(0);
 }
@@ -322,8 +389,8 @@ function flyTo(pos, target, dur = 1.4) {
 }
 
 function setView(v) {
-  if (['ev1', 'ev2', 'helmet'].includes(v) && !mission.crew.length) return;
-  if (v === 'ev2' && !actors.ev2) return;
+  if ((v === 'ev1' || v === 'ev2') && !followPos(v)) return;
+  if (v === 'helmet' && !actors.ev1 && !mission.vehicle) return;
   const prev = state.view;
   state.view = v;
   state.look.yaw = state.look.pitch = 0;
@@ -338,14 +405,21 @@ function setView(v) {
   else if (v === 'worksite') {
     const t = new THREE.Vector3(...mission.worksite.target);
     flyTo(t.clone().add(new THREE.Vector3(...mission.worksite.offset)), t);
-  } else if (actors[v]) {
-    const p = actors[v].suit.root.position;
-    flyTo(p.clone().add(new THREE.Vector3(5.5, 3, 6.5)), p.clone());
+  } else if (followPos(v)) {
+    const p = followPos(v);
+    flyTo(p.clone().add(followOffset()), p.clone());
   }
 }
 
 function updateCamera(dt) {
   const v = state.view;
+  if (v === 'helmet' && mission.vehicle && vehicle) {
+    // Centerline camera on the docking adapter, looking out along the approach axis
+    camera.position.copy(vehicle.port).addScaledVector(vehicle.axis, 0.4).add(new THREE.Vector3(0, 0, 1.0));
+    _m.lookAt(camera.position, _v.copy(camera.position).addScaledVector(vehicle.axis, 10), X);
+    camera.quaternion.setFromRotationMatrix(_m).multiply(lookOffset());
+    return;
+  }
   if (v === 'helmet' && actors.ev1) {
     const suit = actors.ev1.suit;
     suit.helmetCam.getWorldPosition(camera.position);
@@ -368,16 +442,16 @@ function updateCamera(dt) {
   if (tween) {
     const k = Math.min(1, (performance.now() - tween.start) / tween.dur);
     const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-    if (actors[v]) {           // track a moving target while flying in
-      const p = actors[v].suit.root.position;
-      tween.p1.copy(p).add(new THREE.Vector3(5.5, 3, 6.5));
-      tween.t1.copy(p);
+    const fp = followPos(v);
+    if (fp) {                  // track a moving target while flying in
+      tween.p1.copy(fp).add(followOffset());
+      tween.t1.copy(fp);
     }
     camera.position.lerpVectors(tween.p0, tween.p1, e);
     controls.target.lerpVectors(tween.t0, tween.t1, e);
     if (k >= 1) tween = null;
-  } else if (actors[v]) {
-    const p = actors[v].suit.root.position;
+  } else if (followPos(v)) {
+    const p = followPos(v);
     _v.subVectors(p, controls.target);
     controls.target.add(_v);
     camera.position.add(_v);
@@ -638,6 +712,36 @@ function update(dtReal, now) {
     live[p.id] = obj.position;
   }
 
+  // Visiting vehicle: approach, attitude, RCS pulses
+  if (vehicle && player.tracks.vehicle) {
+    const smp = player.tracks.vehicle.sample(t, tmpSample);
+    const g = vehicle.group;
+    g.position.copy(smp.pos);
+    const toPort = _v.subVectors(vehicle.port, g.position);
+    const dist = toPort.length();
+    const alignT = (vehicle.def.noseAlignBy ?? 0) * 60;
+    const k = smooth(t, alignT - 480, alignT);
+    const nose = new THREE.Vector3().copy(dist > 1e-3 ? toPort.normalize() : vehicle.axis.clone().negate())
+      .lerp(vehicle.axis.clone().negate(), k).normalize();
+    _q.setFromUnitVectors(new THREE.Vector3(-1, 0, 0), nose);
+    g.quaternion.slerp(_q, snap ? 1 : 1 - Math.exp(-dtReal * 3));
+    const range = g.position.distanceTo(vehicle.port);
+    if (vehicle.prev != null && dtSim > 0) vehicle.rate += (((vehicle.prev - range) / dtSim) - vehicle.rate) * 0.2;
+    if (snap) vehicle.rate = smp.moving ? smp.speed : 0;
+    vehicle.prev = range;
+    const firing = smp.moving && state.playing && Math.random() < (range < 40 ? 0.45 : 0.25);
+    vehicle.plumes.forEach((p) => { p.visible = firing && Math.random() < 0.6; p.scale.setScalar(0.6 + Math.random() * 0.7); });
+    const rel = new THREE.Vector3().subVectors(g.position, vehicle.port);
+    const along = rel.dot(vehicle.axis);
+    const off = rel.addScaledVector(vehicle.axis, -along).length();
+    const att = THREE.MathUtils.radToDeg(new THREE.Vector3(-1, 0, 0).applyQuaternion(g.quaternion).angleTo(vehicle.axis.clone().negate()));
+    const docked = range < 0.05;
+    const ph = player.phases[player.phaseIndex(t)];
+    state.approach = { range, rate: docked ? 0 : vehicle.rate, off, att, docked, hold: !smp.moving && !docked, status: (!smp.moving && !docked ? 'Hold · ' : '') + (ph?.title || '') };
+    live.vehicle = g.position;
+  }
+  zones.visible = !!vehicle && state.tethers;
+
   // Labels that follow moving parts
   for (const { def, obj } of labelObjs) {
     if (def.dynamic) obj.position.copy(def.dynamic());
@@ -656,6 +760,7 @@ function updateHud(now, s) {
   ui.setTime(state.t, player);
   if (now - lastHud < 120) return;
   lastHud = now;
+  if (vehicle && state.approach) ui.setApproach(state.approach);
   ui.setOrbit(s, orbit, { alphaDeg: ((THREE.MathUtils.radToDeg(state.alpha) % 360) + 360) % 360, betaDeg: THREE.MathUtils.radToDeg(state.beta), parked: !mission.sunTracking });
   const hours = state.t / 3600;
   for (const [id, A] of Object.entries(actors)) {
@@ -712,9 +817,10 @@ function frame() {
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 const params = new URLSearchParams(location.search);
-ui.setMissions(MISSIONS, params.get('mission') || MISSIONS[0].id);
+const DEFAULT_MISSION = 'crs35'; // latest mission first
+ui.setMissions(MISSIONS, params.get('mission') || DEFAULT_MISSION);
 applyQuality();
-loadMission(params.get('mission') || MISSIONS[0].id);
+loadMission(params.get('mission') || DEFAULT_MISSION);
 if (params.has('t')) seek(+params.get('t') * 60);
 if (params.has('speed')) setSpeed(+params.get('speed'));
 if (params.get('paused') === '1') setPlaying(false); else setPlaying(true);

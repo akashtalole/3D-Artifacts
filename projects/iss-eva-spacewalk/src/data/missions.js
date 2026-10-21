@@ -44,6 +44,7 @@ export const MISSIONS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'irosa',
+    category: 'eva',
     title: 'iROSA Installation',
     subtitle: 'US EVA · P6 truss · Power channel 2B',
     inspiration: 'Modelled on the June 2021 spacewalks in which NASA’s Shane Kimbrough and ESA’s Thomas Pesquet installed the first ISS Roll-Out Solar Array over wing 2B.',
@@ -129,6 +130,7 @@ export const MISSIONS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'battery',
+    category: 'eva',
     title: 'Li-ion Battery Swap',
     subtitle: 'US EVA · S4 Integrated Equipment Assembly',
     inspiration: 'Modelled on the 2017–2021 power-system upgrade spacewalks that replaced 48 nickel-hydrogen batteries with 24 lithium-ion ORUs and adapter plates on the four IEAs.',
@@ -210,6 +212,7 @@ export const MISSIONS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'nauka',
+    category: 'eva',
     title: 'Nauka & ERA Outfitting',
     subtitle: 'Russian EVA · Poisk airlock · Orlan-MKS suits',
     inspiration: 'Modelled on the 2022 Roscosmos spacewalks that removed launch restraints from the European Robotic Arm, installed its control panel and checked it out on Nauka.',
@@ -283,7 +286,65 @@ export const MISSIONS = [
 
   // ─────────────────────────────────────────────────────────────────────────
   {
+    id: 'crs35',
+    category: 'vehicle',
+    title: 'SpaceX CRS-35 Docking',
+    subtitle: 'Cargo Dragon · Harmony zenith (IDA-3) · Oct 2026',
+    inspiration: 'NASA’s 35th SpaceX resupply mission launched on a Falcon 9 from SLC-40 on 13 Oct 2026 and docked autonomously to Harmony’s space-facing port on 15 Oct after about 51 hours of phasing. It carries more than 6,300 lb of science and supplies, including the final pair of iROSAs, and stays about a month.',
+    epoch: '2026-10-15T13:14:00Z',
+    raan: 75,
+    daylightAt: 106,
+    duration: 160,
+    airlock: null,
+    config: { nauka: true, pirs: false, prichal: true, bishop: true, irosa: ['2B', '4B', '3A', '4A', '1A', '1B'], vehicles: ['dragon', 'soyuz', 'progress'] },
+    crew: [],
+    vehicle: {
+      kind: 'cargoDragon',
+      label: 'Dragon CRS-35',
+      port: [8.4, 5.1, 0],      // IDA-3 on PMA-3, Harmony zenith
+      axis: [0, 1, 0],          // docking axis (vehicle body extends along +axis)
+      noseAlignBy: 58,          // minutes: from here the nose points down the docking axis
+      details: [
+        ['Launch', 'Falcon 9 · SLC-40 · 13 Oct 2026'],
+        ['Port', 'Harmony zenith (IDA-3)'],
+        ['Cargo', '> 6,300 lb science & supplies'],
+        ['Trunk', 'Final iROSA pair'],
+        ['Stay', '≈ 1 month · Pacific splashdown'],
+      ],
+    },
+    views: { ev1: 'Dragon', helmet: 'Centerline cam', ev2: null },
+    startView: 'ev1',
+    worksite: { target: [8.4, 12, 0], offset: [45, 22, 55] },
+    phases: [
+      { t: 0, title: 'Approach ellipsoid', detail: 'After ≈ 51 hours of phasing, Dragon enters the 4 × 2 × 2 km approach ellipsoid behind and below the station, talking to it over the proximity link.' },
+      { t: 25, title: 'Waypoint 0', detail: 'Dragon holds about 400 m below the station. NASA and SpaceX poll “go” for entering the 200 m Keep-Out Sphere.' },
+      { t: 40, title: 'Keep-Out Sphere entry', detail: 'Dragon swings around the station’s forward side toward the zenith docking axis, firing its Draco thrusters in short pulses.' },
+      { t: 60, title: 'Waypoint 1', detail: 'Holding ≈ 220 m directly above Harmony on the docking axis. Dragon aligns its nose with IDA-3 using its LIDAR and cameras.' },
+      { t: 70, title: 'Approach to Waypoint 2', detail: 'Dragon closes down the approach corridor at ≈ 0.15 m/s.' },
+      { t: 90, title: 'Waypoint 2', detail: 'Final hold 20 m from the port. Last go / no-go; the crew stand by to command a hold, retreat or abort.' },
+      { t: 100, title: 'Final approach', detail: 'Dragon closes the last 20 m autonomously at a few centimetres per second.' },
+      { t: 106, title: 'Soft capture', detail: 'Contact with the International Docking Adapter on Harmony’s space-facing port; capture latches engage.' },
+      { t: 116, title: 'Hard capture', detail: 'Twelve structural hooks close to form a rigid, sealed connection.' },
+      { t: 120, title: 'Leak checks', detail: 'The vestibule between Dragon and IDA-3 is pressurised and checked for leaks.' },
+      { t: 152, title: 'Hatch open', detail: 'The crew open the hatch and start unloading: LambdaVision-1, Stellar Spheroids, ELF-Unconventional Glass 2, MINDS and station hardware. Canadarm2 will later extract the iROSA pair from the trunk.' },
+    ],
+    tracks: {
+      vehicle: [
+        at(0, [-900, -350, 0]), at(25, [8.4, -400, 0]), at(30, [8.4, -400, 0]),
+        at(40, [230, -200, 0]), at(50, [240, 120, 0]), at(58, [8.4, 225.1, 0]), at(70, [8.4, 225.1, 0]),
+        at(90, [8.4, 25.1, 0]), at(100, [8.4, 25.1, 0]), at(106, [8.4, 5.1, 0]),
+      ],
+      arm: [at(0, [5.5, 9.5, 7.5])],
+    },
+    scalars: {},
+    payloads: [],
+    attach: [],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  {
     id: 'orbit',
+    category: 'vehicle',
     title: 'Free Orbit',
     subtitle: 'No EVA · arrays sun-tracking · current configuration',
     inspiration: 'The station as configured since mid-2023: six iROSAs, Nauka and Prichal, Bishop airlock. Arrays and radiators track the Sun around a full orbit.',

@@ -4,7 +4,7 @@ import { COMPONENTS } from '../data/components.js';
 
 const $ = (s) => document.querySelector(s);
 const PHASE_COLORS = ['#5ce1e6', '#7c8cff', '#a78bfa', '#f472b6', '#ffb547', '#4ade80'];
-const ICONS = { irosa: '☀', battery: '⚡', nauka: '☄', orbit: '◎' };
+const ICONS = { irosa: '☀', battery: '⚡', nauka: '☄', orbit: '◎', crs35: '⇡' };
 
 export function fmtHMS(sec, withHours = true) {
   const s = Math.max(0, Math.floor(sec));
@@ -46,6 +46,12 @@ export class UI {
     $('#insp-close').addEventListener('click', () => h.onSelect(null));
     $('#insp-focus').addEventListener('click', () => h.onFocusSelected());
     $('#btn-left').addEventListener('click', () => this.togglePanel('left'));
+    $('#mission-tabs').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-cat]');
+      if (b) this.showCategory(b.dataset.cat);
+    });
+    this.viewLabels = {};
+    document.querySelectorAll('#views button').forEach((b) => { this.viewLabels[b.dataset.view] = b.lastChild.textContent; });
     $('#btn-right').addEventListener('click', () => this.togglePanel('right'));
   }
 
@@ -63,11 +69,19 @@ export class UI {
     else document.exitFullscreen?.();
   }
 
+  showCategory(cat) {
+    this.category = cat;
+    document.querySelectorAll('#mission-tabs button').forEach((b) => b.classList.toggle('active', b.dataset.cat === cat));
+    document.querySelectorAll('.mission').forEach((el) => { el.hidden = el.dataset.cat !== cat; });
+  }
+
   setMissions(missions, activeId) {
     const box = $('#missions');
     box.innerHTML = '';
     for (const m of missions) {
       const b = document.createElement('button');
+      b.dataset.cat = m.category || 'eva';
+      b.dataset.id = m.id;
       b.className = `mission${m.id === activeId ? ' active' : ''}`;
       b.innerHTML = `<span class="m-ico">${ICONS[m.id] || '•'}</span><span class="m-title">${m.title}</span><span class="m-sub">${m.subtitle}</span>`;
       b.addEventListener('click', () => this.h.onMission(m.id));
@@ -80,12 +94,21 @@ export class UI {
     $('#mission-sub').textContent = `${mission.title} — ${mission.subtitle}`;
     $('#inspiration').textContent = mission.inspiration;
     $('#t-end').textContent = fmtMS(this.duration / 60);
-    document.querySelectorAll('.mission').forEach((el, i) => el.classList.toggle('active', this.h.missions[i].id === mission.id));
+    document.querySelectorAll('.mission').forEach((el) => el.classList.toggle('active', el.dataset.id === mission.id));
+    this.showCategory(mission.category || 'eva');
 
-    // Crew
+    // Crew (or the visiting vehicle)
     const crew = $('#crew');
     crew.innerHTML = '';
-    $('#crew-section').hidden = !mission.crew.length;
+    $('#crew-section').hidden = !mission.crew.length && !mission.vehicle;
+    $('#crew-title').textContent = mission.vehicle ? 'Vehicle' : 'Crew';
+    if (mission.vehicle) {
+      const d = document.createElement('div');
+      d.className = 'vehicle-card';
+      d.innerHTML = `<div class="v-name">${mission.vehicle.label}</div><dl>${mission.vehicle.details.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+      d.addEventListener('click', () => this.h.onView('ev1'));
+      crew.appendChild(d);
+    }
     for (const c of mission.crew) {
       const d = document.createElement('div');
       d.className = 'crew-card';
@@ -119,22 +142,56 @@ export class UI {
       seg.appendChild(el);
     });
 
-    // Views available for this mission
+    // Views available for this mission (vehicle missions relabel the crew views)
     document.querySelectorAll('#views button').forEach((b) => {
       const v = b.dataset.view;
-      b.disabled = !mission.crew.length && ['ev1', 'ev2', 'helmet'].includes(v);
+      const custom = mission.views && v in mission.views ? mission.views[v] : undefined;
+      b.lastChild.textContent = custom || this.viewLabels[v];
+      b.disabled = custom === null || (custom === undefined && !mission.crew.length && ['ev1', 'ev2', 'helmet'].includes(v));
     });
+    const tetherBtn = document.querySelector('[data-toggle="tethers"]');
+    tetherBtn.textContent = mission.vehicle ? 'Zones' : 'Tethers';
+    tetherBtn.title = mission.vehicle ? 'Keep-Out Sphere & approach corridor (T)' : 'Safety tethers (T)';
     this.renderSuits(mission);
   }
 
   renderSuits(mission) {
     const box = $('#suits');
+    if (mission.vehicle) {
+      $('#suits-section').hidden = false;
+      $('#suits-title').innerHTML = 'Approach <span class="badge">LIDAR range</span>';
+      box.innerHTML = `
+        <div class="approach">
+          <span class="status" data-k="status">—</span>
+          <div class="big"><span class="num" data-k="range">—</span><span class="unit">m to IDA-3</span></div>
+          <div class="meter"><span>Closing</span><span class="bar"><i data-k="rateBar"></i></span><span class="val" data-k="rate">—</span></div>
+          <div class="meter"><span>Off-axis</span><span class="bar"><i data-k="offBar"></i></span><span class="val" data-k="off">—</span></div>
+          <div class="meter"><span>Attitude</span><span class="bar"><i data-k="attBar"></i></span><span class="val" data-k="att">—</span></div>
+        </div>`;
+      return;
+    }
+    $('#suits-title').innerHTML = 'Suits <span class="badge">simulated</span>';
     $('#suits-section').hidden = !mission.crew.length;
     box.innerHTML = mission.crew.map((c) => `
       <div class="suit" data-suit="${c.id}">
         <div class="suit-head"><span class="suit-chip ${c.stripes}"></span>${c.role} · ${c.suit === 'emu' ? 'EMU' : 'Orlan'}<span class="hr" data-k="hr">— bpm</span></div>
         ${['O₂', 'Battery', 'CO₂', 'Pressure'].map((k, i) => `<div class="meter"><span>${k}</span><span class="bar"><i data-k="b${i}"></i></span><span class="val" data-k="v${i}">—</span></div>`).join('')}
       </div>`).join('');
+  }
+
+  setApproach(d) {
+    const box = $('#suits');
+    const set = (k, v) => { const e = box.querySelector(`[data-k="${k}"]`); if (e) e.textContent = v; };
+    const bar = (k, f) => { const e = box.querySelector(`[data-k="${k}"]`); if (e) e.style.width = `${Math.max(0, Math.min(1, f)) * 100}%`; };
+    set('range', d.range < 100 ? d.range.toFixed(2) : d.range.toFixed(0));
+    set('rate', `${(d.rate * 100).toFixed(1)} cm/s`); bar('rateBar', Math.abs(d.rate) / 0.5);
+    set('off', `${d.off.toFixed(2)} m`); bar('offBar', d.off / 50);
+    set('att', `${d.att.toFixed(1)}°`); bar('attBar', d.att / 90);
+    const st = box.querySelector('[data-k="status"]');
+    if (st) {
+      st.textContent = d.status;
+      st.className = `status${d.docked ? ' docked' : d.hold ? ' hold' : ''}`;
+    }
   }
 
   setPlaying(p) { $('#play').classList.toggle('playing', p); }
