@@ -99,6 +99,17 @@ cut against the design and export G-code and STL.
 [Launch app](apps/cad-cam-studio/) · [Documentation](projects/cad-cam-studio/index.md)
 </div>
 
+<div class="card" markdown>
+[![Forts of Swarajya](assets/shivaji-forts/raigad.jpg)](apps/shivaji-forts/)
+
+### गडकिल्ले · Forts of Swarajya
+
+Fourteen forts of Chhatrapati Shivaji Maharaj on real terrain, from Shivneri and Raigad
+to Sindhudurg, with walls traced from the cliffs and a timeline of his life.
+
+[Launch app](apps/shivaji-forts/) · [Documentation](projects/shivaji-forts/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
