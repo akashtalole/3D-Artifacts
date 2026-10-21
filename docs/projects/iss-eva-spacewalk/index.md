@@ -70,7 +70,7 @@ The app reads its state from the URL, which is handy for sharing a moment:
 
 | Parameter | Example | Meaning |
 | --- | --- | --- |
-| `mission` | `crs35` (default), `irosa`, `battery`, `nauka`, `orbit` | Mission to load |
+| `mission` | `crs35` (default), `cygnus`, `z1antenna`, `irosa2026`, `robotics`, `irosa`, `battery`, `nauka`, `orbit` | Mission to load |
 | `t` | `207` | Mission time in minutes (Phase Elapsed Time) |
 | `view` | `orbit`, `ev1`, `ev2`, `helmet`, `worksite`, `cupola` | Camera |
 | `speed` | `1`, `10`, `60`, `300` | Time warp |

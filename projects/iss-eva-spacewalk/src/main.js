@@ -10,7 +10,9 @@ import { createMaterials } from './model/materials.js';
 import { buildISS } from './model/iss.js';
 import { buildAstronaut } from './model/astronaut.js';
 import { buildIROSAPackage } from './model/solar.js';
-import { buildCargoDragon } from './model/vehicles.js';
+import { buildCargoDragon, buildCygnus } from './model/vehicles.js';
+import { buildAntennaORU, buildDextreBody } from './model/antenna.js';
+import { RoboticArm } from './model/arm.js';
 import { box, tag } from './model/geom.js';
 import { createEarth, createSky, createEnvironment } from './scene/earth.js';
 import { Orbit, gmst } from './sim/orbit.js';
@@ -187,10 +189,11 @@ const plumeTex = (() => {
 })();
 
 function followPos(v) {
+  if (mission?.follow?.[v]) return live[mission.follow[v]] || null;
   if (mission?.vehicle && v === 'ev1') return vehicle?.group.position || null;
   return actors[v]?.suit.root.position || null;
 }
-const followOffset = () => (mission?.vehicle ? new THREE.Vector3(16, 8, 18) : new THREE.Vector3(5.5, 3, 6.5));
+const followOffset = () => (mission?.vehicle ? new THREE.Vector3(16, 8, 18) : mission?.robotics ? new THREE.Vector3(9, 5, 11) : new THREE.Vector3(5.5, 3, 6.5));
 
 // ── Mission loading ──────────────────────────────────────────────────────────
 let firstLoad = true;
@@ -199,6 +202,11 @@ function loadMission(id) {
   player = new MissionPlayer(mission);
   orbit = new Orbit({ epoch: new Date(mission.epoch), raanDeg: mission.raan, daylightAt: mission.daylightAt != null ? mission.daylightAt * 60 : null });
   iss.setConfig(mission.config);
+
+  // Static parts a mission replaces with animated copies
+  iss.dextre.visible = !(mission.hide || []).includes('dextre');
+  iss.sgant.visible = !(mission.hide || []).includes('sgant');
+  for (const { def } of labelObjs) if (def.cid === 'sgant') def.hidden = !iss.sgant.visible;
 
   // Restore static batteries, then hide the one this mission swaps
   for (const side of [1, -1]) iss.iea4[side]?.userData.batteries?.forEach((b) => { b.visible = true; });
@@ -214,7 +222,7 @@ function loadMission(id) {
   for (const k of Object.keys(tethers)) delete tethers[k];
   for (const c of mission.crew) {
     const suit = buildAstronaut(mats, { suit: c.suit, stripes: c.stripes, label: c.role });
-    const label = makeLabel(c.role, `crew ${c.id}`, c.suit === 'emu' ? 'emu' : 'orlan');
+    const label = makeLabel(c.role, `crew${c.stripes === 'red' ? ' ev1' : ''}`, c.suit === 'emu' ? 'emu' : 'orlan');
     label.position.set(0, 1.35, 0);
     suit.root.add(label);
     scene.add(suit.root);
@@ -228,20 +236,44 @@ function loadMission(id) {
   }
 
   // Payloads
-  for (const o of Object.values(payloadObjs)) scene.remove(o);
+  for (const o of Object.values(payloadObjs)) {
+    scene.remove(o);
+    o.userData.arms?.forEach(({ arm }) => scene.remove(arm.group));
+  }
   for (const k of Object.keys(payloadObjs)) delete payloadObjs[k];
   for (const p of player.payloads) {
     let obj;
     if (p.kind === 'irosaPackage') obj = buildIROSAPackage(mats);
     else if (p.kind === 'battery') obj = tag(box(mats.battery, 0.9, 0.42, 1.0), 'iea');
     else if (p.kind === 'batteryOld') obj = tag(box(mats.batteryOld, 0.9, 0.42, 1.0), 'iea');
+    else if (p.kind === 'antenna' || p.kind === 'antennaOld') obj = buildAntennaORU(mats, { aged: p.kind === 'antennaOld' });
+    else if (p.kind === 'hand') obj = new THREE.Object3D();
+    else if (p.kind === 'dextre') {
+      obj = buildDextreBody(mats);
+      // Dextre's two arms, solved each frame toward the hand markers
+      obj.userData.arms = [-1, 1].map((sgn) => {
+        const a = new RoboticArm(mats, { L1: 1.6, L2: 1.6, wrist: 0.4, boomR: 0.1, pole: [sgn, 0.6, 0.4], tipDir: [0, -1, 0], cid: 'dextre', baseLen: 0.3 });
+        a.lee.scale.setScalar(0.6);
+        [a.jShoulder, a.jElbow, a.jWrist].forEach((j) => j.scale.setScalar(0.45));
+        a.base.scale.x = a.base.scale.z = 0.6;
+        scene.add(a.group);
+        return { arm: a, sgn };
+      });
+    }
     else obj = tag(box(mats.boxGray, 0.6, 0.4, 0.25), 'era');
-    const label = makeLabel(p.label, 'payload');
-    label.position.set(0, 0.9, 0);
-    obj.add(label);
+    if (p.label) {
+      const label = makeLabel(p.label, 'payload');
+      label.position.set(0, p.kind === 'dextre' ? 2.3 : 0.9, 0);
+      obj.add(label);
+    }
     scene.add(obj);
     payloadObjs[p.id] = obj;
   }
+
+  // Canadarm2 base point / end-effector direction for this mission
+  const ab = mission.armBase;
+  iss.canadarm.tipDir.set(...(ab?.tipDir || [0, -1, 0])).normalize();
+  iss.canadarm.pole.set(...(ab?.pole || [0, 1, 0])).normalize();
 
   // Visiting vehicle
   if (vehicle) scene.remove(vehicle.group);
@@ -249,7 +281,7 @@ function loadMission(id) {
   zones.visible = false;
   if (mission.vehicle) {
     const vd = mission.vehicle;
-    const built = buildCargoDragon(mats);
+    const built = vd.kind === 'cygnus' ? buildCygnus(mats) : buildCargoDragon(mats);
     const plumes = built.thrusters.map((p) => {
       const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: plumeTex, color: new THREE.Color(2.5, 2.6, 3), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
       sp.position.copy(p);
@@ -258,7 +290,7 @@ function loadMission(id) {
       built.group.add(sp);
       return sp;
     });
-    const label = makeLabel(vd.label, 'vehicle', 'dragonCargo');
+    const label = makeLabel(vd.label, 'vehicle', vd.kind === 'cygnus' ? 'cygnus' : 'dragonCargo');
     label.position.set(-1.2, 2.6, 0);
     built.group.add(label);
     scene.add(built.group);
@@ -390,7 +422,7 @@ function flyTo(pos, target, dur = 1.4) {
 
 function setView(v) {
   if ((v === 'ev1' || v === 'ev2') && !followPos(v)) return;
-  if (v === 'helmet' && !actors.ev1 && !mission.vehicle) return;
+  if (v === 'helmet' && !actors.ev1 && !mission.vehicle && !mission.robotics && !mission.leeCam) return;
   const prev = state.view;
   state.view = v;
   state.look.yaw = state.look.pitch = 0;
@@ -413,6 +445,15 @@ function setView(v) {
 
 function updateCamera(dt) {
   const v = state.view;
+  if (v === 'helmet' && (mission.robotics || mission.leeCam)) {
+    // Camera on Canadarm2's wrist, looking down past the Latching End Effector
+    const arm = iss.canadarm;
+    _v.subVectors(arm.wrist, arm.elbow).normalize();
+    camera.position.copy(arm.wrist).addScaledVector(_v, 0.6).add(new THREE.Vector3(0.6, 0.2, 0.6));
+    _m.lookAt(camera.position, arm.tip.clone().addScaledVector(arm.tipDir, 2.5), _v.clone().negate());
+    camera.quaternion.setFromRotationMatrix(_m).multiply(lookOffset());
+    return;
+  }
   if (v === 'helmet' && mission.vehicle && vehicle) {
     // Centerline camera on the docking adapter, looking out along the approach axis
     camera.position.copy(vehicle.port).addScaledVector(vehicle.axis, 0.4).add(new THREE.Vector3(0, 0, 1.0));
@@ -644,6 +685,7 @@ function update(dtReal, now) {
 
   // Robotics & hatches
   iss.setMBS(player.scalar('mbs', t, 0));
+  if (mission.armBase) iss.canadarm.setBase(new THREE.Vector3(...mission.armBase.point), mission.armBase.dir);
   if (!player.tracks.arm?.empty) iss.canadarm.solve(player.tracks.arm.sample(t, tmpSample).pos);
   live.arm = iss.canadarm.tip;
   if (player.tracks.era && mission.config.nauka) iss.era.solve(player.tracks.era.sample(t, tmpSample).pos);
@@ -712,11 +754,38 @@ function update(dtReal, now) {
     live[p.id] = obj.position;
   }
 
+  // Dextre arms follow their hand markers
+  const dex = payloadObjs.dextre;
+  if (dex?.userData.arms) {
+    for (const { arm, sgn } of dex.userData.arms) {
+      arm.setBase(dex.position.clone().add(new THREE.Vector3(sgn * 1.1, 0.9, 0)), [sgn, 0, 0]);
+      const hand = live[sgn < 0 ? 'dexL' : 'dexR'];
+      if (hand) arm.solve(hand);
+    }
+  }
+  if (mission.robotics) {
+    const arm = iss.canadarm;
+    const tip = arm.tip;
+    if (state.prevTip && dtSim > 0) state.tipSpeed += ((tip.distanceTo(state.prevTip) / dtSim) - state.tipSpeed) * 0.2;
+    if (snap || !state.prevTip) state.tipSpeed = 0;
+    state.prevTip = (state.prevTip || new THREE.Vector3()).copy(tip);
+    const ph = player.phases[player.phaseIndex(t)];
+    state.robotics = {
+      mbs: iss.mbs.position.z,
+      reach: arm.wrist.distanceTo(arm.shoulder) / (arm.L1 + arm.L2),
+      speed: state.tipSpeed,
+      carrying: player.attachmentOf('dextre', t) ? (player.attachmentOf('oruNew', t) || player.attachmentOf('oruOld', t) ? 'Dextre + antenna ORU' : 'Dextre') : '—',
+      status: ph?.title || '',
+    };
+  }
+
   // Visiting vehicle: approach, attitude, RCS pulses
   if (vehicle && player.tracks.vehicle) {
     const smp = player.tracks.vehicle.sample(t, tmpSample);
     const g = vehicle.group;
-    g.position.copy(smp.pos);
+    const vAtt = player.attachmentOf('vehicle', t);
+    if (vAtt) { g.position.copy(live[vAtt.to]).add(vAtt.offV); smp.moving = false; }
+    else g.position.copy(smp.pos);
     const toPort = _v.subVectors(vehicle.port, g.position);
     const dist = toPort.length();
     const alignT = (vehicle.def.noseAlignBy ?? 0) * 60;
@@ -761,6 +830,7 @@ function updateHud(now, s) {
   if (now - lastHud < 120) return;
   lastHud = now;
   if (vehicle && state.approach) ui.setApproach(state.approach);
+  if (mission.robotics && state.robotics) ui.setRobotics(state.robotics);
   ui.setOrbit(s, orbit, { alphaDeg: ((THREE.MathUtils.radToDeg(state.alpha) % 360) + 360) % 360, betaDeg: THREE.MathUtils.radToDeg(state.beta), parked: !mission.sunTracking });
   const hours = state.t / 3600;
   for (const [id, A] of Object.entries(actors)) {

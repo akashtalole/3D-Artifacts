@@ -74,9 +74,13 @@
     <!-- ── Left: mission, crew, timeline ───────────────────── -->
     <aside id="left" class="panel panel-left glass" aria-label="Mission">
       <section>
-        <div class="seg" id="mission-tabs" role="tablist" aria-label="Mission type">
-          <button role="tab" data-cat="eva" class="active">Spacewalks</button>
-          <button role="tab" data-cat="vehicle">Missions</button>
+        <h3>Operations <span class="badge" id="ops-count">—</span></h3>
+        <div class="chips" id="mission-tabs" role="tablist" aria-label="Operation type">
+          <button role="tab" data-cat="all" class="active">All</button>
+          <button role="tab" data-cat="eva">Spacewalks</button>
+          <button role="tab" data-cat="vehicle">Vehicles</button>
+          <button role="tab" data-cat="robotics">Robotics</button>
+          <button role="tab" data-cat="station">Station</button>
         </div>
         <div id="missions" class="missions"></div>
         <p id="inspiration" class="inspiration"></p>
