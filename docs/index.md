@@ -88,6 +88,17 @@ stars, animated traffic, and an Availability Zone failure test.
 [Launch app](apps/aws-architecture-builder/) · [Documentation](projects/aws-architecture-builder/index.md)
 </div>
 
+<div class="card" markdown>
+[![CAD/CAM Studio](assets/cad-cam-studio/compare.jpg)](apps/cad-cam-studio/)
+
+### CAD/CAM Studio
+
+Design a machined part from parametric features, then generate toolpaths, simulate the
+cut against the design and export G-code and STL.
+
+[Launch app](apps/cad-cam-studio/) · [Documentation](projects/cad-cam-studio/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
