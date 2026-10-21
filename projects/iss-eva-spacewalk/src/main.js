@@ -10,7 +10,7 @@ import { createMaterials } from './model/materials.js';
 import { buildISS } from './model/iss.js';
 import { buildAstronaut } from './model/astronaut.js';
 import { buildIROSAPackage } from './model/solar.js';
-import { buildCargoDragon } from './model/vehicles.js';
+import { buildCargoDragon, buildCygnus } from './model/vehicles.js';
 import { buildAntennaORU, buildDextreBody } from './model/antenna.js';
 import { RoboticArm } from './model/arm.js';
 import { box, tag } from './model/geom.js';
@@ -222,7 +222,7 @@ function loadMission(id) {
   for (const k of Object.keys(tethers)) delete tethers[k];
   for (const c of mission.crew) {
     const suit = buildAstronaut(mats, { suit: c.suit, stripes: c.stripes, label: c.role });
-    const label = makeLabel(c.role, `crew ${c.id}`, c.suit === 'emu' ? 'emu' : 'orlan');
+    const label = makeLabel(c.role, `crew${c.stripes === 'red' ? ' ev1' : ''}`, c.suit === 'emu' ? 'emu' : 'orlan');
     label.position.set(0, 1.35, 0);
     suit.root.add(label);
     scene.add(suit.root);
@@ -270,13 +270,18 @@ function loadMission(id) {
     payloadObjs[p.id] = obj;
   }
 
+  // Canadarm2 base point / end-effector direction for this mission
+  const ab = mission.armBase;
+  iss.canadarm.tipDir.set(...(ab?.tipDir || [0, -1, 0])).normalize();
+  iss.canadarm.pole.set(...(ab?.pole || [0, 1, 0])).normalize();
+
   // Visiting vehicle
   if (vehicle) scene.remove(vehicle.group);
   vehicle = null;
   zones.visible = false;
   if (mission.vehicle) {
     const vd = mission.vehicle;
-    const built = buildCargoDragon(mats);
+    const built = vd.kind === 'cygnus' ? buildCygnus(mats) : buildCargoDragon(mats);
     const plumes = built.thrusters.map((p) => {
       const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: plumeTex, color: new THREE.Color(2.5, 2.6, 3), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
       sp.position.copy(p);
@@ -285,7 +290,7 @@ function loadMission(id) {
       built.group.add(sp);
       return sp;
     });
-    const label = makeLabel(vd.label, 'vehicle', 'dragonCargo');
+    const label = makeLabel(vd.label, 'vehicle', vd.kind === 'cygnus' ? 'cygnus' : 'dragonCargo');
     label.position.set(-1.2, 2.6, 0);
     built.group.add(label);
     scene.add(built.group);
@@ -417,7 +422,7 @@ function flyTo(pos, target, dur = 1.4) {
 
 function setView(v) {
   if ((v === 'ev1' || v === 'ev2') && !followPos(v)) return;
-  if (v === 'helmet' && !actors.ev1 && !mission.vehicle && !mission.robotics) return;
+  if (v === 'helmet' && !actors.ev1 && !mission.vehicle && !mission.robotics && !mission.leeCam) return;
   const prev = state.view;
   state.view = v;
   state.look.yaw = state.look.pitch = 0;
@@ -440,7 +445,7 @@ function setView(v) {
 
 function updateCamera(dt) {
   const v = state.view;
-  if (v === 'helmet' && mission.robotics) {
+  if (v === 'helmet' && (mission.robotics || mission.leeCam)) {
     // Camera on Canadarm2's wrist, looking down past the Latching End Effector
     const arm = iss.canadarm;
     _v.subVectors(arm.wrist, arm.elbow).normalize();
@@ -680,6 +685,7 @@ function update(dtReal, now) {
 
   // Robotics & hatches
   iss.setMBS(player.scalar('mbs', t, 0));
+  if (mission.armBase) iss.canadarm.setBase(new THREE.Vector3(...mission.armBase.point), mission.armBase.dir);
   if (!player.tracks.arm?.empty) iss.canadarm.solve(player.tracks.arm.sample(t, tmpSample).pos);
   live.arm = iss.canadarm.tip;
   if (player.tracks.era && mission.config.nauka) iss.era.solve(player.tracks.era.sample(t, tmpSample).pos);
@@ -777,7 +783,9 @@ function update(dtReal, now) {
   if (vehicle && player.tracks.vehicle) {
     const smp = player.tracks.vehicle.sample(t, tmpSample);
     const g = vehicle.group;
-    g.position.copy(smp.pos);
+    const vAtt = player.attachmentOf('vehicle', t);
+    if (vAtt) { g.position.copy(live[vAtt.to]).add(vAtt.offV); smp.moving = false; }
+    else g.position.copy(smp.pos);
     const toPort = _v.subVectors(vehicle.port, g.position);
     const dist = toPort.length();
     const alignT = (vehicle.def.noseAlignBy ?? 0) * 60;

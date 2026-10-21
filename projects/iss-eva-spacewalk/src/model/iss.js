@@ -4,7 +4,7 @@ import { StrutBatch, latticeAlongZ, moduleMesh, panel, box, shadowed, tag, place
 import { withRepeat } from './materials.js';
 import { buildSolarWing, buildIROSA, buildPVR } from './solar.js';
 import { RoboticArm } from './arm.js';
-import { buildCrewDragon, buildSoyuz, buildProgress, solarWings } from './vehicles.js';
+import { buildCrewDragon, buildSoyuz, buildProgress, solarWings, buildCargoDragon, buildCygnus } from './vehicles.js';
 import { buildZ1, buildAntennaORU, SGANT_MOUNT } from './antenna.js';
 
 const deg = THREE.MathUtils.degToRad;
@@ -365,6 +365,9 @@ export function buildISS(mats) {
   const dragon = add(place(buildCrewDragon(mats), [14.9, 0, 0]), 'dragon', 'Crew Dragon', [18, 2.6, 0]);
   const soyuz = add(place(pointAlong(buildSoyuz(mats), '-y'), [-13.6, -7.2, 0]), 'soyuz', 'Soyuz MS', [-11.8, -11.5, 0]);
   const progress = add(place(pointAlong(buildProgress(mats), '-x'), [-38.2, 0, 0]), 'progress', 'Progress MS', [-42, 2.0, 0]);
+  // Cargo Dragon parked on Harmony zenith (IDA-3) and Cygnus berthed on Unity nadir — date dependent
+  const cargoDragon = add(place(pointAlong(buildCargoDragon(mats).group, '+y'), [8.4, 5.1, 0]), 'dragonCargo', 'Cargo Dragon', [10.8, 10.5, 0]);
+  const cygnus = add(place(pointAlong(buildCygnus(mats).group, '-y'), [-7.35, -2.28, 0]), 'cygnus', 'Cygnus XL', [-5.0, -6.5, 0]);
 
   // Names that the UI can toggle for date-accurate configurations
   const optional = { nauka, prichal, pirs, bishop, dragon, soyuz, progress, era: era.group };
@@ -384,6 +387,8 @@ export function buildISS(mats) {
     dragon.visible = veh.includes('dragon');
     soyuz.visible = veh.includes('soyuz');
     progress.visible = veh.includes('progress');
+    cargoDragon.visible = veh.includes('cargoDragon');
+    cygnus.visible = veh.includes('cygnus');
     for (const l of labels) {
       if (['nauka', 'era'].includes(l.cid)) l.hidden = !cfg.nauka;
       if (l.cid === 'prichal') l.hidden = !cfg.prichal;
@@ -391,6 +396,8 @@ export function buildISS(mats) {
       if (l.cid === 'dragon') l.hidden = !dragon.visible;
       if (l.cid === 'soyuz') l.hidden = !soyuz.visible;
       if (l.cid === 'progress') l.hidden = !progress.visible;
+      if (l.cid === 'dragonCargo') l.hidden = !cargoDragon.visible;
+      if (l.cid === 'cygnus') l.hidden = !cygnus.visible;
     }
   }
 

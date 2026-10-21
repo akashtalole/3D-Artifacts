@@ -69,7 +69,7 @@ nav:
       - projects/index.md
       - ISS EVA Spacewalk:
           - projects/iss-eva-spacewalk/index.md
-          - EVA missions: projects/iss-eva-spacewalk/missions.md
+          - Operations: projects/iss-eva-spacewalk/missions.md
           - Station reference: projects/iss-eva-spacewalk/reference.md
           - How it works: projects/iss-eva-spacewalk/architecture.md
   - Contributing: contributing.md

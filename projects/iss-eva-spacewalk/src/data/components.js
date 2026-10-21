@@ -338,6 +338,14 @@ export const COMPONENTS = {
     mass: '> 6,300 lb (≈ 2,860 kg) of cargo',
     info: 'Docked autonomously to Harmony’s space-facing port. Carries LambdaVision-1, Stellar Spheroids, ELF-Unconventional Glass 2 and MINDS experiments, the final pair of iROSAs in the trunk, and Canadarm2 joint support equipment. Stays about a month, then splashes down in the Pacific in mid-November.',
   },
+  cygnus: {
+    name: 'Cygnus XL',
+    agency: 'Northrop Grumman / NASA',
+    launched: 'Berthed ≈ Apr 2026 · released 9 Oct 2026',
+    dims: 'Stretched Pressurized Cargo Module + service module, two circular UltraFlex arrays',
+    mass: '≈ 11,000 lb (≈ 5,000 kg) of cargo delivered',
+    info: 'Captured by Canadarm2 and berthed to Unity’s Earth-facing port (no autonomous docking). After nearly six months it was released by the arm on 9 Oct 2026 at 12:44 p.m. EDT, then deorbited on 12 Oct with several thousand pounds of disposal items.',
+  },
   soyuz: {
     name: 'Soyuz MS',
     agency: 'Roscosmos',

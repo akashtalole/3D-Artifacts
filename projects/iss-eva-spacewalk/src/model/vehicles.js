@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { panel, box, shadowed, tag } from './geom.js';
+import { panel, box, shadowed, tag, StrutBatch } from './geom.js';
 
 /**
  * Visiting vehicles. Each is built with its docking interface at the local origin
@@ -119,5 +119,40 @@ export function buildCargoDragon(mats, { trunkCargo = 'irosa' } = {}) {
     thrusters.push(p.clone().add(new THREE.Vector3(0, Math.cos(a) * 0.3, Math.sin(a) * 0.3)));
   }
   tag(g, 'dragonCargo');
+  return { group: shadowed(g), thrusters };
+}
+
+/**
+ * Northrop Grumman Cygnus XL (stretched Pressurized Cargo Module) with its two
+ * circular UltraFlex solar arrays. Local frame: Common Berthing Mechanism at the
+ * origin, vehicle along +x. The grapple fixture is on the +y side of the PCM.
+ */
+export function buildCygnus(mats) {
+  const g = new THREE.Group();
+  const pcmMat = mats.mli;
+  g.add(lathe(mats.ring, [[0.01, 0], [0.95, 0], [0.95, 0.25], [1.1, 0.35]]));                // CBM ring
+  g.add(lathe(pcmMat, [[1.1, 0.35], [1.53, 0.8], [1.53, 6.4], [1.4, 6.6], [0.01, 6.62]]));     // stretched PCM
+  g.add(lathe(mats.gold, [[0.01, 6.6], [1.5, 6.62], [1.5, 7.7], [1.2, 7.9], [0.01, 7.92]]));  // service module
+  g.add(box(mats.darkMetal, 0.4, 0.3, 0.4, [4.72, 1.6, 0]));                                  // grapple fixture
+  for (const s of [-1, 1]) {                                                                  // UltraFlex fans
+    const boom = box(mats.metal, 0.12, 0.12, 1.1, [7.2, 0, s * 2.05]);
+    const fan = new THREE.Mesh(new THREE.CircleGeometry(1.85, 10), mats.ruArray);
+    fan.material = mats.ruArray.clone();
+    fan.material.side = THREE.DoubleSide;
+    fan.rotation.x = -Math.PI / 2;
+    fan.position.set(7.2, 0, s * 4.45);
+    const ribs = new StrutBatch();
+    for (let k = 0; k < 10; k++) {
+      const a = (k / 10) * Math.PI * 2;
+      ribs.add(new THREE.Vector3(7.2, 0.02, s * 4.45), new THREE.Vector3(7.2 + Math.cos(a) * 1.85, 0.02, s * 4.45 + Math.sin(a) * 1.85), 0.015);
+    }
+    g.add(boom, fan, ribs.build(mats.metal, 4));
+  }
+  const thrusters = [];
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+    thrusters.push(new THREE.Vector3(7.6, Math.cos(a) * 1.6, Math.sin(a) * 1.6));
+  }
+  tag(g, 'cygnus');
   return { group: shadowed(g), thrusters };
 }

@@ -4,7 +4,19 @@ import { COMPONENTS } from '../data/components.js';
 
 const $ = (s) => document.querySelector(s);
 const PHASE_COLORS = ['#5ce1e6', '#7c8cff', '#a78bfa', '#f472b6', '#ffb547', '#4ade80'];
-const ICONS = { irosa: '☀', battery: '⚡', nauka: '☄', orbit: '◎', crs35: '⇡', robotics: '⚙' };
+const ICONS = { eva: '◐', vehicle: '⇡', robotics: '⚙', station: '◎' };
+const TYPE_LABEL = { eva: 'Spacewalk', vehicle: 'Vehicle', robotics: 'Robotics', station: 'Station' };
+const STATUS_LABEL = { completed: 'Completed', planned: 'Planned', representative: 'Representative', live: 'Live' };
+const fmtDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+/** Scroll an item into view inside its own list only (never the surrounding panel). */
+function scrollWithin(list, el) {
+  if (!list || !el) return;
+  const top = el.offsetTop - list.offsetTop;
+  if (top < list.scrollTop || top + el.offsetHeight > list.scrollTop + list.clientHeight) {
+    list.scrollTop = Math.max(0, top - 12);
+  }
+}
 
 export function fmtHMS(sec, withHours = true) {
   const s = Math.max(0, Math.floor(sec));
@@ -72,21 +84,56 @@ export class UI {
   showCategory(cat) {
     this.category = cat;
     document.querySelectorAll('#mission-tabs button').forEach((b) => b.classList.toggle('active', b.dataset.cat === cat));
-    document.querySelectorAll('.mission').forEach((el) => { el.hidden = el.dataset.cat !== cat; });
+    let n = 0;
+    document.querySelectorAll('#missions .mission').forEach((el) => {
+      el.hidden = cat !== 'all' && el.dataset.cat !== cat;
+      if (!el.hidden) n++;
+    });
+    // Hide month headings with no visible operations under them
+    document.querySelectorAll('#missions .month').forEach((h) => {
+      let el = h.nextElementSibling, any = false;
+      while (el && !el.classList.contains('month')) { if (!el.hidden) any = true; el = el.nextElementSibling; }
+      h.hidden = !any;
+    });
+    $('#ops-count').textContent = `${n} shown`;
   }
 
+  /** Operations browser: newest first, grouped by month, filterable by type. */
   setMissions(missions, activeId) {
     const box = $('#missions');
     box.innerHTML = '';
-    for (const m of missions) {
-      const b = document.createElement('button');
-      b.dataset.cat = m.category || 'eva';
+    const counts = {};
+    const sorted = [...missions].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    let lastMonth = '';
+    for (const m of sorted) {
+      const cat = m.category || 'eva';
+      counts[cat] = (counts[cat] || 0) + 1;
+      const month = m.date ? new Date(`${m.date}T00:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }) : '';
+      if (month !== lastMonth) {
+        const h = document.createElement('div');
+        h.className = 'month';
+        h.textContent = month;
+        box.appendChild(h);
+        lastMonth = month;
+      }
+      const b = document.createElement('div');
+      b.setAttribute('role', 'button');
+      b.tabIndex = 0;
+      b.dataset.cat = cat;
       b.dataset.id = m.id;
       b.className = `mission${m.id === activeId ? ' active' : ''}`;
-      b.innerHTML = `<span class="m-ico">${ICONS[m.id] || '•'}</span><span class="m-title">${m.title}</span><span class="m-sub">${m.subtitle}</span>`;
-      b.addEventListener('click', () => this.h.onMission(m.id));
+      b.innerHTML = `<span class="m-ico">${ICONS[cat] || '•'}</span><span class="m-title">${m.title}</span><span class="m-sub">${m.subtitle}</span>
+        <span class="m-meta"><span class="m-date">${m.date ? fmtDate(m.date) : ''}</span><span class="pill type">${TYPE_LABEL[cat]}</span>${m.status ? `<span class="pill ${m.status}">${STATUS_LABEL[m.status]}</span>` : ''}${m.source ? `<a class="m-src" href="${m.source}" target="_blank" rel="noopener">NASA ↗</a>` : ''}</span>`;
+      b.addEventListener('click', (e) => { if (!e.target.closest('a')) this.h.onMission(m.id); });
+      b.addEventListener('keydown', (e) => { if (e.key === 'Enter') this.h.onMission(m.id); });
       box.appendChild(b);
     }
+    document.querySelectorAll('#mission-tabs button').forEach((btn) => {
+      const c = btn.dataset.cat;
+      const n = c === 'all' ? missions.length : counts[c] || 0;
+      btn.innerHTML = `${btn.textContent.replace(/\s*\d+$/, '')} <i>${n}</i>`;
+    });
+    this.showCategory(this.category || 'all');
   }
 
   setMission(mission, player) {
@@ -95,7 +142,9 @@ export class UI {
     $('#inspiration').textContent = mission.inspiration;
     $('#t-end').textContent = fmtMS(this.duration / 60);
     document.querySelectorAll('.mission').forEach((el) => el.classList.toggle('active', el.dataset.id === mission.id));
-    this.showCategory(mission.category || 'eva');
+    if (this.category && this.category !== 'all' && this.category !== (mission.category || 'eva')) this.showCategory(mission.category || 'eva');
+    scrollWithin($('#missions'), document.querySelector('.mission.active'));
+    if (mission.source) $('#inspiration').innerHTML += ` <a href="${mission.source}" target="_blank" rel="noopener">Source: NASA ↗</a>`;
 
     // Crew (or the visiting vehicle)
     const crew = $('#crew');
@@ -164,8 +213,8 @@ export class UI {
       box.innerHTML = `
         <div class="approach">
           <span class="status" data-k="status">—</span>
-          <div class="big"><span class="num" data-k="range">—</span><span class="unit">m to IDA-3</span></div>
-          <div class="meter"><span>Closing</span><span class="bar"><i data-k="rateBar"></i></span><span class="val" data-k="rate">—</span></div>
+          <div class="big"><span class="num" data-k="range">—</span><span class="unit">m ${mission.vehicle.axis[1] < 0 ? 'from' : 'to'} ${mission.vehicle.portName || 'IDA-3'}</span></div>
+          <div class="meter"><span>${mission.vehicle.axis[1] < 0 ? 'Rate' : 'Closing'}</span><span class="bar"><i data-k="rateBar"></i></span><span class="val" data-k="rate">—</span></div>
           <div class="meter"><span>Off-axis</span><span class="bar"><i data-k="offBar"></i></span><span class="val" data-k="off">—</span></div>
           <div class="meter"><span>Attitude</span><span class="bar"><i data-k="attBar"></i></span><span class="val" data-k="att">—</span></div>
         </div>`;
@@ -245,7 +294,7 @@ export class UI {
       if (ph) {
         $('#phase-now').textContent = ph.title;
         if (this.lastPhase !== -1) this.toast(ph.title, ph.detail);
-        this.phaseEls[idx]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        scrollWithin($('#phases'), this.phaseEls[idx]);
       }
       this.lastPhase = idx;
     }

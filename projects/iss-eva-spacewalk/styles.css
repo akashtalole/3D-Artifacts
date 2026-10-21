@@ -262,3 +262,27 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 6px; border-radius
 .approach .status.hold { background: rgba(124, 140, 255, .16); color: var(--accent-2); }
 .lbl.vehicle { background: var(--accent); color: #04131a; border: 0; font-weight: 600; }
 .mission[hidden] { display: none; }
+
+/* Operations browser */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chips button { border: 1px solid var(--line); background: rgba(255, 255, 255, .03); color: var(--muted); padding: 4px 10px; border-radius: 999px; cursor: pointer; font-size: 11.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.chips button:hover { color: var(--text); border-color: var(--line-strong); }
+.chips button.active { color: #04131a; background: var(--accent); border-color: var(--accent); }
+.chips button i { font-style: normal; font-family: var(--mono); font-size: 10px; opacity: .7; }
+.missions { max-height: min(44vh, 420px); overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
+.mission .m-meta { grid-column: 2; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px; font-size: 10.5px; color: var(--dim); }
+.mission .m-date { font-family: var(--mono); color: var(--muted); }
+.pill { font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; font-weight: 600; }
+.pill.completed { background: rgba(74, 222, 128, .13); color: var(--good); }
+.pill.planned { background: rgba(255, 181, 71, .15); color: var(--warm); }
+.pill.representative { background: rgba(124, 140, 255, .15); color: var(--accent-2); }
+.pill.live { background: rgba(92, 225, 230, .15); color: var(--accent); }
+.pill.type { background: rgba(255, 255, 255, .06); color: var(--muted); }
+.mission .m-src { color: var(--accent); text-decoration: none; margin-left: auto; font-size: 11px; }
+.mission .m-src:hover { text-decoration: underline; }
+.month { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin: 10px 2px 4px; }
+.month:first-child { margin-top: 0; }
+.inspiration a { color: var(--accent); }
+.missions, .phases { position: relative; }
+.panel-left { overflow: hidden; }
+.panel-left section:first-child { flex: none; }
