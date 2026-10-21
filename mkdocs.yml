@@ -76,6 +76,7 @@ nav:
       - Solar System Explorer: projects/solar-system/index.md
       - AI Factory India: projects/ai-factory-india/index.md
       - Brick Builder: projects/brick-builder/index.md
+      - Cloud Brick Architect: projects/aws-architecture-builder/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.

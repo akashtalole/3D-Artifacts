@@ -77,6 +77,17 @@ plates, tiles, slopes and rounds in 24 colours, with undo, replay and export.
 [Launch app](apps/brick-builder/) · [Documentation](projects/brick-builder/index.md)
 </div>
 
+<div class="card" markdown>
+[![Cloud Brick Architect](assets/aws-architecture-builder/ha-chaos.jpg)](apps/aws-architecture-builder/)
+
+### Cloud Brick Architect
+
+Build AWS architectures like bricks: six missions with live goal checks, budgets and
+stars, animated traffic, and an Availability Zone failure test.
+
+[Launch app](apps/aws-architecture-builder/) · [Documentation](projects/aws-architecture-builder/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
