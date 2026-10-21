@@ -129,6 +129,40 @@ Dragon follows the standard rendezvous profile: Waypoint 0 below the station, a 
 
 Sources: [NASA CRS-35 mission overview](https://www.nasa.gov/general/nasas-spacex-35th-commercial-resupply-mission-overview/), [Space.com docking coverage](https://www.space.com/space-exploration/launches-spacecraft/spacex-crs-35-iss-cargo-mission-docking).
 
+## Canadarm2 & Dextre: antenna swap (robotics)
+
+*Robotics · Ku-band antenna ORU on Z1 · no spacewalk* · sim date 2026-10-21 · duration 4:00 (h:mm)
+
+A representative Mobile Servicing System task, not a replay of one dated event. Ground controllers in Houston and at CSA in Saint-Hubert command Canadarm2 to pick up Dextre, fetch a spare from an ExPRESS Logistics Carrier and swap a failed Ku-band antenna boom on the Z1 truss. This is how many ORUs (batteries, cameras, pumps) are now replaced without a spacewalk.
+
+| | |
+| --- | --- |
+| Arm | Canadarm2 (SSRMS) · 17.6 m · 7 joints |
+| Hand | Dextre (SPDM) · two 3.35 m arms |
+| Base | MBS on the Mobile Transporter |
+| Task | Ku-band antenna ORU swap on Z1 |
+| Spare | From ExPRESS Logistics Carrier 2 (S3) |
+| Control | Ground-commanded · NASA & CSA |
+
+| PET | Phase | What happens |
+| --- | --- | --- |
+| 0:00 | **Robotics ops begin** | Ground controllers take the arm out of its park position. The crew is not needed; the whole job is commanded from Earth over the Ku/S-band links. |
+| 0:12 | **Approach Dextre** | Canadarm2 flies its Latching End Effector over Dextre’s grapple fixture on the Mobile Base System. |
+| 0:25 | **Grapple Dextre** | Snare wires close on the grapple pin and the LEE rigidises. Dextre is released from the MBS and now hangs from the end of the arm. |
+| 0:40 | **MBS to S3** | The Mobile Transporter carries the MBS, Canadarm2 and Dextre down the rails to the S3 worksite (≈ 2.5 cm/s). |
+| 1:05 | **Fetch the spare** | The arm positions Dextre over ExPRESS Logistics Carrier 2 on the S3 truss. |
+| 1:15 | **Extract new antenna ORU** | Dextre’s right arm drives its OTCM gripper onto the spare’s fixture and unbolts it from the carrier. |
+| 1:35 | **Back to S0** | MBS returns to the S0 worksite; the arm carries Dextre and the spare toward the Z1 truss on top of Unity. |
+| 2:20 | **Remove failed antenna** | Dextre’s left arm grips the failed Ku-band boom-and-dish ORU, releases its bolt and pulls it off the Z1 interface plate. |
+| 2:38 | **Reposition** | Canadarm2 shifts Dextre about 3 m so the right arm, holding the spare, lines up with the empty interface. |
+| 2:48 | **Install new antenna** | The new ORU is inserted and its bolt driven. Power and data connect through the interface. |
+| 3:10 | **Link checkout** | Flight controllers power the antenna, slew its gimbal and check the Ku-band link through a Tracking and Data Relay Satellite. |
+| 3:25 | **Stow & return** | The failed unit is stowed on Dextre’s ORU platform for return on a later cargo flight. Dextre goes back to the MBS and the arm returns to park. |
+
+[Open this mission](../../apps/iss-eva-spacewalk/?mission=robotics){ .md-button }
+
+The arm, Dextre's two arms and the hand-offs use the same keyframe and attachment system as the spacewalks: Dextre rides the arm's end effector, Dextre's hands follow invisible markers, and each antenna unit rides a hand. Views: **Canadarm2** follows the end effector, **Dextre** follows the robot, **LEE cam** looks down past the end effector.
+
 ## Free orbit
 
 No crew outside. The station is shown in its current configuration (six iROSAs,
