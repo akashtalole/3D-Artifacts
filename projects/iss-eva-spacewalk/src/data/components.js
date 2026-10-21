@@ -271,6 +271,22 @@ export const COMPONENTS = {
     info: 'Four unpressurised pallets on S3 and P3 holding spare parts (pumps, tanks, CMGs) and science payloads.',
   },
 
+  z1: {
+    name: 'Z1 Truss',
+    agency: 'NASA',
+    launched: 'STS-92 · 11 Oct 2000',
+    dims: '≈ 4.9 m × 4.2 m × 3.0 m',
+    mass: '8,755 kg',
+    info: 'First truss segment, on Unity’s zenith port. Houses the four Control Moment Gyroscopes that hold the station’s attitude without propellant, and carries the Ku-band antenna boom.',
+  },
+  sgant: {
+    name: 'Ku-band Space-to-Ground Antenna (SGANT)',
+    agency: 'NASA',
+    launched: 'With Z1 · STS-92 (2000)',
+    dims: 'Steerable dish on a gimballed boom',
+    mass: '—',
+    info: 'High-rate link to Earth through NASA’s Tracking and Data Relay Satellites: video, science data, crew e-mail and voice. Its boom and dish are robotically replaceable Orbital Replacement Units (ORUs).',
+  },
   // ── Robotics ──────────────────────────────────────────────────────────────
   canadarm2: {
     name: 'Canadarm2 (SSRMS)',

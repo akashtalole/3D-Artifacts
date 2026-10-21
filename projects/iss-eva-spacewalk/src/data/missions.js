@@ -343,6 +343,82 @@ export const MISSIONS = [
 
   // ─────────────────────────────────────────────────────────────────────────
   {
+    id: 'robotics',
+    category: 'vehicle',
+    title: 'Canadarm2 & Dextre: Antenna Swap',
+    subtitle: 'Robotics · Ku-band antenna ORU on Z1 · no spacewalk',
+    inspiration: 'A representative Mobile Servicing System task, not a replay of one dated event. Ground controllers in Houston and at CSA in Saint-Hubert command Canadarm2 to pick up Dextre, fetch a spare from an ExPRESS Logistics Carrier and swap a failed Ku-band antenna boom on the Z1 truss. This is how many ORUs (batteries, cameras, pumps) are now replaced without a spacewalk.',
+    epoch: '2026-10-21T09:00:00Z',
+    raan: 40,
+    daylightAt: 165, // antenna swap in sunlight
+    duration: 240,
+    airlock: null,
+    config: { nauka: true, pirs: false, prichal: true, bishop: true, irosa: ['2B', '4B', '3A', '4A', '1A', '1B'], vehicles: ['dragon', 'soyuz', 'progress'] },
+    hide: ['dextre', 'sgant'],
+    crew: [],
+    robotics: true,
+    infoCard: {
+      label: 'Mobile Servicing System',
+      details: [
+        ['Arm', 'Canadarm2 (SSRMS) · 17.6 m · 7 joints'],
+        ['Hand', 'Dextre (SPDM) · two 3.35 m arms'],
+        ['Base', 'MBS on the Mobile Transporter'],
+        ['Task', 'Ku-band antenna ORU swap on Z1'],
+        ['Spare', 'From ExPRESS Logistics Carrier 2 (S3)'],
+        ['Control', 'Ground-commanded · NASA & CSA'],
+      ],
+    },
+    follow: { ev1: 'arm', ev2: 'dextre' },
+    views: { ev1: 'Canadarm2', ev2: 'Dextre', helmet: 'LEE cam' },
+    startView: 'ev1',
+    worksite: { target: [-6.5, 8.2, 0.6], offset: [11, 6, 15] },
+    phases: [
+      { t: 0, title: 'Robotics ops begin', detail: 'Ground controllers take the arm out of its park position. The crew is not needed; the whole job is commanded from Earth over the Ku/S-band links.' },
+      { t: 12, title: 'Approach Dextre', detail: 'Canadarm2 flies its Latching End Effector over Dextre’s grapple fixture on the Mobile Base System.' },
+      { t: 25, title: 'Grapple Dextre', detail: 'Snare wires close on the grapple pin and the LEE rigidises. Dextre is released from the MBS and now hangs from the end of the arm.' },
+      { t: 40, title: 'MBS to S3', detail: 'The Mobile Transporter carries the MBS, Canadarm2 and Dextre down the rails to the S3 worksite (≈ 2.5 cm/s).' },
+      { t: 65, title: 'Fetch the spare', detail: 'The arm positions Dextre over ExPRESS Logistics Carrier 2 on the S3 truss.' },
+      { t: 75, title: 'Extract new antenna ORU', detail: 'Dextre’s right arm drives its OTCM gripper onto the spare’s fixture and unbolts it from the carrier.' },
+      { t: 95, title: 'Back to S0', detail: 'MBS returns to the S0 worksite; the arm carries Dextre and the spare toward the Z1 truss on top of Unity.' },
+      { t: 140, title: 'Remove failed antenna', detail: 'Dextre’s left arm grips the failed Ku-band boom-and-dish ORU, releases its bolt and pulls it off the Z1 interface plate.' },
+      { t: 158, title: 'Reposition', detail: 'Canadarm2 shifts Dextre about 3 m so the right arm, holding the spare, lines up with the empty interface.' },
+      { t: 168, title: 'Install new antenna', detail: 'The new ORU is inserted and its bolt driven. Power and data connect through the interface.' },
+      { t: 190, title: 'Link checkout', detail: 'Flight controllers power the antenna, slew its gimbal and check the Ku-band link through a Tracking and Data Relay Satellite.' },
+      { t: 205, title: 'Stow & return', detail: 'The failed unit is stowed on Dextre’s ORU platform for return on a later cargo flight. Dextre goes back to the MBS and the arm returns to park.' },
+    ],
+    tracks: {
+      arm: [
+        at(0, [5.5, 9.5, 7.5]), at(12, [3.3, 9.0, -3.1]), at(25, [3.3, 6.3, -3.1]), at(30, [3.3, 6.3, -3.1]),
+        at(40, [4.5, 10.8, -2.0]), at(65, [4.5, 10.8, 20.0]), at(75, [1.0, 11.4, 26.6]), at(95, [1.0, 11.4, 26.6]),
+        at(100, [2.5, 13.5, 22.5]), at(125, [2.5, 13.5, 0.5]), at(140, [-5.0, 10.6, 1.8]), at(158, [-5.0, 10.6, 1.8]),
+        at(168, [-8.2, 10.6, 1.8]), at(205, [-8.2, 10.6, 1.8]), at(214, [4.5, 10.8, -2.0]), at(222, [3.3, 6.3, -3.1]),
+        at(225, [3.3, 6.3, -3.1]), at(236, [5.5, 9.5, 7.5]),
+      ],
+    },
+    scalars: {
+      mbs: [[0, 0], [40, 0], [65, 22], [100, 22], [125, 0]],
+    },
+    payloads: [
+      { id: 'dextre', kind: 'dextre', label: 'Dextre', keys: [at(0, [3.3, 4.5, -3.1]), at(28, [3.3, 4.5, -3.1]), at(230, [3.3, 4.5, -3.1])] },
+      { id: 'dexL', kind: 'hand', keys: [at(146, [-6.55, 7.1, 0]), at(150, [-6.55, 7.1, 0])] },
+      { id: 'dexR', kind: 'hand', keys: [at(82, [0.4, 8.3, 28.4]), at(86, [0.4, 8.3, 28.4]), at(174, [-6.55, 7.1, 0]), at(180, [-6.55, 7.1, 0])] },
+      { id: 'oruNew', kind: 'antenna', label: 'Spare antenna', keys: [at(0, [0.4, 8.3, 28.4]), at(85, [0.4, 8.3, 28.4]), at(180, [-6.55, 7.1, 0])] },
+      { id: 'oruOld', kind: 'antennaOld', label: 'Failed antenna', show: [0, 224], keys: [at(0, [-6.55, 7.1, 0]), at(149, [-6.55, 7.1, 0])] },
+    ],
+    attach: [
+      { who: 'dextre', to: 'arm', from: 30, until: 224, off: [0, -1.8, 0] },
+      { who: 'dexL', to: 'dextre', from: 0, until: 140, off: [-0.9, -0.5, -1.0] },
+      { who: 'dexL', to: 'dextre', from: 158, until: 999, off: [-0.9, -0.5, -1.0] },
+      { who: 'dexR', to: 'dextre', from: 0, until: 75, off: [0.9, -0.5, -1.0] },
+      { who: 'dexR', to: 'dextre', from: 95, until: 168, off: [0.9, -0.5, -1.0] },
+      { who: 'dexR', to: 'dextre', from: 190, until: 999, off: [0.9, -0.5, -1.0] },
+      { who: 'oruNew', to: 'dexR', from: 86, until: 176 },
+      { who: 'oruOld', to: 'dexL', from: 150, until: 999 },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  {
     id: 'orbit',
     category: 'vehicle',
     title: 'Free Orbit',

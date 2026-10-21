@@ -5,11 +5,12 @@ import { withRepeat } from './materials.js';
 import { buildSolarWing, buildIROSA, buildPVR } from './solar.js';
 import { RoboticArm } from './arm.js';
 import { buildCrewDragon, buildSoyuz, buildProgress, solarWings } from './vehicles.js';
+import { buildZ1, buildAntennaORU, SGANT_MOUNT } from './antenna.js';
 
 const deg = THREE.MathUtils.degToRad;
 
 // Labels always shown; everything else appears when the camera gets close.
-const MAJOR = new Set(['destiny', 'harmony', 'unity', 'columbus', 'kibo', 'tranquility', 'quest', 'cupola', 'zarya', 'zvezda', 'poisk', 'nauka', 'dragon', 'soyuz', 'progress', 'ams', 'canadarm2']);
+const MAJOR = new Set(['sgant', 'destiny', 'harmony', 'unity', 'columbus', 'kibo', 'tranquility', 'quest', 'cupola', 'zarya', 'zvezda', 'poisk', 'nauka', 'dragon', 'soyuz', 'progress', 'ams', 'canadarm2']);
 
 /** Lathe solid of revolution around local +x. Profile points are [radius, x]. */
 function latheX(mat, pts, seg = 48) {
@@ -199,6 +200,10 @@ export function buildISS(mats) {
   era.solve(new THREE.Vector3(-23.4, -18.5, 0.0));
   nauka.userData.eraGroup = era.group;
   iss.add(era.group);
+
+  // ── Z1 truss (Unity zenith) with the Ku-band antenna ─────────────────────
+  add(buildZ1(mats), 'z1', 'Z1 truss', [-9.2, 5.6, 0]);
+  const sgant = add(place(buildAntennaORU(mats), SGANT_MOUNT), 'sgant', 'Ku-band antenna', [-6.6, 9.9, 0]);
 
   // ── Truss ────────────────────────────────────────────────────────────────
   const fixedTruss = new StrutBatch();
@@ -417,6 +422,8 @@ export function buildISS(mats) {
     optional,
     hatches: { quest: questHatch, poisk: poiskHatch },
     cupolaEye,
+    dextre,
+    sgant,
     iea4: { 1: sarjFrames[1].inner.userData.iea4, [-1]: sarjFrames[-1].inner.userData.iea4 },
   };
 }

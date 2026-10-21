@@ -4,7 +4,7 @@ import { COMPONENTS } from '../data/components.js';
 
 const $ = (s) => document.querySelector(s);
 const PHASE_COLORS = ['#5ce1e6', '#7c8cff', '#a78bfa', '#f472b6', '#ffb547', '#4ade80'];
-const ICONS = { irosa: '☀', battery: '⚡', nauka: '☄', orbit: '◎', crs35: '⇡' };
+const ICONS = { irosa: '☀', battery: '⚡', nauka: '☄', orbit: '◎', crs35: '⇡', robotics: '⚙' };
 
 export function fmtHMS(sec, withHours = true) {
   const s = Math.max(0, Math.floor(sec));
@@ -100,12 +100,13 @@ export class UI {
     // Crew (or the visiting vehicle)
     const crew = $('#crew');
     crew.innerHTML = '';
-    $('#crew-section').hidden = !mission.crew.length && !mission.vehicle;
-    $('#crew-title').textContent = mission.vehicle ? 'Vehicle' : 'Crew';
-    if (mission.vehicle) {
+    const card = mission.vehicle || mission.infoCard;
+    $('#crew-section').hidden = !mission.crew.length && !card;
+    $('#crew-title').textContent = mission.vehicle ? 'Vehicle' : mission.robotics ? 'Robotics' : 'Crew';
+    if (card) {
       const d = document.createElement('div');
       d.className = 'vehicle-card';
-      d.innerHTML = `<div class="v-name">${mission.vehicle.label}</div><dl>${mission.vehicle.details.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+      d.innerHTML = `<div class="v-name">${card.label}</div><dl>${card.details.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
       d.addEventListener('click', () => this.h.onView('ev1'));
       crew.appendChild(d);
     }
@@ -170,6 +171,19 @@ export class UI {
         </div>`;
       return;
     }
+    if (mission.robotics) {
+      $('#suits-section').hidden = false;
+      $('#suits-title').innerHTML = 'Canadarm2 <span class="badge">simulated</span>';
+      box.innerHTML = `
+        <div class="approach">
+          <span class="status" data-k="status">—</span>
+          <div class="big"><span class="num" data-k="speed">—</span><span class="unit">cm/s end-effector</span></div>
+          <div class="meter"><span>MBS</span><span class="bar"><i data-k="mbsBar"></i></span><span class="val" data-k="mbs">—</span></div>
+          <div class="meter"><span>Reach</span><span class="bar"><i data-k="reachBar"></i></span><span class="val" data-k="reach">—</span></div>
+          <div class="meter"><span>Payload</span><span class="bar"><i data-k="loadBar"></i></span><span class="val" data-k="load">—</span></div>
+        </div>`;
+      return;
+    }
     $('#suits-title').innerHTML = 'Suits <span class="badge">simulated</span>';
     $('#suits-section').hidden = !mission.crew.length;
     box.innerHTML = mission.crew.map((c) => `
@@ -192,6 +206,18 @@ export class UI {
       st.textContent = d.status;
       st.className = `status${d.docked ? ' docked' : d.hold ? ' hold' : ''}`;
     }
+  }
+
+  setRobotics(d) {
+    const box = $('#suits');
+    const set = (k, v) => { const e = box.querySelector(`[data-k="${k}"]`); if (e) e.textContent = v; };
+    const bar = (k, f) => { const e = box.querySelector(`[data-k="${k}"]`); if (e) e.style.width = `${Math.max(0, Math.min(1, f)) * 100}%`; };
+    set('speed', (d.speed * 100).toFixed(1));
+    set('mbs', `${d.mbs >= 0 ? 'S' : 'P'} ${Math.abs(d.mbs).toFixed(1)} m`); bar('mbsBar', 0.5 + d.mbs / 56);
+    set('reach', `${(d.reach * 100).toFixed(0)}%`); bar('reachBar', d.reach);
+    set('load', d.carrying === '—' ? 'none' : d.carrying.includes('ORU') ? '+ ORU' : 'Dextre'); bar('loadBar', d.carrying === '—' ? 0 : d.carrying.includes('ORU') ? 0.75 : 0.5);
+    const st = box.querySelector('[data-k="status"]');
+    if (st) { st.textContent = `${d.status} · ${d.carrying}`; st.className = 'status hold'; }
   }
 
   setPlaying(p) { $('#play').classList.toggle('playing', p); }
