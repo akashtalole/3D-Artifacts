@@ -239,3 +239,26 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 6px; border-radius
   .brand-title { font-size: 13px; }
   .clock .clock-item:nth-child(2) { display: none; }
 }
+
+/* Mission type tabs */
+.seg { display: flex; gap: 2px; padding: 3px; margin-bottom: 10px; border-radius: 11px; background: rgba(255, 255, 255, .04); border: 1px solid var(--line); }
+.seg button { flex: 1; border: 0; background: transparent; color: var(--muted); padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.seg button:hover { color: var(--text); }
+.seg button.active { background: rgba(92, 225, 230, .14); color: var(--accent); }
+
+/* Visiting-vehicle card & approach telemetry */
+.vehicle-card { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); cursor: pointer; }
+.vehicle-card:hover { border-color: var(--line-strong); }
+.vehicle-card .v-name { font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.vehicle-card .v-name::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.vehicle-card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; font-size: 11.5px; }
+.vehicle-card dt { color: var(--muted); }
+.vehicle-card dd { margin: 0; }
+.approach .big { display: flex; align-items: baseline; gap: 6px; margin-bottom: 8px; }
+.approach .big .num { font-family: var(--mono); font-size: 26px; font-weight: 500; }
+.approach .big .unit { color: var(--muted); font-size: 12px; }
+.approach .status { display: inline-block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: rgba(255, 181, 71, .14); color: var(--warm); margin-bottom: 8px; }
+.approach .status.docked { background: rgba(74, 222, 128, .14); color: var(--good); }
+.approach .status.hold { background: rgba(124, 140, 255, .16); color: var(--accent-2); }
+.lbl.vehicle { background: var(--accent); color: #04131a; border: 0; font-weight: 600; }
+.mission[hidden] { display: none; }

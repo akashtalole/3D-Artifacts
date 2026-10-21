@@ -314,6 +314,14 @@ export const COMPONENTS = {
     mass: '≈ 12,500 kg',
     info: 'Autonomous docking at IDA-2/IDA-3. Up to four crew. Trunk carries body-mounted solar cells and, on cargo flights, unpressurised payloads such as iROSAs.',
   },
+  dragonCargo: {
+    name: 'Cargo Dragon (SpaceX CRS-35)',
+    agency: 'SpaceX / NASA',
+    launched: 'Falcon 9 · SLC-40, Cape Canaveral · 13 Oct 2026',
+    dims: '8.1 m tall (with trunk) · 4.0 m diameter',
+    mass: '> 6,300 lb (≈ 2,860 kg) of cargo',
+    info: 'Docked autonomously to Harmony’s space-facing port. Carries LambdaVision-1, Stellar Spheroids, ELF-Unconventional Glass 2 and MINDS experiments, the final pair of iROSAs in the trunk, and Canadarm2 joint support equipment. Stays about a month, then splashes down in the Pacific in mid-November.',
+  },
   soyuz: {
     name: 'Soyuz MS',
     agency: 'Roscosmos',

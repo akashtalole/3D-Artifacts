@@ -95,6 +95,40 @@ Modelled on the 2022 Roscosmos spacewalks that removed launch restraints from th
 
 [Open this mission](../../apps/iss-eva-spacewalk/?mission=nauka){ .md-button }
 
+## SpaceX CRS-35 Docking (visiting vehicle)
+
+*Cargo Dragon · Harmony zenith (IDA-3) · Oct 2026* · sim date 2026-10-15 · duration 2:40 (h:mm)
+
+NASA’s 35th SpaceX resupply mission launched on a Falcon 9 from SLC-40 on 13 Oct 2026 and docked autonomously to Harmony’s space-facing port on 15 Oct after about 51 hours of phasing. It carries more than 6,300 lb of science and supplies, including the final pair of iROSAs, and stays about a month.
+
+| | |
+| --- | --- |
+| Launch | Falcon 9 · SLC-40 · 13 Oct 2026 |
+| Port | Harmony zenith (IDA-3) |
+| Cargo | > 6,300 lb science & supplies |
+| Trunk | Final iROSA pair |
+| Stay | ≈ 1 month · Pacific splashdown |
+
+| PET | Phase | What happens |
+| --- | --- | --- |
+| 0:00 | **Approach ellipsoid** | After ≈ 51 hours of phasing, Dragon enters the 4 × 2 × 2 km approach ellipsoid behind and below the station, talking to it over the proximity link. |
+| 0:25 | **Waypoint 0** | Dragon holds about 400 m below the station. NASA and SpaceX poll “go” for entering the 200 m Keep-Out Sphere. |
+| 0:40 | **Keep-Out Sphere entry** | Dragon swings around the station’s forward side toward the zenith docking axis, firing its Draco thrusters in short pulses. |
+| 1:00 | **Waypoint 1** | Holding ≈ 220 m directly above Harmony on the docking axis. Dragon aligns its nose with IDA-3 using its LIDAR and cameras. |
+| 1:10 | **Approach to Waypoint 2** | Dragon closes down the approach corridor at ≈ 0.15 m/s. |
+| 1:30 | **Waypoint 2** | Final hold 20 m from the port. Last go / no-go; the crew stand by to command a hold, retreat or abort. |
+| 1:40 | **Final approach** | Dragon closes the last 20 m autonomously at a few centimetres per second. |
+| 1:46 | **Soft capture** | Contact with the International Docking Adapter on Harmony’s space-facing port; capture latches engage. |
+| 1:56 | **Hard capture** | Twelve structural hooks close to form a rigid, sealed connection. |
+| 2:00 | **Leak checks** | The vestibule between Dragon and IDA-3 is pressurised and checked for leaks. |
+| 2:32 | **Hatch open** | The crew open the hatch and start unloading: LambdaVision-1, Stellar Spheroids, ELF-Unconventional Glass 2, MINDS and station hardware. Canadarm2 will later extract the iROSA pair from the trunk. |
+
+[Open this mission](../../apps/iss-eva-spacewalk/?mission=crs35){ .md-button }
+
+Dragon follows the standard rendezvous profile: Waypoint 0 below the station, a fly-around outside the 200 m Keep-Out Sphere, Waypoint 1 (≈ 220 m) and Waypoint 2 (20 m) on the docking axis, then autonomous final approach. The **Zones** toggle shows the Keep-Out Sphere and approach corridor; **Centerline cam** looks up the docking axis from IDA-3.
+
+Sources: [NASA CRS-35 mission overview](https://www.nasa.gov/general/nasas-spacex-35th-commercial-resupply-mission-overview/), [Space.com docking coverage](https://www.space.com/space-exploration/launches-spacecraft/spacex-crs-35-iss-cargo-mission-docking).
+
 ## Free orbit
 
 No crew outside. The station is shown in its current configuration (six iROSAs,

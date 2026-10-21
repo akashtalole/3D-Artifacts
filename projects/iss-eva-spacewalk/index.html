@@ -74,12 +74,15 @@
     <!-- ── Left: mission, crew, timeline ───────────────────── -->
     <aside id="left" class="panel panel-left glass" aria-label="Mission">
       <section>
-        <h3>Mission</h3>
+        <div class="seg" id="mission-tabs" role="tablist" aria-label="Mission type">
+          <button role="tab" data-cat="eva" class="active">Spacewalks</button>
+          <button role="tab" data-cat="vehicle">Missions</button>
+        </div>
         <div id="missions" class="missions"></div>
         <p id="inspiration" class="inspiration"></p>
       </section>
       <section id="crew-section">
-        <h3>Crew</h3>
+        <h3 id="crew-title">Crew</h3>
         <div id="crew" class="crew"></div>
       </section>
       <section class="grow">
@@ -118,7 +121,7 @@
       </section>
 
       <section id="suits-section">
-        <h3>Suits <span class="badge">simulated</span></h3>
+        <h3 id="suits-title">Suits <span class="badge">simulated</span></h3>
         <div id="suits" class="suits"></div>
       </section>
     </aside>
