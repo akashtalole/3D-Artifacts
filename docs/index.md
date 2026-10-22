@@ -198,6 +198,17 @@ price them, plan a fleet, dig in a sandbox and watch a job site at work.
 [Launch app](apps/heavy-machinery/) · [Documentation](projects/heavy-machinery/index.md)
 </div>
 
+<div class="card" markdown>
+[![PQC Road Works](assets/pqc-road/paving.jpg)](apps/pqc-road/)
+
+### PQC Road Works
+
+A concrete road built step by step as per IRC:15 and IRC:58: subgrade, GSB, DLC, slip-form
+paving with dowel and tie-bar inserters, saw-cut joints, curing, sealing and opening.
+
+[Launch app](apps/pqc-road/) · [Documentation](projects/pqc-road/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

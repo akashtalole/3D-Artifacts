@@ -87,6 +87,7 @@ nav:
       - Turbofan Ops: projects/turbofan-ops/index.md
       - Brick Studio Pro: projects/brick-studio/index.md
       - Earthmovers: projects/heavy-machinery/index.md
+      - PQC Road Works: projects/pqc-road/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.
