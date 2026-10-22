@@ -156,7 +156,7 @@ export const BUS_KMH_CARS = 11; // shuttle speed when private cars are allowed i
 export const TURN_MIN = 6;      // loading and turnaround at each end
 
 // ── the akhara procession on Amrit Snan ──
-export const PROCESSION = { nodes: ['TP_T', 'J_TAP', 'J_PAN', 'J_KAL', 'G_RAM'], from: 3.5, bath: [5.5, 9.0], open: 9.5, akharas: ['Nirmohi Ani', 'Digambar Ani', 'Nirvani Ani'] };
+export const PROCESSION = { nodes: ['TP_T', 'J_TAP', 'J_PAN', 'J_KAL', 'G_RAM'], from: 4.0, march: 4.6, bath: [6.3, 9.0], open: 9.5, akharas: ['Nirmohi Ani', 'Digambar Ani', 'Nirvani Ani'] };
 export const SADHUGRAM = { x0: 2000, x1: 3500, z0: -1750, z1: -300 };
 
 // ── scenarios ──

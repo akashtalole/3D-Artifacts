@@ -150,7 +150,7 @@ function hud() {
   const K = sim.kpis(), sc = SCENARIOS[S.sc];
   $('#clock').innerHTML = `<b>${hh(sim.t)}</b><small>${esc(sc.name)}${sc.amrit ? ` · ${AMRIT_DATES[2]}` : ''}</small>`;
   const proc = sim.closureAt(sim.t);
-  $('#status').innerHTML = proc ? `<span class="pill sac">🚩 Akhara procession — Ramkund reserved until 09:30</span>` : sim.t > 18.5 * 3600 && sim.t < 21.5 * 3600 ? `<span class="pill aarti">🪔 Godavari maha aarti at Ramkund</span>` : '';
+  $('#status').innerHTML = proc ? `<span class="pill sac">🚩 Amrit Snan of the akharas — Ramkund reserved until 09:30</span>` : sim.t > 18.5 * 3600 && sim.t < 21.5 * 3600 ? `<span class="pill aarti">🪔 Godavari maha aarti at Ramkund</span>` : '';
   const tile = (label, val, sub, col) => `<div class="kpi"><small>${label}</small><b ${col ? `style="color:${col}"` : ''}>${val}</b><i>${sub}</i></div>`;
   $('#kpis').innerHTML = tile('In the mela area', fmt(K.present), `${fmt(K.arrived)} arrived today`)
     + tile('Holy dips', fmt(K.dips), K.arrived ? `${Math.round((K.dips / K.arrived) * 100)}% of arrivals` : '—')
@@ -322,11 +322,11 @@ function alongPoly(p, u) {
 /** The three Vaishnav akharas process from Tapovan to Ramkund at dawn and bathe there. */
 function drawProcession(n) {
   const P = city.people, pr = city.procession, hr = sim.t / 3600, sc = SCENARIOS[S.sc];
-  const on = sc.amrit && hr >= PROCESSION.from && hr < 10.5;
+  const on = sc.amrit && hr >= PROCESSION.march && hr < 10.5;
   pr.g.visible = on; if (!on) return n;
   const path = city.procPath(), L = path.L;
   let head;   // distance of the procession's head along the route
-  if (hr < PROCESSION.bath[0]) head = ((hr - PROCESSION.from) / (PROCESSION.bath[0] - PROCESSION.from)) * L;
+  if (hr < PROCESSION.bath[0]) head = ((hr - PROCESSION.march) / (PROCESSION.bath[0] - PROCESSION.march)) * L;
   else if (hr < PROCESSION.bath[1]) head = L;
   else head = L - ((hr - PROCESSION.bath[1]) / (10.5 - PROCESSION.bath[1])) * L * 1.4;
   const bathing = hr >= PROCESSION.bath[0] && hr < PROCESSION.bath[1];

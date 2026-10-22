@@ -247,8 +247,8 @@ export class City {
     const P = sim.P, R = rng(21), toilets = [], med = [];
     const spots = [...sim.tps.map((k) => sim.nodes[k]), ...Object.values(sim.ghats).map((g) => sim.nodes[g.id])];
     const nT = Math.min(260, Math.round(P.toilets / 120)), nM = Math.min(90, Math.round(P.medical / 2));
-    for (let i = 0; i < nT; i++) { const s = spots[i % spots.length], a = R() * 6.28, r = 60 + R() * 90; toilets.push({ x: s.x + Math.cos(a) * r, z: s.z + Math.sin(a) * r, ry: a, sx: 12, sy: 2.6, sz: 2.4, c: '#2f6db5' }); }
-    for (let i = 0; i < nM; i++) { const s = spots[(i * 3) % spots.length], a = R() * 6.28, r = 40 + R() * 60; med.push({ x: s.x + Math.cos(a) * r, z: s.z + Math.sin(a) * r, ry: a, sx: 6, sy: 3, sz: 6, c: '#ffffff' }); }
+    for (let i = 0; i < nT * 3 && toilets.length < nT; i++) { const s = spots[i % spots.length], a = R() * 6.28, r = 60 + R() * 90; if (riverDist(s.x + Math.cos(a) * r, s.z + Math.sin(a) * r) < 25) continue; toilets.push({ x: s.x + Math.cos(a) * r, z: s.z + Math.sin(a) * r, ry: a, sx: 12, sy: 2.6, sz: 2.4, c: '#2f6db5' }); }
+    for (let i = 0; i < nM * 3 && med.length < nM; i++) { const s = spots[(i * 3) % spots.length], a = R() * 6.28, r = 40 + R() * 60; if (riverDist(s.x + Math.cos(a) * r, s.z + Math.sin(a) * r) < 25) continue; med.push({ x: s.x + Math.cos(a) * r, z: s.z + Math.sin(a) * r, ry: a, sx: 6, sy: 3, sz: 6, c: '#ffffff' }); }
     const geo = new THREE.BoxGeometry(1, 1, 1); geo.translate(0, 0.5, 0);
     this.net.add(instanced(geo, new THREE.MeshStandardMaterial({ roughness: 0.8 }), toilets));
     const mt = instanced(geo, new THREE.MeshStandardMaterial({ roughness: 0.8 }), med); this.net.add(mt);

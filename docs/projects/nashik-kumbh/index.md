@@ -52,11 +52,11 @@ The model behind each step:
 - **Ghats** bathe 60 people per metre of frontage per hour.
 - **Parking** fills up as vehicles stay for the whole visit. When it's full, arrivals back
   up on the highways.
-- On **Amrit Snan** days the three Vaishnav akharas process from Tapovan at dawn and bathe
-  at Ramkund. Ramkund, Laxmankund and Gadge Maharaj ghat are reserved for them until
-  09:30, and the procession route is closed to the public.
+- On **Amrit Snan** days the three Vaishnav akharas process from Tapovan before dawn and
+  bathe at Ramkund from about 06:20. Ramkund, Laxmankund and Gadge Maharaj ghat are
+  reserved for them from 04:00 to 09:30, and the procession route is closed to the public.
 
-![The akhara procession at dawn](../../assets/nashik-kumbh/procession.jpg)
+![The akharas' Amrit Snan at Ramkund, with the public waiting at the other ghats](../../assets/nashik-kumbh/procession.jpg)
 
 ## Days to try
 
@@ -138,7 +138,7 @@ The report also lists what to improve.
 
 ```text
 #sc=amrit                 Amrit Snan with the minimal plan
-#sc=amrit&t=5&view=panchavati   jump to 05:00 and watch the procession
+#sc=amrit&t=5.5&view=panchavati   jump to 05:30 and watch the procession
 #sc=parva&crowd=25        a bigger parva snan
 ```
 

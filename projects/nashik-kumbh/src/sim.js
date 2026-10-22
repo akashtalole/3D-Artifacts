@@ -269,7 +269,7 @@ export class Sim {
     for (const k in this.gates) {
       const gate = this.gates[k]; if (!gate.list.length) continue;
       const L = gate.list;
-      for (let i = 0; i < L.length && i < 12;) {
+      for (let i = 0; i < L.length && i < 400;) {   // look past groups held for a busy ghat
         const G = L[i];
         if (G.phase === 'in' && this.P.holding) {   // metering: hold if the ghat is closed or its queue is long
           const g = this.ghats[G.ghat];

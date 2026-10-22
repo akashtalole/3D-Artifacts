@@ -154,6 +154,17 @@ ST bus up the Khandala Ghat. Choose the vehicle, camera, weather and time of day
 [Launch app](apps/yatra/) · [Documentation](projects/yatra/index.md)
 </div>
 
+<div class="card" markdown>
+[![Kumbh City](assets/nashik-kumbh/ramkund-plan.jpg)](apps/nashik-kumbh/)
+
+### कुंभनगरी · Kumbh City
+
+Plan Nashik for the Simhastha Kumbh Mela: parking hubs, shuttles, ghats, one-way routes,
+holding areas and the ICCC, then simulate 40 lakh pilgrims on an Amrit Snan day.
+
+[Launch app](apps/nashik-kumbh/) · [Documentation](projects/nashik-kumbh/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
