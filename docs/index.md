@@ -176,6 +176,17 @@ thermodynamic cycle, cockpit gauges and failures from hot starts to engine fires
 [Launch app](apps/turbofan-ops/) · [Documentation](projects/turbofan-ops/index.md)
 </div>
 
+<div class="card" markdown>
+[![Brick Studio Pro](assets/brick-studio/cottage.jpg)](apps/brick-studio/)
+
+### Brick Studio Pro
+
+An advanced brick builder: 69 parts that snap by their studs, selection editing, a
+stability check, automatic building instructions, generators, photo mosaics and LDraw export.
+
+[Launch app](apps/brick-studio/) · [Documentation](projects/brick-studio/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

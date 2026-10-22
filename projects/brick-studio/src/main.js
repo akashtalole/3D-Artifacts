@@ -17,12 +17,12 @@ const q = new URLSearchParams(location.hash.slice(1));
 const canvas = $('#scene');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.0;
 const scene = new THREE.Scene(); scene.background = new THREE.Color('#dfe5ec');
-const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture; scene.environmentIntensity = 0.7;
 const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 2000);
 const controls = new OrbitControls(camera, canvas); controls.enableDamping = true; controls.maxPolarAngle = Math.PI * 0.495; controls.mouseButtons = { LEFT: null, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.ROTATE };
-const sun = new THREE.DirectionalLight('#ffffff', 2.0); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02; scene.add(sun, sun.target, new THREE.HemisphereLight('#ffffff', '#8a8f96', 0.5));
+const sun = new THREE.DirectionalLight('#ffffff', 1.3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02; scene.add(sun, sun.target, new THREE.HemisphereLight('#ffffff', '#8a8f96', 0.5));
 const table = new THREE.Mesh(new THREE.CircleGeometry(400, 64), new THREE.MeshStandardMaterial({ color: '#c9ced4', roughness: 0.9 })); table.rotation.x = -Math.PI / 2; table.position.y = -0.26; table.receiveShadow = true; scene.add(table);
 
 // ── materials ──
@@ -85,9 +85,9 @@ function rebuild() {
   overlays();
   stats();
 }
-// highlighted overlays: selection (blue), floating (red), weak (amber), current instruction step (yellow)
+// highlighted overlays: selection (blue), floating (red), weak (amber), current instruction step (magenta)
 const overlayGroup = new THREE.Group(); world.add(overlayGroup);
-const OV = { sel: new THREE.MeshBasicMaterial({ color: '#2f7cff', transparent: true, opacity: 0.35, depthWrite: false }), float: new THREE.MeshBasicMaterial({ color: '#ff2d2d', transparent: true, opacity: 0.5, depthWrite: false }), weak: new THREE.MeshBasicMaterial({ color: '#ffb020', transparent: true, opacity: 0.45, depthWrite: false }), step: new THREE.MeshBasicMaterial({ color: '#ffe14a', transparent: true, opacity: 0.4, depthWrite: false }) };
+const OV = { sel: new THREE.MeshBasicMaterial({ color: '#2f7cff', transparent: true, opacity: 0.35, depthWrite: false }), float: new THREE.MeshBasicMaterial({ color: '#ff2d2d', transparent: true, opacity: 0.5, depthWrite: false }), weak: new THREE.MeshBasicMaterial({ color: '#ffb020', transparent: true, opacity: 0.45, depthWrite: false }), step: new THREE.MeshBasicMaterial({ color: '#ff2bd6', transparent: true, opacity: 0.4, depthWrite: false }) };
 let analysis = null;
 function overlays() {
   for (const c of [...overlayGroup.children]) overlayGroup.remove(c);
@@ -397,8 +397,13 @@ function frame() {
   let x0 = Infinity, x1 = -Infinity, y1 = 0, z0 = Infinity, z1 = -Infinity;
   for (const p of B.parts) { const P = PART[p.part], [fw, fd] = dims(P, p.r); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x + fw); z0 = Math.min(z0, p.z); z1 = Math.max(z1, p.z + fd); y1 = Math.max(y1, (p.y + P.h) * PLATE); }
   if (!B.parts.length) { x0 = z0 = 0; x1 = z1 = B.size; }
-  const cx = off() + (x0 + x1) / 2, cz = off() + (z0 + z1) / 2, R = Math.max(x1 - x0, z1 - z0, y1, 6);
-  controls.target.set(cx, y1 / 3, cz); camera.position.set(cx + R * 1.2, y1 / 3 + R * 1.05, cz + R * 1.55);
+  y1 *= 1 + view.explode * 1.6;
+  // fit the bounding sphere of the build into the narrower field of view
+  const cx = off() + (x0 + x1) / 2, cz = off() + (z0 + z1) / 2, cy = y1 / 2;
+  const R = Math.max(Math.hypot(x1 - x0, y1, z1 - z0) / 2, 4);
+  const vf = THREE.MathUtils.degToRad(camera.fov) / 2, hf = Math.atan(Math.tan(vf) * camera.aspect);
+  const dist = (R / Math.sin(Math.min(vf, hf))) * 1.08, dir = new THREE.Vector3(1.2, 1.05, 1.55).normalize();
+  controls.target.set(cx, cy, cz); camera.position.set(cx + dir.x * dist, cy + dir.y * dist, cz + dir.z * dist);
 }
 
 // sound
@@ -417,4 +422,4 @@ buildBase(); renderPalette(); renderParts(); renderGenParams(); setTool('build')
 if (q.get('tab')) document.querySelector(`[data-tab="${q.get('tab')}"]`)?.click();
 loop();
 setTimeout(() => $('#loader').classList.add('done'), 300);
-window.__bs = { B, S, view, camera, controls, frame, loadSample, rebuild, steps: () => steps, addGenerated, SHAPES, packBricks, scheme, setTool };   // handle for automated browser tests
+window.__bs = { B, S, view, camera, controls, frame, loadSample, rebuild, overlays, inspector, steps: () => steps, addGenerated, SHAPES, packBricks, scheme, setTool };   // handle for automated browser tests
