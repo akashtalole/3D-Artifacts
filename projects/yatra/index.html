@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Yatra · Rail &amp; ST</title>
+  <meta name="description" content="3D journeys from Mumbai to Pune: Indian Railways trains through the Bhor Ghat tunnels and viaducts, and MSRTC ST buses up the Khandala Ghat — stations, bus stands, signals, monsoon waterfalls, day and night." />
+  <meta name="theme-color" content="#14110f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='16' width='52' height='30' rx='6' fill='%23c8202a'/%3E%3Crect x='6' y='34' width='52' height='5' fill='%23f2c230'/%3E%3Crect x='12' y='21' width='40' height='10' rx='2' fill='%231b2a34'/%3E%3Ccircle cx='18' cy='48' r='5' fill='%23222'/%3E%3Ccircle cx='46' cy='48' r='5' fill='%23222'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <header class="top">
+        <div class="brand"><b>यात्रा</b><span>Yatra · Rail &amp; ST</span></div>
+        <div class="seg modes"><button data-mode="rail">🚆 Indian Railways</button><button data-mode="road">🚌 MSRTC ST bus</button></div>
+        <div class="seg cams">
+          <button data-cam="chase" title="Chase (1)">Chase</button><button data-cam="cab" title="Driver's view (2)">Cab</button><button data-cam="side" title="Alongside (3)">Side</button><button data-cam="window" title="Window seat (4)">Window</button><button data-cam="trackside" title="Line-side (5)">Line-side</button><button data-cam="drone" title="Aerial (6)">Aerial</button><button data-cam="orbit" title="Free orbit (7)">Orbit</button>
+        </div>
+        <button id="panel-toggle" class="btn" title="Show / hide the panel">☰</button>
+      </header>
+      <div class="speed" id="speed"></div>
+      <div class="info" id="info"></div>
+      <div class="ctrl">
+        <button id="play" class="btn round" title="Pause (Space)">❚❚</button>
+        <div class="seg warp"><button data-warp="1">1×</button><button data-warp="3">3×</button><button data-warp="8">8×</button><button data-warp="20">20×</button></div>
+        <button id="horn" class="btn" title="Horn (H)">📯 Horn</button>
+        <button id="snd" class="btn" title="Sound on/off">🔊</button>
+      </div>
+      <div class="profile" id="profile-wrap" title="Click to jump along the route">
+        <canvas id="profile" width="1200" height="90"></canvas>
+        <div id="stops"></div>
+        <div id="pos" class="pos"></div>
+      </div>
+    </main>
+    <aside class="side">
+      <h3>Route</h3>
+      <p id="route-name" class="route"></p>
+      <h3>Choose your ride</h3>
+      <div id="vehicles" class="vehicles"></div>
+      <h3>Weather &amp; season</h3>
+      <div class="seg wide"><button data-w="monsoon">🌧 Monsoon</button><button data-w="winter">🌫 Winter</button><button data-w="summer">☀ Summer</button></div>
+      <h3>Time of day</h3>
+      <input type="range" id="hour" min="0" max="23.99" step="0.05" />
+      <div class="btnrow"><button class="btn" id="restart">↺ Restart journey</button></div>
+      <p class="note">Distances are compressed: the 40 km route keeps the real sequence of places and the climb from the Konkan to the Deccan plateau (about 560 m) through the ghat. Liveries are approximations; not affiliated with Indian Railways or MSRTC.</p>
+    </aside>
+    <div class="toast" id="toast"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Waiting for the green signal…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

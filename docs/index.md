@@ -143,6 +143,17 @@ program it in a 3D factory cell and export URDF.
 [Launch app](apps/robot-cell-studio/) · [Documentation](projects/robot-cell-studio/index.md)
 </div>
 
+<div class="card" markdown>
+[![Yatra · Rail & ST](assets/yatra/viaduct-aerial.jpg)](apps/yatra/)
+
+### यात्रा · Yatra: Rail & ST
+
+Mumbai to Pune by Indian Railways through the Bhor Ghat tunnels and viaducts, or by MSRTC
+ST bus up the Khandala Ghat. Choose the vehicle, camera, weather and time of day.
+
+[Launch app](apps/yatra/) · [Documentation](projects/yatra/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
