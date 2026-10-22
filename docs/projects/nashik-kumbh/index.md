@@ -134,6 +134,12 @@ The report also lists what to improve.
 
 ![End-of-day report](../../assets/nashik-kumbh/report.jpg)
 
+## Phone
+
+On a phone the plan panel moves below the view, and the KPIs and controls scroll sideways.
+
+![Kumbh City on a phone](../../assets/nashik-kumbh/phone.jpg){ width="320" }
+
 ## Links
 
 ```text
