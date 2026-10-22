@@ -87,7 +87,7 @@ function rebuild() {
 }
 // highlighted overlays: selection (blue), floating (red), weak (amber), current instruction step (yellow)
 const overlayGroup = new THREE.Group(); world.add(overlayGroup);
-const OV = { sel: new THREE.MeshBasicMaterial({ color: '#2f7cff', transparent: true, opacity: 0.35, depthWrite: false }), float: new THREE.MeshBasicMaterial({ color: '#ff2d2d', transparent: true, opacity: 0.5, depthWrite: false }), weak: new THREE.MeshBasicMaterial({ color: '#ffb020', transparent: true, opacity: 0.45, depthWrite: false }), step: new THREE.MeshBasicMaterial({ color: '#ffe14a', transparent: true, opacity: 0.0, depthWrite: false }) };
+const OV = { sel: new THREE.MeshBasicMaterial({ color: '#2f7cff', transparent: true, opacity: 0.35, depthWrite: false }), float: new THREE.MeshBasicMaterial({ color: '#ff2d2d', transparent: true, opacity: 0.5, depthWrite: false }), weak: new THREE.MeshBasicMaterial({ color: '#ffb020', transparent: true, opacity: 0.45, depthWrite: false }), step: new THREE.MeshBasicMaterial({ color: '#ffe14a', transparent: true, opacity: 0.4, depthWrite: false }) };
 let analysis = null;
 function overlays() {
   for (const c of [...overlayGroup.children]) overlayGroup.remove(c);
@@ -398,7 +398,7 @@ function frame() {
   for (const p of B.parts) { const P = PART[p.part], [fw, fd] = dims(P, p.r); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x + fw); z0 = Math.min(z0, p.z); z1 = Math.max(z1, p.z + fd); y1 = Math.max(y1, (p.y + P.h) * PLATE); }
   if (!B.parts.length) { x0 = z0 = 0; x1 = z1 = B.size; }
   const cx = off() + (x0 + x1) / 2, cz = off() + (z0 + z1) / 2, R = Math.max(x1 - x0, z1 - z0, y1, 6);
-  controls.target.set(cx, y1 / 3, cz); camera.position.set(cx + R * 0.95, y1 / 3 + R * 0.85, cz + R * 1.25);
+  controls.target.set(cx, y1 / 3, cz); camera.position.set(cx + R * 1.2, y1 / 3 + R * 1.05, cz + R * 1.55);
 }
 
 // sound
