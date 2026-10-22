@@ -117,7 +117,8 @@ h4 small { text-transform: none; letter-spacing: 0; font-weight: 400; }
 .loader.done { opacity: 0; pointer-events: none; }
 .ring { width: 44px; height: 44px; border-radius: 50%; border: 3px solid rgba(255, 143, 31, .15); border-top-color: var(--accent); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (max-width: 1250px) { .legend { display: none; } .kpi { min-width: 0; } }
+@media (max-width: 1450px) { .kpi { min-width: 0; padding: 5px 9px; } .kpi b { font-size: 17px; } .kpi i { max-width: 150px; } }
+@media (max-width: 1250px) { .legend { display: none; } }
 @media (max-width: 860px) {
   #app { grid-template-columns: 1fr; grid-template-rows: 64vh 1fr; }
   #app.collapsed { grid-template-rows: 100vh 0; grid-template-columns: 1fr; }

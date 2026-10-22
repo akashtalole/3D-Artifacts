@@ -221,7 +221,7 @@ export class Sim {
     const T = this.temple; T.credit = Math.min(T.credit + TEMPLE_CAP * dt / 3600, Math.max(2 * GROUP, TEMPLE_CAP / 20));
     while (T.queue.length && T.credit >= GROUP) { const G = T.queue.shift(); T.qPeople -= G.people; T.credit -= G.people; G.state = 'darshan'; G.timer = TEMPLE_MIN * 60; this.wake(G); T.inside += G.people; }
     // TPs: crowding from holding and return queues
-    for (const id in this.nodes) { const n = this.nodes[id]; n.wait = n.waiting; n.rho = n.kind === 'ghat' ? (this.ghats[id]?.rho || 0) : (n.waiting + (n.retPeople || 0)) / n.area; n.waiting = 0; }
+    for (const id in this.nodes) { const n = this.nodes[id]; n.wait = n.waiting; n.rho = n.kind === 'ghat' ? (this.ghats[id]?.rho || 0) : Math.min(6.5, (n.waiting + (n.retPeople || 0)) / n.area); n.waiting = 0; }
     this.monitor();
     this.t += dt;
   }
@@ -413,6 +413,7 @@ export class Sim {
     const t = this.t, h = this.H[Math.floor(t / 3600)];
     let maxRho = 0, crit = 0, busQ = 0, ghatQ = 0, hw = 0;
     const check = (o, name, rho) => {
+      rho = Math.min(rho, 6.5);   // beyond this the crowd spills into side streets
       if (rho > maxRho) maxRho = rho;
       if (rho >= CRIT) { crit += this.dt / 60; o.crit += this.dt / 60; if (t - (o.alertT ?? -1e9) > 1800) { o.alertT = t; this.alerts.push({ t, name, rho }); } }
     };

@@ -20,7 +20,7 @@ function ribbon(pts, width, y, material, uvScale = 20) {
     const w = typeof width === 'function' ? width(i) : width;
     pos.push(pts[i][0] + nx * w / 2, y, pts[i][1] + nz * w / 2, pts[i][0] - nx * w / 2, y, pts[i][1] - nz * w / 2);
     uv.push(0, s / uvScale, 1, s / uvScale);
-    if (i) { const o = (i - 1) * 2; idx.push(o, o + 1, o + 2, o + 1, o + 3, o + 2); }
+    if (i) { const o = (i - 1) * 2; idx.push(o, o + 2, o + 1, o + 1, o + 2, o + 3); }
   }
   const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
   const m = new THREE.Mesh(g, material); m.receiveShadow = true; return m;
@@ -57,13 +57,15 @@ export class City {
     // urban fabric: paved city areas under the buildings
     const urban = canvasTex(256, 256, (g) => { g.fillStyle = '#b9ae9c'; g.fillRect(0, 0, 256, 256); const R = rng(9); for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(${90 + R() * 60},${80 + R() * 50},${70 + R() * 40},.25)`; g.fillRect(R() * 256, R() * 256, 2 + R() * 6, 2 + R() * 6); } }, true);
     urban.repeat.set(60, 60);
-    this.urbanMat = new THREE.MeshStandardMaterial({ map: urban, roughness: 1 });
-    for (const z of URBAN) { const m = new THREE.Mesh(new THREE.CircleGeometry(1, 40), this.urbanMat); m.rotation.x = -Math.PI / 2; m.scale.set(z.rx, z.rz, 1); m.position.set(z.x, 0.05, z.z); m.receiveShadow = true; this.root.add(m); }
+    const mask = canvasTex(256, 256, (g) => { const R = rng(17); const grd = g.createRadialGradient(128, 128, 30, 128, 128, 128); grd.addColorStop(0, '#fff'); grd.addColorStop(0.6, '#ddd'); grd.addColorStop(1, '#000'); g.fillStyle = grd; g.fillRect(0, 0, 256, 256); for (let i = 0; i < 500; i++) { const a = R() * 6.28, r = 70 + R() * 58; g.fillStyle = `rgba(0,0,0,${R() * 0.5})`; g.beginPath(); g.arc(128 + Math.cos(a) * r, 128 + Math.sin(a) * r, 4 + R() * 14, 0, 6.28); g.fill(); } });
+    mask.colorSpace = THREE.NoColorSpace;
+    this.urbanMat = new THREE.MeshStandardMaterial({ map: urban, alphaMap: mask, transparent: true, depthWrite: false, roughness: 1 });
+    for (const z of URBAN) { const m = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 2.3), this.urbanMat); m.rotation.x = -Math.PI / 2; m.rotation.z = (z.ry || 0) + 0.4; m.scale.set(z.rx, z.rz, 1); m.position.set(z.x, 0.05, z.z); m.receiveShadow = true; this.root.add(m); }
   }
   water() {
     const pts = RIVER_PTS.map((p) => [p.x, p.z]);
-    this.waterTex = canvasTex(256, 256, (g) => { g.fillStyle = '#7c8d78'; g.fillRect(0, 0, 256, 256); const R = rng(4); for (let i = 0; i < 260; i++) { g.strokeStyle = `rgba(255,255,255,${0.05 + R() * 0.1})`; g.lineWidth = 1 + R(); const x = R() * 256, y = R() * 256; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + 8, y - 3, x + 18, y); g.stroke(); } }, true);
-    this.waterMat = new THREE.MeshStandardMaterial({ map: this.waterTex, color: '#6f8d86', roughness: 0.25, metalness: 0.15 });
+    this.waterTex = canvasTex(256, 256, (g) => { g.fillStyle = '#6e8f9c'; g.fillRect(0, 0, 256, 256); const R = rng(4); for (let i = 0; i < 260; i++) { g.strokeStyle = `rgba(255,255,255,${0.05 + R() * 0.1})`; g.lineWidth = 1 + R(); const x = R() * 256, y = R() * 256; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + 8, y - 3, x + 18, y); g.stroke(); } }, true);
+    this.waterMat = new THREE.MeshStandardMaterial({ map: this.waterTex, color: '#7fb0c4', roughness: 0.2, metalness: 0.2 });
     const bankMat = mat('#8b7a5c');
     this.root.add(ribbon(pts, RIVER_W + 26, 0.08, bankMat, 40));
     this.root.add(ribbon(pts, RIVER_W, 0.25, this.waterMat, 30));
@@ -74,9 +76,9 @@ export class City {
   hills() {
     const R = rng(8), list = [];
     for (const [x, z, r, h] of [[-3900, 3400, 900, 160], [-4800, 1800, 600, 90], [6200, -2600, 1100, 140], [-1500, -4600, 900, 110], [2800, -4400, 800, 100], [7200, 1000, 700, 80], [-5600, -3200, 1200, 220], [700, 6000, 1300, 150]]) list.push({ x, z, sx: r, sy: h, sz: r * (0.7 + R() * 0.5), ry: R() * 3 });
-    const geo = new THREE.ConeGeometry(1, 1, 9, 3); geo.translate(0, 0.5, 0);
+    const geo = new THREE.ConeGeometry(1, 1, 18, 5); geo.translate(0, 0.5, 0);
     const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i); if (y > 0.05 && y < 0.95) { p.setX(i, p.getX(i) * (0.85 + Math.random() * 0.3)); p.setZ(i, p.getZ(i) * (0.85 + Math.random() * 0.3)); } } geo.computeVertexNormals();
-    this.root.add(instanced(geo, mat('#7d8550', { flatShading: true }), list, false));
+    this.root.add(instanced(geo, mat('#8f8a5e'), list, false));
   }
   /** City blocks, trees and roads (needs the network geometry from the sim). */
   build(sim) {
@@ -114,15 +116,20 @@ export class City {
     this.sim = sim;
   }
   bridge(l, A, B, w) {
-    const L = Math.hypot(B.x - A.x, B.z - A.z), mid = [(A.x + B.x) / 2, (A.z + B.z) / 2], ang = Math.atan2(B.z - A.z, B.x - A.x);
-    const g = new THREE.Group(); g.position.set(mid[0], 0, mid[1]); g.rotation.y = -ang; this.net.add(g);
-    const pontoon = l.ex.pontoon;
-    const deck = new THREE.Mesh(new THREE.BoxGeometry(L, pontoon ? 0.5 : 1.0, w + 1), mat(pontoon ? '#6b6f74' : '#a39886')); deck.position.y = pontoon ? 0.5 : 2.2; deck.castShadow = deck.receiveShadow = true; g.add(deck);
-    for (const s of [-1, 1]) { const rail = new THREE.Mesh(new THREE.BoxGeometry(L, 0.9, 0.25), mat(pontoon ? '#d9d4c8' : '#8d8273')); rail.position.set(0, (pontoon ? 0.5 : 2.2) + 0.9, s * (w / 2 + 0.4)); g.add(rail); }
+    // deck only over the water (plus short approaches)
+    const Lfull = Math.hypot(B.x - A.x, B.z - A.z); let t0 = 1, t1 = 0;
+    for (let d = 0; d <= Lfull; d += 2) { const t = d / Lfull; if (riverDist(A.x + (B.x - A.x) * t, A.z + (B.z - A.z) * t) < 10) { t0 = Math.min(t0, t); t1 = Math.max(t1, t); } }
+    if (t1 <= t0) return;
+    const pad = 14 / Lfull; t0 = Math.max(0, t0 - pad); t1 = Math.min(1, t1 + pad);
+    if (this.linkMeshes[l.id]) this.linkMeshes[l.id].deck = [t0, t1, l.a];
+    const ax = A.x + (B.x - A.x) * t0, az = A.z + (B.z - A.z) * t0, bx = A.x + (B.x - A.x) * t1, bz = A.z + (B.z - A.z) * t1;
+    const L = Math.hypot(bx - ax, bz - az), ang = Math.atan2(bz - az, bx - ax);
+    const g = new THREE.Group(); g.position.set((ax + bx) / 2, 0, (az + bz) / 2); g.rotation.y = -ang; this.net.add(g);
+    const pontoon = l.ex.pontoon, y = pontoon ? 0.5 : 2.2;
+    const deck = new THREE.Mesh(new THREE.BoxGeometry(L, pontoon ? 0.5 : 1.0, w + 1), mat(pontoon ? '#6b6f74' : '#a39886')); deck.position.y = y; deck.castShadow = deck.receiveShadow = true; g.add(deck);
+    for (const sd of [-1, 1]) { const rail = new THREE.Mesh(new THREE.BoxGeometry(L, 0.9, 0.25), mat(pontoon ? '#d9d4c8' : '#8d8273')); rail.position.set(0, y + 0.9, sd * (w / 2 + 0.4)); g.add(rail); }
     if (pontoon) { for (let x = -L / 2 + 4; x < L / 2; x += 6) { const d = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, w, 10), mat('#2d4a7a', { metalness: 0.4 })); d.rotation.x = Math.PI / 2; d.position.set(x, 0.1, 0); g.add(d); } }
     else for (let x = -L / 2 + 15; x < L / 2 - 5; x += 22) { const p = new THREE.Mesh(new THREE.BoxGeometry(2.2, 2.2, w + 1), mat('#9a8c78')); p.position.set(x, 1.0, 0); g.add(p); }
-    // ramps down to street level at each end
-    deck.scale.y = 1;
   }
   ghat(g) {
     const p = ghatPos(g), F = g.F;

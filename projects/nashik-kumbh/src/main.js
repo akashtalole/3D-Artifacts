@@ -208,7 +208,7 @@ function report() {
 const LABELS = [];
 function makeLabels() {
   const add = (key, x, z, y, cls, html, minD = 0, maxD = 4000) => { const el = document.createElement('div'); el.className = `lbl ${cls}`; el.innerHTML = html; $('#labels').appendChild(el); LABELS.push({ key, v: new THREE.Vector3(x, y, z), el, minD, maxD }); };
-  for (const g of GHATS) { const n = NODES[g.id]; add(g.id, n.x, n.z, 14, 'ghat', `<b>${esc(g.mr)}</b><span>${esc(g.name)}</span><em></em>`, 0, g.sacred ? 2600 : 5200); }
+  for (const g of [...GHATS].sort((a, b) => (b.id === 'G_RAM') - (a.id === 'G_RAM'))) { const n = NODES[g.id]; add(g.id, n.x, n.z, 14, 'ghat', `<b>${esc(g.mr)}</b><span>${esc(g.name)}</span><em></em>`, 0, g.sacred ? 2600 : 5200); }
   for (const k of ['TP_W', 'TP_N', 'TP_T', 'TP_D', 'TP_R']) { const n = NODES[k]; add(k, n.x, n.z, 16, 'tp', `<b>${esc(n.name)}</b><em></em>`, 0, 7000); }
   for (const [k, h] of Object.entries(HUBS)) add(k, h.x, h.z, 18, 'hub', `<b>🅿 ${esc(h.name)}</b><span>${esc(h.sub)}</span><em></em>`, 0, 16000);
   add('kal', NODES.J_KAL.x + 40, NODES.J_KAL.z - 40, 40, 'lm', '<b>काळाराम मंदिर</b><span>Kalaram temple</span>', 0, 2600);
@@ -219,14 +219,20 @@ function makeLabels() {
 const _v = new THREE.Vector3();
 function updateLabels() {
   if (!S.labels) return;
-  const w = canvas.clientWidth, h = canvas.clientHeight;
+  const w = canvas.clientWidth, h = canvas.clientHeight, placed = [];
   for (const L of LABELS) {
     _v.copy(L.v).project(camera);
     const d = camera.position.distanceTo(L.v);
     const hub = sim.hubs[L.key], ghat = sim.ghats[L.key];
     const show = _v.z < 1 && d > L.minD && d < L.maxD && (L.key.startsWith('H_') ? !!hub : L.key.startsWith('G_') ? !!ghat : L.key === 'iccc' ? S.plan.iccc : true);
-    L.el.style.display = show ? '' : 'none'; if (!show) continue;
-    L.el.style.transform = `translate(${(_v.x * 0.5 + 0.5) * w}px, ${(-_v.y * 0.5 + 0.5) * h}px) translate(-50%, -100%)`;
+    const sx = (_v.x * 0.5 + 0.5) * w, sy = (-_v.y * 0.5 + 0.5) * h;
+    // skip labels that would overlap one already placed (earlier labels have priority)
+    const bw = (L.bw ||= L.el.offsetWidth || 160), bh = (L.bh ||= L.el.offsetHeight || 34);
+    const box = [sx - bw / 2, sy - bh, sx + bw / 2, sy];
+    const clash = show && placed.some((b) => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]);
+    L.el.style.display = show && !clash ? '' : 'none'; if (!show || clash) continue;
+    placed.push(box);
+    L.el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -100%)`;
     const em = L.el.querySelector('em');
     if (em && ghat) em.innerHTML = sim.ghatClosed(L.key, sim.t) ? 'reserved for akharas' : `${Math.round(ghat.qPeople / ghat.cap * 60)} min queue · <i style="color:${densCol(ghat.rho)}">${ghat.rho.toFixed(1)}/m²</i>`;
     else if (em && hub) em.textContent = hub.rail ? `${fmt(hub.qPeople)} waiting for shuttles` : `${Math.round(hub.occ / (hub.cap * PER_VEHICLE) * 100)}% full${hub.qPeople ? ` · ${fmt(hub.qPeople)} queueing` : ''}`;
@@ -260,7 +266,7 @@ function drawCrowds() {
         const u = Math.max(0, Math.min(l.L, G.pos - (f / k) * gl - h2 * gl / k)) / l.L;
         const dx = B.x - A.x, dz = B.z - A.z, L = Math.hypot(dx, dz) || 1, lat = (h1 - 0.5) * w * 0.9;
         x = A.x + dx * u - (dz / L) * lat; z = A.z + dz * u + (dx / L) * lat; yaw = Math.atan2(dx, dz);
-        if (l.ex.bridge && l.ex.bridge !== 'kapila' && !l.ex.pontoon) { const mid = 1 - Math.abs(u - 0.5) * 2; y = 0.15 + Math.min(1, mid * 6) * 2.6; } else if (l.ex.pontoon) y = 0.8;
+        if (lm?.deck) { const ua = A.id === lm.deck[2] ? u : 1 - u; if (ua >= lm.deck[0] && ua <= lm.deck[1]) y = l.ex.pontoon ? 0.8 : 2.75; }
       } else if (G.state === 'enter') {
         const nd = G.gate.node, [ox, oz] = spiral(G._slot || 0, nd.kind === 'tp' ? 30 : 10, nd.kind === 'tp' ? 7 : 4);
         x = nd.x + ox + (h1 - 0.5) * 6; z = nd.z + oz + (h2 - 0.5) * 6;
@@ -368,7 +374,7 @@ function updateSky() {
   sun.intensity = day * 2.4; hemi.intensity = 0.25 + day * 0.7; hemi.color.set(day < 0.3 ? '#7f93c8' : '#e8eefc');
   sun.color.set(elev < 12 ? '#ffb27a' : '#fff3df');
   const fog = new THREE.Color('#d9d2c2').multiplyScalar(0.12 + 0.88 * day); if (elev < 10 && elev > -6) fog.lerp(new THREE.Color('#e7a76a'), 0.3 * day);
-  scene.fog.color.copy(fog); scene.fog.density = h > 4 && h < 8.5 ? 0.00018 : 0.00011;   // dawn haze from wood fires and river mist
+  scene.fog.color.copy(fog); scene.fog.density = (h > 4 && h < 8.5 ? 0.00016 : 0.0001) * Math.min(1, 2200 / Math.max(300, camera.position.distanceTo(controls.target)));   // dawn haze from wood fires and river mist; thinner from high up
   if (city.buildMat) city.buildMat.emissiveIntensity = day < 0.35 ? 0.9 * (1 - day) : 0;
   sky.position.copy(camera.position);
 }
