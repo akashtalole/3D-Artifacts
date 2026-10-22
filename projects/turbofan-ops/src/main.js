@@ -281,8 +281,8 @@ function frame(now) {
   model.lp.rotation.x = -a1; model.hp.rotation.x = -a2;
   // combustor flame, igniter sparks, hot sections
   const c = E.c, hot = E.lit ? Math.min(1, (c.T4 - c.T3) / 1100) : 0;
-  model.flameMat.opacity = hot * 0.85 * (0.85 + Math.random() * 0.15); model.flameMat.color.set(hot > 0.7 ? '#ffd27a' : '#ff8a2a');
-  combLight.intensity = hot * 6;
+  model.flameMat.opacity = hot * 0.32 * (0.8 + Math.random() * 0.2); model.flameMat.color.set(hot > 0.7 ? '#ff9a3a' : '#ff6a1a');
+  combLight.intensity = hot * 2.5;
   for (const [i, sp] of model.igniters.entries()) sp.material.opacity = (i === 0 ? E.ignA : E.ignB || (E.contIgn && i === 1)) && Math.random() < 0.35 ? 1 : 0;
   model.hptMat.emissiveIntensity = Math.max(0, (c.T45 - 900) / 900) * 0.8;
   model.plugMat.emissiveIntensity = Math.max(0, (E.EGT - 450) / 900) * 0.6;
