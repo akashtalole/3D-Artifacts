@@ -76,7 +76,7 @@ export class TurbofanModel {
     this.cascade = this.part('cascade', casc, -0.3, 'reverser');
     // blocker doors (fold into the bypass duct when reversing)
     const doorG = new THREE.BoxGeometry(0.4, 0.02, 0.22); doorG.translate(-0.2, 0, 0);
-    this.doors = new THREE.InstancedMesh(doorG, mat('#6f7780'), 16); this.doors.userData.part = 'reverser'; G.add(this.doors); this.setReverser(0);
+    this.doors = new THREE.InstancedMesh(doorG, mat('#6f7780'), 16); this.doors.userData.part = 'reverser'; G.add(this.doors);
     // ── fan case, OGVs, core cowl ──
     const fanCase = lathe([[1.42, 1.0], [0.4, 1.0], [0.4, 1.02], [1.42, 1.02]], this.shell('#7d858e'), 96);
     this.part('fancase', fanCase, 0.6, 'fan');
@@ -148,6 +148,7 @@ export class TurbofanModel {
     this.part('agb', agb, 0, 'agb');
     // bird for the bird-strike scenario
     this.bird = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), mat('#6b5a45', { metalness: 0 })); this.bird.scale.set(1.6, 1, 1); this.bird.visible = false; G.add(this.bird);
+    this.setReverser(0);
     this.setCutaway(true);
   }
   setCutaway(on) { for (const m of this.shells) { m.clippingPlanes = on ? this.clip : []; m.needsUpdate = true; } this.cut = on; }
@@ -157,6 +158,7 @@ export class TurbofanModel {
     // keep rotor parts that are inside spool groups consistent
   }
   setReverser(u) {
+    this.doors.visible = this.cascade.visible = u > 0.02;   // stowed inside the sleeve
     if (this.sleeve) this.sleeve.position.x = this.parts.sleeve.base.x - 0.42 * u;
     const o = new THREE.Object3D();
     for (let i = 0; i < 16; i++) { o.position.set(-0.6 - 0.42 * u, 0, 0); o.rotation.set((i / 16) * Math.PI * 2, 0, 0); o.translateY(0.97); o.rotateZ(-u * 1.25); o.updateMatrix(); this.doors.setMatrixAt(i, o.matrix); }
