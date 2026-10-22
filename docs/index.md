@@ -165,6 +165,17 @@ holding areas and the ICCC, then simulate 40 lakh pilgrims on an Amrit Snan day.
 [Launch app](apps/nashik-kumbh/) · [Documentation](projects/nashik-kumbh/index.md)
 </div>
 
+<div class="card" markdown>
+[![Turbofan Ops](assets/turbofan-ops/toga.jpg)](apps/turbofan-ops/)
+
+### Turbofan Ops
+
+Start, run and reverse a high-bypass turbofan in a 3D cutaway: FADEC auto-start, a live
+thermodynamic cycle, cockpit gauges and failures from hot starts to engine fires.
+
+[Launch app](apps/turbofan-ops/) · [Documentation](projects/turbofan-ops/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

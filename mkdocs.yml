@@ -84,6 +84,7 @@ nav:
       - Robot Cell Studio: projects/robot-cell-studio/index.md
       - Yatra · Rail & ST: projects/yatra/index.md
       - Kumbh City · Nashik: projects/nashik-kumbh/index.md
+      - Turbofan Ops: projects/turbofan-ops/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.
