@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Robot Cell Studio</title>
+  <meta name="description" content="Build an industrial robot from joints, links, motors and tools; check its reach, payload and joint loads; program it in a 3D factory cell and export URDF." />
+  <meta name="theme-color" content="#12161c" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='52' width='26' height='6' rx='2' fill='%23555'/%3E%3Ccircle cx='23' cy='44' r='7' fill='%23f08a24'/%3E%3Cpath d='M23 44 L30 20 L50 14' stroke='%23f08a24' stroke-width='7' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='30' cy='20' r='5' fill='%23333'/%3E%3Cpath d='M50 14 L54 24 M50 14 L58 12' stroke='%23999' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header class="top">
+      <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="33" width="17" height="4" rx="1" fill="#556"/><circle cx="13" cy="28" r="4.5" fill="#f08a24"/><path d="M13 28 L18 12 L31 8" stroke="#f08a24" stroke-width="4.5" stroke-linecap="round" fill="none"/><circle cx="18" cy="12" r="3" fill="#333"/><path d="M31 8 L34 15 M31 8 L37 7" stroke="#aab" stroke-width="2"/></svg><span>Robot Cell <b>Studio</b></span></div>
+      <label class="pick"><span>Robot</span><select id="preset"></select></label>
+      <label class="pick"><span>Task</span><select id="task"></select></label>
+      <div class="seg">
+        <button id="play" class="play" title="Run / pause (Space)"><svg viewBox="0 0 24 24"><path id="play-ico" d="M8 5v14l11-7z"/></svg></button>
+        <button id="rewind" title="Back to the start"><svg viewBox="0 0 24 24"><path d="M6 5v14M19 5L9 12l10 7z"/></svg></button>
+        <div class="speeds"></div>
+      </div>
+      <div class="cycle"><span class="mono" id="cyc">0.0 s</span><small id="cyc-sub">cycle</small></div>
+      <div class="spacer"></div>
+      <div class="seg views">
+        <button data-view="iso" class="active">Iso</button><button data-view="front">Front</button><button data-view="side">Side</button><button data-view="top">Top</button>
+      </div>
+      <div class="seg toggles">
+        <button id="t-env" title="Show the reachable workspace">Workspace</button>
+        <button id="t-frames" title="Show joint frames">Frames</button>
+        <button id="t-fence" class="active" title="Safety fence">Fence</button>
+      </div>
+    </header>
+
+    <aside class="left" id="left">
+      <div class="head"><h3>Build the robot</h3><button class="btn small" id="reset-robot" title="Reset to the selected preset">Reset</button></div>
+      <p class="muted" id="preset-desc"></p>
+      <div class="row2">
+        <label>Pedestal / mount height<input type="range" id="base" min="0" max="2.5" step="0.05" /><output id="base-o"></output></label>
+      </div>
+      <div class="row2">
+        <label>Colour</label><div class="swatches" id="colors"></div>
+      </div>
+      <div class="row2"><label>End effector</label><select id="tool"></select></div>
+      <div id="modules"></div>
+      <button class="btn add" id="add-mod">+ Add joint</button>
+      <p class="note">Each joint moves everything after it. <b>Yaw</b> turns about the vertical, <b>pitch</b> bends, <b>roll</b> twists about its own link, <b>slide</b> is a linear axis. Bigger motors carry more but weigh more.</p>
+    </aside>
+
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div class="status" id="status"></div>
+      <div class="jog" id="jog">
+        <div class="jhead"><b id="jog-toggle" title="Show / hide the jog panel">Jog <span>▾</span></b><div class="seg small"><button data-jog="joints" class="active">Joints</button><button data-jog="tcp" title="Drag the blue handle; the arm follows with inverse kinematics">Drag TCP</button></div><button class="btn small" id="tool-down" title="Point the tool straight down">Tool ↓</button><button class="btn small" id="go-home">Home</button></div>
+        <div id="jog-sliders"></div>
+        <div class="teach"><button class="btn primary" id="teach-j">+ Teach MoveJ</button><button class="btn" id="teach-l">+ Teach MoveL</button><button class="btn" id="add-tool">+ Tool</button><button class="btn" id="add-wait">+ Wait</button></div>
+      </div>
+    </main>
+
+    <aside class="right" id="right">
+      <nav class="tabs" role="tablist"><button data-tab="specs" class="active">Specs</button><button data-tab="program">Program <i id="badge"></i></button><button data-tab="export">Export</button></nav>
+      <div class="panel" id="panel"></div>
+    </aside>
+    <div class="toast" id="toast" role="status"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Homing axes…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

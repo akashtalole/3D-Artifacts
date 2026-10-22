@@ -15,6 +15,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [Forts of Swarajya](shivaji-forts/index.md) | [Launch](../apps/shivaji-forts/) | 14 forts of Chhatrapati Shivaji Maharaj on real terrain, with a Sahyadri relief map and a 1630–1680 timeline |
 | [Proto Lab](proto-lab/index.md) | [Launch](../apps/proto-lab/) | Electronics prototyping with 8 boards, breadboards and 65 sensors and modules: circuit check, simulation and Arduino/MicroPython/Python code |
 | [Logistics Twin](logistics-twin/index.md) | [Launch](../apps/logistics-twin/) | Fulfilment-centre digital twin: inbound, putaway, AMR picking, packing, sortation and outbound trucks, with live KPIs, bottleneck detection and scenarios |
+| [Robot Cell Studio](robot-cell-studio/index.md) | [Launch](../apps/robot-cell-studio/) | Modular industrial robot builder: kinematics, payload and joint loads, IK teaching, task programs in a work cell, URDF export |
 
 ## Shared conventions
 

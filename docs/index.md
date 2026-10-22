@@ -132,6 +132,17 @@ AMR order picking, packing, a sorter and line-haul trucks, with KPIs and bottlen
 [Launch app](apps/logistics-twin/) · [Documentation](projects/logistics-twin/index.md)
 </div>
 
+<div class="card" markdown>
+[![Robot Cell Studio](assets/robot-cell-studio/six-palletize.jpg)](apps/robot-cell-studio/)
+
+### Robot Cell Studio
+
+Build an industrial robot joint by joint, check its reach, payload and motor loads,
+program it in a 3D factory cell and export URDF.
+
+[Launch app](apps/robot-cell-studio/) · [Documentation](projects/robot-cell-studio/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

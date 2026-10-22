@@ -81,6 +81,7 @@ nav:
       - Forts of Swarajya: projects/shivaji-forts/index.md
       - Proto Lab: projects/proto-lab/index.md
       - Logistics Twin: projects/logistics-twin/index.md
+      - Robot Cell Studio: projects/robot-cell-studio/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.
