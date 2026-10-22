@@ -110,6 +110,17 @@ to Sindhudurg, with walls traced from the cliffs and a timeline of his life.
 [Launch app](apps/shivaji-forts/) · [Documentation](projects/shivaji-forts/index.md)
 </div>
 
+<div class="card" markdown>
+[![Proto Lab](assets/proto-lab/parking.jpg)](apps/proto-lab/)
+
+### Proto Lab
+
+Prototype electronics in 3D: Arduino, ESP32 and Raspberry Pi boards, breadboards and 65
+sensors and modules, with a circuit check, simulation and generated firmware.
+
+[Launch app](apps/proto-lab/) · [Documentation](projects/proto-lab/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

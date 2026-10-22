@@ -13,6 +13,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [Cloud Brick Architect](aws-architecture-builder/index.md) | [Launch](../apps/aws-architecture-builder/) | 2D AWS architecture building game: snap official AWS icons into VPCs and subnets, run traffic, fail an AZ |
 | [CAD/CAM Studio](cad-cam-studio/index.md) | [Launch](../apps/cad-cam-studio/) | Parametric CSG part design, 2.5D milling toolpaths, material-removal simulation, G-code and STL export |
 | [Forts of Swarajya](shivaji-forts/index.md) | [Launch](../apps/shivaji-forts/) | 14 forts of Chhatrapati Shivaji Maharaj on real terrain, with a Sahyadri relief map and a 1630–1680 timeline |
+| [Proto Lab](proto-lab/index.md) | [Launch](../apps/proto-lab/) | Electronics prototyping with 8 boards, breadboards and 65 sensors and modules: circuit check, simulation and Arduino/MicroPython/Python code |
 
 ## Shared conventions
 

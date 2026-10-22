@@ -79,6 +79,7 @@ nav:
       - Cloud Brick Architect: projects/aws-architecture-builder/index.md
       - CAD/CAM Studio: projects/cad-cam-studio/index.md
       - Forts of Swarajya: projects/shivaji-forts/index.md
+      - Proto Lab: projects/proto-lab/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.
