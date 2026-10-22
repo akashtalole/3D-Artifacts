@@ -187,6 +187,17 @@ stability check, automatic building instructions, generators, photo mosaics and 
 [Launch app](apps/brick-studio/) · [Documentation](projects/brick-studio/index.md)
 </div>
 
+<div class="card" markdown>
+[![Earthmovers](assets/heavy-machinery/site.jpg)](apps/heavy-machinery/)
+
+### Earthmovers
+
+A heavy-equipment portfolio: eight machines with working hydraulics. Operate, configure and
+price them, plan a fleet, dig in a sandbox and watch a job site at work.
+
+[Launch app](apps/heavy-machinery/) · [Documentation](projects/heavy-machinery/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

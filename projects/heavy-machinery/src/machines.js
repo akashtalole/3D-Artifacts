@@ -56,6 +56,7 @@ export class Machine {
   tip(v = new THREE.Vector3()) { if (!this.tool?.userData.tip) return null; this.root.updateWorldMatrix(true, true); return this.tool.userData.tip.getWorldPosition(v); }
   /** roll wheels and tracks for a distance travelled */
   roll(ds, turn = 0) {
+    ds /= this.root.scale.x;
     for (const w of this.wheels) rollWheel(w, ds * (w.userData.side ? 1 + turn * w.userData.side : 1));
     for (const t of this.tracks) t.userData.advance(ds * (1 + turn * (t.userData.side || 0)));
   }
@@ -127,7 +128,7 @@ function excavator() {
   m.rot('stick', sk, { label: 'Stick', min: -55, max: 48, value: -28 });
   // bucket
   const bk = new THREE.Group(); bk.position.set(0.06, -2.9, 0); sk.add(bk); m.mount = bk;
-  m.rot('bucket', bk, { label: 'Bucket', min: -50, max: 140, value: 30 });
+  m.rot('bucket', bk, { label: 'Bucket', min: -140, max: 115, value: 30 });
   // rams
   for (const z of [0.36, -0.36]) m.ram(up, anchor(up, 1.25, 0.22, z), anchor(bp, 2.0, 0.78, z), ['boom'], 0.1, 0.06);
   m.ram(up, anchor(bp, 2.4, 2.05, 0), anchor(sk, -0.62, 0.3, 0), ['boom', 'stick'], 0.095, 0.055);
@@ -147,7 +148,7 @@ function excavator() {
   m.addHotspot('Stick', sk, '2.9 m stick. A longer stick trades breakout force for reach and depth.', [0.1, -1.4, 0]);
   m.addHotspot('Tracks', R, '600 mm triple-grouser shoes on sealed and lubricated track chain; 46 links per side.', [1.6, 0.9, 1.19]);
   m.addHotspot('Swing drive', R, 'Swing motor and planetary drive turn the upper structure on a slewing ring at ≈11 rpm.', [0, 1.1, 0.9]);
-  m.demo = [[0, { swing: 0, boom: 22, stick: -28, bucket: 30 }], [1.5, { boom: 14, stick: 2, bucket: -50 }], [3.5, { boom: 3, stick: -50, bucket: 107 }], [4.8, { boom: 45, stick: -24, bucket: 49 }], [6.4, { swing: 90, boom: 52, stick: -5, bucket: 23 }], [7.4, { bucket: 135, stick: 15 }], [9, { swing: 0, boom: 22, stick: -28, bucket: 30 }]];
+  m.demo = [[0, { swing: 0, boom: 22, stick: -28, bucket: 30 }], [1.5, { boom: 14, stick: 2, bucket: -50 }], [3.5, { boom: 3, stick: -50, bucket: 107 }], [4.8, { boom: 45, stick: -24, bucket: 39 }], [6.4, { swing: 90, boom: 53, stick: -5, bucket: 12 }], [7.4, { bucket: -140, stick: 10 }], [9, { swing: 0, boom: 22, stick: -28, bucket: 30 }]];
   m.calibrate();
   return m;
 }
@@ -174,10 +175,10 @@ function backhoe() {
   const tank = rbox(0.6, 0.55, 0.45, M.black, 0.05); tank.position.set(-1.45, 1.05, -0.75); R.add(tank);
   // front loader
   const la = new THREE.Group(); la.position.set(0.35, 2.0, 0); R.add(la);
-  for (const z of [0.78, -0.78]) { const a = beam([[0, 0], [0.9, -0.12], [2.0, -0.75], [2.85, -1.5]], [0.2, 0.3, 0.26, 0.2], 0.12, M.paint); a.position.z = z; la.add(a); const p = pin(0.08, 0.2); p.position.z = z; la.add(p); }
-  const xt = cyl(0.07, 1.56, M.paint); xt.position.set(2.05, -0.78, 0); la.add(xt);
+  for (const z of [0.78, -0.78]) { const a = beam([[0, 0], [0.85, -0.12], [1.8, -0.72], [2.45, -1.45]], [0.2, 0.3, 0.26, 0.2], 0.12, M.paint); a.position.z = z; la.add(a); const p = pin(0.08, 0.2); p.position.z = z; la.add(p); }
+  const xt = cyl(0.07, 1.56, M.paint); xt.position.set(1.8, -0.72, 0); la.add(xt);
   m.rot('lift', la, { label: 'Loader arms', min: -8, max: 52, value: 0 });
-  const lb = new THREE.Group(); lb.position.set(2.85, -1.5, 0); la.add(lb);
+  const lb = new THREE.Group(); lb.position.set(2.45, -1.45, 0); la.add(lb);
   const lbk = loaderBucket(2.25, 1.0, 0.75, { teeth: 0 }); lb.add(lbk);
   m.rot('curl', lb, { label: 'Loader bucket', min: -80, max: 45, value: 10 });
   for (const z of [0.78, -0.78]) m.ram(R, anchor(R, 1.05, 1.05, z), anchor(la, 1.2, -0.42, z), ['lift'], 0.07, 0.04);
@@ -207,12 +208,12 @@ function backhoe() {
   const legs = [];
   for (const z of [1.0, -1.0]) {
     const leg = new THREE.Group(); leg.position.set(-2.15, 1.25, z * 0.85); R.add(leg); leg.add(pin(0.07, 0.25));
-    const arm = beam([[0, 0], [0, -0.6], [z * 0 + 0, -1.0]], [0.2, 0.18, 0.16], 0.16, M.paint); arm.rotation.y = Math.PI / 2; leg.add(arm);
-    const foot = rbox(0.35, 0.06, 0.45, M.dark, 0.02); foot.position.set(0, -1.05, 0); leg.add(foot);
+    const arm = beam([[0, 0], [0, -0.7], [0, -1.22]], [0.2, 0.18, 0.16], 0.16, M.paint); arm.rotation.y = Math.PI / 2; leg.add(arm);
+    const foot = rbox(0.35, 0.06, 0.45, M.dark, 0.02); foot.position.set(0, -1.3, 0); leg.add(foot);
     legs.push([leg, z]);
   }
   const lg = legs[0][0], lg2 = legs[1][0];
-  m.joint('stabs', { label: 'Stabilisers', min: 0, max: 1, value: 0, unit: '', apply: (v) => { lg.rotation.x = -(0.95 - 0.95 * v) * 1.2; lg2.rotation.x = (0.95 - 0.95 * v) * 1.2; } });
+  m.joint('stabs', { label: 'Stabilisers', min: 0, max: 1, value: 0, unit: '', apply: (v) => { const a = Math.PI - (Math.PI - 0.3) * v; lg.rotation.x = -a; lg2.rotation.x = a; } });
   m.tools = {
     std: { name: 'Standard digging bucket, 600 mm', price: 0, cap: 0.2, make: () => bucket(0.6, 0.85, 0.55, { teeth: 3 }) },
     wide: { name: 'Wide bucket, 900 mm', price: 0.7, cap: 0.28, make: () => bucket(0.9, 0.85, 0.55, { teeth: 4 }) },
@@ -431,7 +432,7 @@ function grader() {
   return m;
 }
 
-// ──────────────────────────────────────────────────────────── telescopic handler (≈3.5 t / 14 m)
+// ──────────────────────────────────────────────────────────── telescopic handler (≈3.5 t / 9.5 m)
 function telehandler() {
   const m = new Machine('telehandler'), R = m.root;
   m.drive = { kind: 'wheels', speed: 0, steer: 0, maxSpeed: 8, turn: 0.5 };
@@ -468,7 +469,7 @@ function telehandler() {
     hook: { name: 'Lifting hook and jib', price: 1.8, cap: 0, make: () => { const g = new THREE.Group(); const j = rbox(1.6, 0.18, 0.18, M.paint, 0.02); j.position.set(0.8, -0.1, 0); g.add(j); const rope = cyl(0.01, 1.2, M.black, 'y', 6); rope.position.set(1.55, -0.75, 0); g.add(rope); const hk = mesh(new THREE.TorusGeometry(0.08, 0.025, 8, 16, Math.PI * 1.5), M.red); hk.position.set(1.55, -1.42, 0); g.add(hk); g.userData = { kind: 'hook', tip: anchor(g, 1.55, -1.45) }; return g; } },
   };
   m.setTool('forks');
-  m.addHotspot('Boom', bm, 'Three-section telescopic boom: 14 m lift height, 10 m forward reach. Load charts limit capacity at reach.', [2.5, 0.35, 0]);
+  m.addHotspot('Boom', bm, 'Three-section telescopic boom: ≈9.5 m lift height, ≈6.5 m forward reach. Load charts limit capacity at reach.', [2.5, 0.35, 0]);
   m.addHotspot('Carriage', carr, 'Automatic fork levelling keeps the load flat as the boom rises; quick-hitch for buckets, jibs and platforms.', [0.3, -0.3, 0]);
   m.addHotspot('Stabilisers', st, 'Front stabilisers must be down for maximum reach; a load moment indicator cuts unsafe movements.', [0, -0.3, 0]);
   m.addHotspot('Cab', c, 'Side-mounted cab with a single joystick for boom, telescope and tilt; three steering modes.', [0, 1.2, 0]);

@@ -20,6 +20,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [Kumbh City · Nashik](nashik-kumbh/index.md) | [Launch](../apps/nashik-kumbh/) | Simhastha Kumbh Mela crowd and transport simulator: parking hubs, shuttles, ghats and Ramkund, the akhara procession, holding areas and the ICCC, with a costed plan and an end-of-day grade |
 | [Turbofan Ops](turbofan-ops/index.md) | [Launch](../apps/turbofan-ops/) | Operate a high-bypass turbofan in a 3D cutaway: auto-start, TOGA, reverse, a live Brayton cycle, EICAS gauges and eight failure scenarios |
 | [Brick Studio Pro](brick-studio/index.md) | [Launch](../apps/brick-studio/) | An advanced 3D brick builder: 69 parts with stud snapping, selection editing, a stability check, automatic instructions, generators, photo mosaics, parts lists and LDraw / BrickLink export |
+| [Earthmovers](heavy-machinery/index.md) | [Launch](../apps/heavy-machinery/) | A 3D portfolio of eight heavy machines with working hydraulics: showroom, operating controls, configurator and quote, comparison, fleet planner, a digging sandbox and a job site |
 
 ## Shared conventions
 

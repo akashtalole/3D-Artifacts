@@ -8,7 +8,7 @@ import { BUILDERS } from './machines.js';
 import { M, anchor } from './kit.js';
 import { MACHINES, ORDER, PAINTS, OPTIONS, MATERIALS, HAULERS, fmtL } from './data.js';
 import { Terrain } from './terrain.js';
-import { buildSite } from './site.js';
+import { buildSite, TRUCK_SCALE, TRUCK_M3 } from './site.js';
 
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -64,7 +64,7 @@ function setPaint(id) {
 }
 
 // ── machine loading ──
-function frameBox(obj) { obj.updateWorldMatrix(true, true); return new THREE.Box3().setFromObject(obj); }
+function frameBox(obj) { obj.updateWorldMatrix(true, true); return new THREE.Box3().setFromObject(obj, true); }
 function loadMachine(id, { keepCam = false } = {}) {
   state.id = id; state.demo = false;
   if (mach) mach.root.parent?.remove(mach.root);
@@ -96,10 +96,10 @@ let camAnim = null;
 function setCam(v, instant = false) {
   $$('#cams button').forEach((b) => b.classList.toggle('active', b.dataset.cam === v));
   state.cam = v;
-  if (state.mode === 'site') { const t = new THREE.Vector3(0, 0, 0); const p = v === 'top' ? new THREE.Vector3(0, 150, 1) : v === 'side' ? new THREE.Vector3(0, 30, 120) : v === 'front' ? new THREE.Vector3(120, 30, 0) : new THREE.Vector3(70, 60, 85); state.follow = null; return flyTo(p, t, instant); }
+  if (state.mode === 'site') { const t = new THREE.Vector3(0, 0, 0); const p = v === 'top' ? new THREE.Vector3(0, 150, 1) : v === 'side' ? new THREE.Vector3(0, 30, 120) : v === 'front' ? new THREE.Vector3(120, 30, 0) : new THREE.Vector3(62, 74, 100); t.set(0, 0, -3); state.follow = null; return flyTo(p, t, instant); }
   if (!mach) return;
   const b = frameBox(mach.root), c = b.getCenter(new THREE.Vector3()), s = b.getSize(new THREE.Vector3()), R = Math.max(s.x, s.y * 1.3, s.z) * 0.62 + 1.5;
-  const fov = camera.fov * D2R, dist = R / Math.sin(fov / 2) * (camera.aspect < 1 ? 1.5 : 1);
+  const fov = camera.fov * D2R, dist = R / Math.sin(fov / 2) * (camera.aspect < 1 ? 1.12 : 1);
   if (v === 'cab' && mach.eye) { const e = mach.eye.getWorldPosition(new THREE.Vector3()), qn = mach.eye.parent.getWorldQuaternion(new THREE.Quaternion()), f = new THREE.Vector3(1, -0.18, 0).applyQuaternion(qn); return flyTo(e, e.clone().addScaledVector(f, 6), instant, true); }
   const fwd = new THREE.Vector3(1, 0, 0).applyQuaternion(mach.root.getWorldQuaternion(new THREE.Quaternion())), side = new THREE.Vector3(0, 0, 1).applyQuaternion(mach.root.getWorldQuaternion(new THREE.Quaternion()));
   let p;
@@ -334,10 +334,10 @@ function setMode(mode) {
 }
 function placeInSandbox() {
   sandHolder.add(mach.root); mach.root.position.set(0, terrain.height(0, 0), 0); mach.root.rotation.y = 0; state.drive.v = 0;
-  if (!truckS) { truckS = BUILDERS.truck(); sandHolder.add(truckS.root); }
+  if (!truckS) { truckS = BUILDERS.truck(); truckS.root.scale.setScalar(TRUCK_SCALE); sandHolder.add(truckS.root); }
   truckS.root.visible = ['excavator', 'loader', 'backhoe', 'skid'].includes(state.id);
-  const d = state.id === 'excavator' ? 8.2 : state.id === 'loader' ? 9.5 : 8;
-  truckS.root.position.set(state.id === 'backhoe' ? -6 : 3, 0, -d); truckS.root.rotation.y = 0; truckS.update(0);
+  const d = state.id === 'excavator' ? 6.6 : state.id === 'loader' ? 7.5 : 6;
+  truckS.root.position.set(state.id === 'backhoe' ? -6 : state.id === 'excavator' ? 0.3 : 3, 0, -d); truckS.root.rotation.y = 0; truckS.update(0);
 }
 function follow(a) { state.follow = a; toast(`Following: ${a.name}`); }
 function renderSiteBar() {
@@ -375,9 +375,9 @@ function sandStep(dt) {
     if (tip.y < g - 0.02 && m.load < cap) { const vol = terrain.cut(tip.x, tip.z, Math.max(0.35, tool.w * 0.42), tip.y); m.load = Math.min(cap * 1.15, m.load + vol * 0.9); }
     tool.soil.parent.getWorldQuaternion(_q); _n.copy(tool.mouthN).applyQuaternion(_q);
     if (_n.y < -0.25 && m.load > 0) {
-      const rel = Math.min(m.load, cap * 1.6 * dt); m.load -= rel;
+      const rel = Math.min(m.load, cap * 3 * dt); m.load -= rel;
       const mouth = tool.soil.getWorldPosition(new THREE.Vector3());
-      if (truckS?.root.visible && inTruck(mouth)) { truckS.setLoad(truckS.load + rel / 60); state.truckT = (state.truckT || 0) + rel * DENS; }
+      if (truckS?.root.visible && inTruck(mouth)) { truckS.setLoad(truckS.load + rel / TRUCK_M3); state.truckT = (state.truckT || 0) + rel * DENS; }
       else terrain.add(mouth.x, mouth.z, rel, Math.max(0.7, tool.w * 0.6));
     }
     tool.soil.visible = m.load > 0.01; tool.soil.scale.y = Math.max(0.01, Math.min(1, m.load / cap)) * (tool.w > 1.5 ? 0.5 : 0.35);
@@ -394,11 +394,11 @@ function sandStep(dt) {
   else if (tool.kind === 'sweeper') tool.spin.rotation.z += dt * 10;
   terrain.sync();
 }
-function inTruck(p) { truckS.root.updateWorldMatrix(true, true); const l = truckS.root.worldToLocal(p.clone()); return l.x > -4.2 && l.x < 3.3 && Math.abs(l.z) < 2.8 && l.y > 2.0 && l.y < 9; }
+function inTruck(p) { truckS.root.updateWorldMatrix(true, true); const l = truckS.root.worldToLocal(p.clone()); return l.x > -4.4 && l.x < 3.4 && Math.abs(l.z) < 3.0 && l.y > 2.0 && l.y < 12; }
 function sandHud() {
   const m = mach, cap = m.tools[m.toolId]?.cap; const bits = [];
   if (m.tool?.userData.kind === 'bucket') bits.push(`<span>Bucket <b>${(m.load || 0).toFixed(2)} / ${cap} m³</b></span>`);
-  if (truckS?.root.visible) bits.push(`<span>Truck <b>${(truckS.load * 60 * DENS).toFixed(1)} t</b> of 90 t</span>`);
+  if (truckS?.root.visible) bits.push(`<span>Dump truck <b>${(truckS.load * TRUCK_M3 * DENS).toFixed(1)} t</b> of ${Math.round(TRUCK_M3 * DENS)} t</span>`);
   bits.push(`<span>Dug <b>${terrain.moved.toFixed(1)} m³</b></span>`, `<span>Speed <b>${(Math.abs(state.drive.v) * 3.6).toFixed(1)} km/h</b></span>`);
   $('#hud').innerHTML = bits.join('') + `<span style="pointer-events:auto"><button class="btn" id="resetsand" style="padding:1px 8px">↺ Reset ground</button></span>`;
   $('#resetsand').onclick = () => { terrain.reset(); truckS?.setLoad(0); state.truckT = 0; };

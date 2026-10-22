@@ -9,6 +9,7 @@ import { M, box, rbox, cyl, mesh } from './kit.js';
 import { MACHINES } from './data.js';
 
 const ease = (t) => t * t * (3 - 2 * t);
+export const TRUCK_SCALE = 0.65, TRUCK_M3 = 60 * TRUCK_SCALE ** 3, TRUCK_T = Math.round(TRUCK_M3 * 1.8);
 const lerp = (a, b, t) => a + (b - a) * t;
 
 /** interpolate keyframes [[t, {x, z, h, ...joints}], …] at time t (looping) */
@@ -51,7 +52,7 @@ export function buildSite(paint) {
   const road = new THREE.CatmullRomCurve3([[-30.7, -3.5], [-10, -6.5], [12, -10], [33, -14.5], [46, -24], [36, -34], [8, -33], [-22, -28], [-44, -18], [-46, -7]].map(([x, z]) => new THREE.Vector3(x, 0, z)), true, 'centripetal');
   { const N = 260, pos = [], idx = []; for (let i = 0; i <= N; i++) { const u = i / N, p = road.getPointAt(u % 1), t = road.getTangentAt(u % 1), nx = -t.z, nz = t.x; for (const s of [-4.2, 4.2]) pos.push(p.x + nx * s, 0.02, p.z + nz * s); if (i < N) { const a = i * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); } }
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
-    const r = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: '#6f675d', roughness: 1 })); r.receiveShadow = true; G.add(r); }
+    const r = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: '#6f675d', roughness: 1, side: THREE.DoubleSide })); r.receiveShadow = true; G.add(r); }
   const access = new THREE.Mesh(new THREE.PlaneGeometry(76, 7), new THREE.MeshStandardMaterial({ color: '#7d7466', roughness: 1 })); access.rotation.x = -Math.PI / 2; access.position.set(0, 0.025, -46); access.receiveShadow = true; G.add(access);
   const dirt = new THREE.MeshStandardMaterial({ color: '#8c6a44', roughness: 0.98, flatShading: true });
   const moundG = new THREE.SphereGeometry(1, 28, 16, 0, Math.PI * 2, 0, Math.PI / 2); { const p = moundG.attributes.position; for (let i = 0; i < p.count; i++) { const n = 1 + 0.08 * Math.sin(p.getX(i) * 9) * Math.cos(p.getZ(i) * 7); p.setXYZ(i, p.getX(i) * n, p.getY(i) * n, p.getZ(i) * n); } moundG.computeVertexNormals(); }
@@ -100,9 +101,10 @@ export function buildSite(paint) {
   // excavator at the face; two trucks take turns
   const EX_PASS = 6, T_LOAD = 4 * EX_PASS, T_CYCLE = 72;
   const ex = add('excavator', 'Excavator', -31, 3.2, Math.PI, null);
-  const pass = (S) => [[0, { swing: 0, boom: 14, stick: 2, bucket: -50 }], [1.5, { boom: 3, stick: -50, bucket: 107 }], [2.5, { boom: 45, stick: -24, bucket: 49 }], [3.7, { swing: S, boom: 54, stick: -2, bucket: 20 }], [4.5, { bucket: 135, stick: 15 }], [6, { swing: 0, boom: 14, stick: 2, bucket: -50 }]];
+  const pass = (S) => [[0, { swing: 0, boom: 14, stick: 2, bucket: -50 }], [1.5, { boom: 3, stick: -50, bucket: 107 }], [2.5, { boom: 45, stick: -24, bucket: 39 }], [3.7, { swing: S, boom: 53, stick: -5, bucket: 12 }], [4.5, { bucket: -140, stick: 10 }], [6, { swing: 0, boom: 14, stick: 2, bucket: -50 }]];
   const truckPass = complete(pass(-90)), sidePass = complete(pass(62));
-  const trucks = [add('truck', 'Haul truck 1', 0, 0, 0, null, { off: 0 }), add('truck', 'Haul truck 2', 0, 0, 0, null, { off: T_CYCLE / 2 })];
+  const trucks = [add('truck', 'Dump truck 1', 0, 0, 0, null, { off: 0 }), add('truck', 'Dump truck 2', 0, 0, 0, null, { off: T_CYCLE / 2 })];
+  for (const tr of trucks) tr.m.root.scale.setScalar(TRUCK_SCALE);   // a ≈30 t dump truck, matched to a 20 t excavator
   const U_DUMP = 0.31;
   const truckU = (t) => {   // position along the road (0 = load spot) for time in cycle
     if (t < T_LOAD) return [0, 'Loading'];
@@ -153,7 +155,7 @@ export function buildSite(paint) {
       const d = Math.hypot(p.x - px, p.z - pz); if (d < 5) tr.m.roll(d);
       for (const sw of tr.m.steerWheels) sw.rotation.y = THREE.MathUtils.clamp(dh * 30, -0.5, 0.5);
       tr.status = st;
-      if (st === 'Dumping') { const k = (tt - T_LOAD - 16) / 12; const b = k < 0.45 ? ease(k / 0.45) * 48 : k < 0.6 ? 48 : 48 * (1 - ease((k - 0.6) / 0.4)); tr.m.set('body', b); if (k > 0.25 && k < 0.6) tr.m.setLoad(1 - (k - 0.25) / 0.35); if (!tr.dumped && k > 0.55) { tr.dumped = true; stats.loads++; stats.tonnes += 88; const s = Math.min(1.8, 1 + stats.loads * 0.02); dumpPile.scale.set(s, s, s); } }
+      if (st === 'Dumping') { const k = (tt - T_LOAD - 16) / 12; const b = k < 0.45 ? ease(k / 0.45) * 48 : k < 0.6 ? 48 : 48 * (1 - ease((k - 0.6) / 0.4)); tr.m.set('body', b); if (k > 0.25 && k < 0.6) tr.m.setLoad(1 - (k - 0.25) / 0.35); if (!tr.dumped && k > 0.55) { tr.dumped = true; stats.loads++; stats.tonnes += TRUCK_T; const s = Math.min(1.8, 1 + stats.loads * 0.02); dumpPile.scale.set(s, s, s); } }
       else { tr.m.set('body', 0); if (st !== 'Loading') tr.dumped = false; }
       if (st === 'Loading' && tt < 0.2) tr.m.setLoad(0);
       tr.m.update(dt);

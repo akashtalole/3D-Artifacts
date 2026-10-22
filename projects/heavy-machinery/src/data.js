@@ -53,12 +53,12 @@ export const MACHINES = {
     price: [125, 160], cycle: 0, fuelLph: 15,
   },
   telehandler: {
-    name: 'Telescopic Handler', cls: '3.5 t · 14 m', tag: 'A forklift and a crane in one: lifts pallets, blocks and steel to upper floors.',
-    examples: 'JCB 540-140, CAT TH414, Manitou MT 1440, Genie GTH',
+    name: 'Telescopic Handler', cls: '3.5 t · 9.5 m', tag: 'A forklift and a crane in one: lifts pallets, blocks and steel to upper floors.',
+    examples: 'JCB 535-95, CAT TH357, Manitou MT 933, Genie GTH-3509',
     apps: ['Building sites', 'Material handling', 'Agriculture', 'Industrial plants'],
-    specs: [['Max lift capacity', '3,500 kg'], ['Max lift height', '14 m'], ['Max forward reach', '10 m'], ['Operating weight', '11,000 kg'], ['Engine power', '81 kW (109 hp)'], ['Steering modes', '2-wheel, 4-wheel, crab'], ['Travel speed', '40 km/h'], ['Fuel tank', '120 L']],
-    m: { weight: 11, power: 81, price: 72, cap: 3.5, speed: 40, fuel: 120, cost: 2600 },
-    price: [65, 80], cycle: 0, fuelLph: 7,
+    specs: [['Max lift capacity', '3,500 kg'], ['Max lift height', '9.5 m'], ['Max forward reach', '6.5 m'], ['Operating weight', '8,000 kg'], ['Engine power', '81 kW (109 hp)'], ['Steering modes', '2-wheel, 4-wheel, crab'], ['Travel speed', '40 km/h'], ['Fuel tank', '120 L']],
+    m: { weight: 8, power: 81, price: 60, cap: 3.5, speed: 40, fuel: 120, cost: 2600 },
+    price: [55, 66], cycle: 0, fuelLph: 7,
   },
   skid: {
     name: 'Skid Steer Loader', cls: '≈3 t · 55 kW', tag: 'Small, quick and turns on the spot; with 70+ attachments it does far more than load.',
