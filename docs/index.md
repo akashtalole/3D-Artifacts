@@ -121,6 +121,17 @@ sensors and modules, with a circuit check, simulation and generated firmware.
 [Launch app](apps/proto-lab/) · [Documentation](projects/proto-lab/index.md)
 </div>
 
+<div class="card" markdown>
+[![Logistics Twin](assets/logistics-twin/overview.jpg)](apps/logistics-twin/)
+
+### Logistics Twin
+
+A live digital twin of a fulfilment centre: supplier trucks, reach trucks and racking,
+AMR order picking, packing, a sorter and line-haul trucks, with KPIs and bottleneck advice.
+
+[Launch app](apps/logistics-twin/) · [Documentation](projects/logistics-twin/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
