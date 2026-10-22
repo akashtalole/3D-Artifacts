@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Brick Studio Pro</title>
+  <meta name="description" content="An advanced 3D builder for interlocking bricks: 69 parts, connection-based snapping, selection editing, stability analysis, generators, photo mosaics, automatic building instructions, parts lists and LDraw / BrickLink export." />
+  <meta name="theme-color" content="#1b1f26" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='22' width='52' height='32' rx='4' fill='%23e3000b'/%3E%3Crect x='12' y='12' width='14' height='12' rx='3' fill='%23ff4d4d'/%3E%3Crect x='38' y='12' width='14' height='12' rx='3' fill='%23ff4d4d'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>Brick Studio <em>Pro</em></b><span>Advanced brick builder</span></div>
+      <input id="psearch" class="search" placeholder="Search parts or part numbers…" />
+      <nav id="cats" class="cats"></nav>
+      <div id="parts" class="parts"></div>
+      <h4>Colour <span id="cname"></span></h4>
+      <div id="palette" class="palette"></div>
+      <label class="chk"><input type="checkbox" id="free" /> Free placement <small>(no stud connection needed)</small></label>
+      <label class="chk"><input type="checkbox" id="snd" checked /> Click sound</label>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="selbox" class="selbox"></div>
+      <header class="bar">
+        <div class="seg tools">
+          <button data-tool="build" title="Build (B)">🧱 Build</button><button data-tool="select" title="Select (S)">▭ Select</button><button data-tool="paint" title="Paint (P)">🖌 Paint</button><button data-tool="erase" title="Erase (E)">✕ Erase</button><button data-tool="pickc" title="Pick part &amp; colour (I)">💧 Pick</button>
+        </div>
+        <button id="rot" class="btn" title="Rotate the part (R)">⟳</button>
+        <button id="undo" class="btn" title="Undo (Ctrl+Z)">↶</button><button id="redo" class="btn" title="Redo (Ctrl+Y)">↷</button>
+        <div class="seg"><button data-vmode="real" class="active">Realistic</button><button data-vmode="flat">Flat</button><button data-vmode="xray">X-ray</button></div>
+        <label class="mini">Explode <input type="range" id="explode" min="0" max="2" step="0.05" value="0" /></label>
+        <div class="seg"><button data-cam="iso">3/4</button><button data-cam="front">Front</button><button data-cam="top">Top</button><button id="frame" title="Frame the build (F)">⤢</button></div>
+      </header>
+      <div id="stats" class="stats"></div>
+      <div class="hint">Left-click: use the tool · right-drag: orbit · wheel: zoom · middle-drag: pan · <kbd>R</kbd> rotate · <kbd>Shift</kbd>-click erase · <kbd>Alt</kbd>-click pick</div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="edit" class="active">Edit</button><button data-tab="bom">Parts</button><button data-tab="check">Check</button><button data-tab="steps">Steps</button><button data-tab="create">Create</button><button data-tab="file">File</button></nav>
+      <section class="tab show" id="tab-edit">
+        <h4>Selection</h4>
+        <div id="inspector"></div>
+        <h4>Replace a colour everywhere</h4>
+        <div class="rowf"><select id="rfrom"></select><span>→</span><select id="rto"></select><button id="rgo" class="btn">Apply</button></div>
+        <h4>Keys</h4>
+        <table class="keys">
+          <tr><td><kbd>B</kbd> <kbd>S</kbd> <kbd>P</kbd> <kbd>E</kbd> <kbd>I</kbd></td><td>Build, select, paint, erase, pick</td></tr>
+          <tr><td><kbd>R</kbd> / <kbd>Shift</kbd>+<kbd>R</kbd></td><td>Rotate the part or the selection</td></tr>
+          <tr><td>Arrows, <kbd>PgUp</kbd> <kbd>PgDn</kbd></td><td>Move the selection (or lift the part in free placement)</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>V</kbd> / <kbd>D</kbd></td><td>Copy, paste on top, duplicate beside</td></tr>
+          <tr><td><kbd>M</kbd></td><td>Mirror the selection</td></tr>
+          <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>Previous / next colour</td></tr>
+          <tr><td><kbd>Del</kbd></td><td>Delete the selection or the hovered part</td></tr>
+        </table>
+      </section>
+      <section class="tab" id="tab-bom">
+        <p id="bomtot" class="tot"></p>
+        <div class="btnrow"><button id="bomcsv" class="btn">⬇ CSV</button><button id="bombl" class="btn">⬇ BrickLink wanted list</button></div>
+        <div id="bom" class="bom"></div>
+        <p class="muted">Part and colour numbers follow LDraw and BrickLink and are given for convenience; check them before ordering. Weights and prices are estimates.</p>
+      </section>
+      <section class="tab" id="tab-check">
+        <div id="check"></div>
+        <p class="muted">A part counts as connected only through studs. Overlap joints with larger parts to make a build sturdy.</p>
+      </section>
+      <section class="tab" id="tab-steps">
+        <label class="slider"><span>Parts per step</span><select id="perstep"><option>4</option><option>6</option><option selected>8</option><option>12</option></select></label>
+        <div id="stepview"></div>
+        <div class="btnrow"><button id="booklet" class="btn primary">🖨 Instruction booklet</button></div>
+        <p class="muted">Steps follow the connections from the baseplate upwards, so every part attaches to something already built. The booklet opens as a printable page; save it as a PDF from the print dialog.</p>
+      </section>
+      <section class="tab" id="tab-create">
+        <h4>Generate a shape</h4>
+        <select id="gshape"></select>
+        <div id="gparams"></div>
+        <label class="slider"><span>Colours</span><select id="gscheme"><option value="solid">Current colour</option><option value="stripes">Stripes</option><option value="gradient">Sunset gradient</option><option value="rainbow">Rainbow</option><option value="stone">Stone</option></select></label>
+        <button id="ggo" class="btn primary">Generate</button>
+        <p class="muted">Shapes are filled with the largest bricks that fit. Joints are staggered between layers, as in real builds.</p>
+        <h4>Brick lettering</h4>
+        <div class="rowf"><input id="gtext" value="HELLO" maxlength="12" /><button id="tgo" class="btn">Build text</button></div>
+        <h4>Photo mosaic</h4>
+        <label class="slider"><span>Size</span><select id="msize"><option value="16">16 × 16</option><option value="24">24 × 24</option><option value="32" selected>32 × 32</option><option value="48">48 × 48</option></select></label>
+        <label class="slider"><span>Pieces</span><select id="mstyle"><option value="tile">Tiles (merged runs)</option><option value="round">Round tiles</option><option value="plate">Plates (studs up)</option></select></label>
+        <label class="slider"><span>Colours</span><select id="mpal"><option value="all">All solid colours</option><option value="grey">Black, white and greys</option><option value="warm">Warm sepia</option></select></label>
+        <label class="chk"><input type="checkbox" id="mdither" checked /> Dithering (Floyd–Steinberg)</label>
+        <label class="file btn">📷 Choose a photo…<input type="file" id="mfile" accept="image/*" /></label>
+        <h4>Samples</h4>
+        <div id="samples" class="btnrow"></div>
+      </section>
+      <section class="tab" id="tab-file">
+        <h4>New build</h4>
+        <div class="rowf"><select id="nsize"><option value="16">16 × 16</option><option value="32" selected>32 × 32</option><option value="48">48 × 48</option><option value="64">64 × 64</option></select><select id="nbase"></select><button id="new" class="btn">New</button></div>
+        <h4>Open</h4>
+        <label class="file btn">📂 Open .json or LDraw .ldr…<input type="file" id="open" accept=".json,.ldr,.mpd,.dat" /></label>
+        <h4>Save &amp; export</h4>
+        <div class="btnrow col"><button id="exjson" class="btn">Brick Studio file (.json)</button><button id="exldr" class="btn">LDraw model (.ldr), opens in LeoCAD / Stud.io</button><button id="exbl" class="btn">BrickLink wanted list (.xml)</button><button id="excsv" class="btn">Parts list (.csv)</button><button id="expng" class="btn">Screenshot (.png)</button><button id="exglb" class="btn">3D model (.glb)</button></div>
+        <p class="muted">Your build is also saved in this browser automatically. Brick Studio is an independent project, not affiliated with or endorsed by the LEGO Group.</p>
+      </section>
+    </aside>
+    <div class="toast" id="toast"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Sorting the bricks…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
