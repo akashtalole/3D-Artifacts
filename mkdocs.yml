@@ -89,6 +89,7 @@ nav:
       - Earthmovers: projects/heavy-machinery/index.md
       - PQC Road Works: projects/pqc-road/index.md
       - Krishi Yantra · Farm tractors: projects/farm-tractors/index.md
+      - Harit Ghar · Polyhouse & vertical farm: projects/polyhouse-vertical-farm/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.

@@ -23,6 +23,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [Earthmovers](heavy-machinery/index.md) | [Launch](../apps/heavy-machinery/) | A 3D portfolio of eight heavy machines with working hydraulics: showroom, operating controls, configurator and quote, comparison, fleet planner, a digging sandbox and a job site |
 | [PQC Road Works](pqc-road/index.md) | [Launch](../apps/pqc-road/) | Animated construction of a jointed plain concrete road as per IRC:15 / IRC:58 / MoRTH 600, from subgrade to opening, with joint drawings, a quantities calculator and a QC log |
 | [Krishi Yantra · Farm tractors](farm-tractors/index.md) | [Launch](../apps/farm-tractors/) | Tractors with a working three-point linkage, PTO and drawbar and eleven animated implements, working a field and following a wheat season from stubble to mandi, with a field calculator |
+| [Harit Ghar · Polyhouse & vertical farm](polyhouse-vertical-farm/index.md) | [Launch](../apps/polyhouse-vertical-farm/) | A naturally ventilated polyhouse and an LED vertical farm on a live climate model, run by IoT sensors and AI: model-predictive climate control, anomaly detection, simulated plant-health vision, forecasts and a 24-hour rules-vs-AI comparison |
 
 ## Shared conventions
 

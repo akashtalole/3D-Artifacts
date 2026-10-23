@@ -220,6 +220,17 @@ rotavator, laser leveller, seed drill, sprayer, reaper, thresher and trolley, th
 [Launch app](apps/farm-tractors/) · [Documentation](projects/farm-tractors/index.md)
 </div>
 
+<div class="card" markdown>
+[![Harit Ghar](assets/polyhouse-vertical-farm/ph-over.jpg)](apps/polyhouse-vertical-farm/)
+
+### Harit Ghar · Polyhouse & vertical farm
+
+A polyhouse and a vertical farm on a live climate model, run by IoT sensors and AI:
+model-predictive control, fault detection, plant-health vision and a rules-vs-AI comparison.
+
+[Launch app](apps/polyhouse-vertical-farm/) · [Documentation](projects/polyhouse-vertical-farm/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
