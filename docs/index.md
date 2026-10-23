@@ -209,6 +209,17 @@ paving with dowel and tie-bar inserters, saw-cut joints, curing, sealing and ope
 [Launch app](apps/pqc-road/) · [Documentation](projects/pqc-road/index.md)
 </div>
 
+<div class="card" markdown>
+[![Krishi Yantra](assets/farm-tractors/harvest.jpg)](apps/farm-tractors/)
+
+### Krishi Yantra · Farm tractors
+
+Tractors with working linkages and PTO, and eleven animated implements: ploughs, harrow,
+rotavator, laser leveller, seed drill, sprayer, reaper, thresher and trolley, through a wheat season.
+
+[Launch app](apps/farm-tractors/) · [Documentation](projects/farm-tractors/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

@@ -73,7 +73,7 @@ function startJob(id, { dur = null, keepField = false } = {}) {
   if (id === 'trolley') path = buildPath([{ a: [-4, farm.road], b: [150, farm.road], down: false }], [farm.threshing.x - 2, farm.threshing.z - 1]);
   else if (id === 'thresher') path = null;
   else path = buildPath(planPasses(d.w), GATE, [GATE[0], GATE[1] + 4]);
-  const v = path ? (dur ? path.L / dur : (d.v / 3.6) * state.mult) : 0;
+  const v = path ? (dur ? path.L / dur : (d.v / 3.6) * (id === 'trolley' ? 1.5 : state.mult)) : 0;
   state.job = { id, path, d: 0, v, last: null, worked: 0, t: 0, done: false, dur };
   if (id === 'thresher') { T.root.position.set(farm.threshing.x + 3, 0, farm.threshing.z); T.root.rotation.y = 0; state.pto = true; I.setFill?.(0.3); }
   else { const p = samplePath(path, 0); T.root.position.set(p.x, 0, p.z); T.root.rotation.y = p.h; }

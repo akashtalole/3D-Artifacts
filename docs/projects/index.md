@@ -22,6 +22,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [Brick Studio Pro](brick-studio/index.md) | [Launch](../apps/brick-studio/) | An advanced 3D brick builder: 69 parts with stud snapping, selection editing, a stability check, automatic instructions, generators, photo mosaics, parts lists and LDraw / BrickLink export |
 | [Earthmovers](heavy-machinery/index.md) | [Launch](../apps/heavy-machinery/) | A 3D portfolio of eight heavy machines with working hydraulics: showroom, operating controls, configurator and quote, comparison, fleet planner, a digging sandbox and a job site |
 | [PQC Road Works](pqc-road/index.md) | [Launch](../apps/pqc-road/) | Animated construction of a jointed plain concrete road as per IRC:15 / IRC:58 / MoRTH 600, from subgrade to opening, with joint drawings, a quantities calculator and a QC log |
+| [Krishi Yantra · Farm tractors](farm-tractors/index.md) | [Launch](../apps/farm-tractors/) | Tractors with a working three-point linkage, PTO and drawbar and eleven animated implements, working a field and following a wheat season from stubble to mandi, with a field calculator |
 
 ## Shared conventions
 
