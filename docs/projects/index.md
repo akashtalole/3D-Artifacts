@@ -24,6 +24,7 @@ and is published at `/apps/<name>/` next to its documentation.
 | [PQC Road Works](pqc-road/index.md) | [Launch](../apps/pqc-road/) | Animated construction of a jointed plain concrete road as per IRC:15 / IRC:58 / MoRTH 600, from subgrade to opening, with joint drawings, a quantities calculator and a QC log |
 | [Krishi Yantra · Farm tractors](farm-tractors/index.md) | [Launch](../apps/farm-tractors/) | Tractors with a working three-point linkage, PTO and drawbar and eleven animated implements, working a field and following a wheat season from stubble to mandi, with a field calculator |
 | [Harit Ghar · Polyhouse & vertical farm](polyhouse-vertical-farm/index.md) | [Launch](../apps/polyhouse-vertical-farm/) | A naturally ventilated polyhouse and an LED vertical farm on a live climate model, run by IoT sensors and AI: model-predictive climate control, anomaly detection, simulated plant-health vision, forecasts and a 24-hour rules-vs-AI comparison |
+| [Urja Maharashtra · State power grid](maharashtra-grid/index.md) | [Launch](../apps/maharashtra-grid/) | Maharashtra's grid from plant to plug: Mahagenco, private, central and renewable stations, Mahapareshan's 765/400/220 kV network and HVDC link, and Mahavitaran's consumers, with 15-minute merit-order dispatch, live line flows, N-1, frequency and six close-up sites |
 
 ## Shared conventions
 

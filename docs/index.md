@@ -231,6 +231,17 @@ model-predictive control, fault detection, plant-health vision and a rules-vs-AI
 [Launch app](apps/polyhouse-vertical-farm/) · [Documentation](projects/polyhouse-vertical-farm/index.md)
 </div>
 
+<div class="card" markdown>
+[![Urja Maharashtra](assets/maharashtra-grid/state.jpg)](apps/maharashtra-grid/)
+
+### Urja Maharashtra · State power grid
+
+Mahagenco's coal, Koyna hydro, solar and wind, Mahapareshan's 765/400 kV network and the
+HVDC link, and Mahavitaran's consumers, dispatched every 15 minutes with live flows.
+
+[Launch app](apps/maharashtra-grid/) · [Documentation](projects/maharashtra-grid/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 
