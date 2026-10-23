@@ -6,6 +6,7 @@
  */
 import * as THREE from 'three';
 import { M, mesh, rbox, box, cyl, extrude, wheel, rollWheel } from './kit.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { between, rod } from './tractor.js';
 
 const shade = (o) => { o.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } }); return o; };
@@ -17,7 +18,7 @@ const MAT = {
   belt: new THREE.MeshStandardMaterial({ color: '#222', roughness: 0.9 }),
   grain: new THREE.MeshStandardMaterial({ color: '#d9b15a', roughness: 0.9 }),
   straw: new THREE.MeshStandardMaterial({ color: '#e8d08a', roughness: 1 }),
-  bag: new THREE.MeshStandardMaterial({ color: '#e9e4d4', roughness: 0.9 }),
+  bag: new THREE.MeshStandardMaterial({ color: '#d9cfb2', roughness: 0.95 }),
   tank: new THREE.MeshPhysicalMaterial({ color: '#f2f2ee', roughness: 0.4, transparent: true, opacity: 0.92 }),
 };
 export const impPaint = new THREE.MeshPhysicalMaterial({ color: '#e8721a', roughness: 0.4, metalness: 0.2, clearcoat: 0.3 });
@@ -86,7 +87,8 @@ export function discPlough(h0) {
 // 3 ─ tandem disc harrow, 14 discs
 export function discHarrow(h0) {
   const g = new THREE.Group(), mastTop = headstock(g);
-  const fr = rbox(1.3, 0.08, 1.9, P(), 0.02); fr.position.set(-0.75, 0.15, 0); g.add(fr);
+  for (const z of [0.95, -0.95]) { const r = box(1.3, 0.08, 0.08, P()); r.position.set(-0.75, 0.15, z); g.add(r); }
+  for (const x of [-0.25, -0.8, -1.35]) { const r = box(0.08, 0.08, 1.98, P()); r.position.set(x, 0.15, 0); g.add(r); }
   const gangs = [];
   for (const [x, ang] of [[-0.5, 0.32], [-1.1, -0.32]]) {
     const gang = new THREE.Group(); gang.position.set(x, -h0 - 0.12 + 0.23, 0); gang.rotation.y = ang; g.add(gang);
@@ -270,7 +272,7 @@ export function trolley() {
   for (const z of [1.0, -1.0]) { const s = box(3.9, 0.6, 0.05, P()); s.position.set(1.95, 0.34, z); bodyG.add(s); }
   const fw = box(0.05, 0.75, 2.0, P()); fw.position.set(3.88, 0.4, 0); bodyG.add(fw);
   const tail = box(0.05, 0.6, 2.0, P()); tail.position.set(0.02, 0.34, 0); bodyG.add(tail);
-  const bags = new THREE.InstancedMesh(new THREE.BoxGeometry(0.75, 0.28, 0.45), MAT.bag, 40); const m4 = new THREE.Matrix4(); let k = 0;
+  const bags = new THREE.InstancedMesh(new RoundedBoxGeometry(0.72, 0.27, 0.42, 3, 0.11), MAT.bag, 40); const m4 = new THREE.Matrix4(); let k = 0;
   for (let l = 0; l < 2; l++) for (let i = 0; i < 5; i++) for (let j = 0; j < 4; j++) { m4.makeRotationY(((i + j + l) % 2) * 0.1); m4.setPosition(0.45 + i * 0.75, 0.22 + l * 0.29, -0.7 + j * 0.47); bags.setMatrixAt(k++, m4); }
   bags.castShadow = true; bodyG.add(bags);
   const ram = rod(0.06, M.chrome); g.add(ram);

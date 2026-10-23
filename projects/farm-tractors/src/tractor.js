@@ -108,7 +108,7 @@ export function buildTractor(spec, paintHex) {
     hitchH0: toRoot(linkEnd(0).p).y,
     drawbar: toRoot(new THREE.Vector3(-0.72, 0.42, 0)),
     pto: toRoot(new THREE.Vector3(-0.53, 0.62, 0)),
-    attach(i) { imp = i; mount.clear(); front.clear(); if (!i) return; if (i.hitch === 'front') front.add(i.root); else if (i.hitch === '3pt' || i.hitch === 'pto') mount.add(i.root); this.setHitch(h); },
+    attach(i) { imp = i; mount.clear(); front.clear(); weights.visible = !(i && i.hitch === 'front'); if (!i) return; if (i.hitch === 'front') front.add(i.root); else if (i.hitch === '3pt' || i.hitch === 'pto') mount.add(i.root); this.setHitch(h); },
     setHitch(v) {
       h = v; const { a, p } = linkEnd(h);
       lower.forEach((g) => { g.rotation.z = -a; });
