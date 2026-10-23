@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AI Factory India</title>
+  <meta name="description" content="3D walkthrough of an illustrative 100 MW AI factory near Hyderabad built on Vera Rubin NVL72 racks: from the 220 kV grid and dry coolers down to the Rubin GPU, with live Indian sun, climate and workload." />
+  <meta name="theme-color" content="#06080c" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='14' y='6' width='36' height='52' rx='4' fill='%2315181d' stroke='%2376e0b0' stroke-width='3'/%3E%3Cpath d='M20 16h24M20 24h24M20 32h24M20 40h24M20 48h24' stroke='%2376e0b0' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="scene" aria-label="3D AI factory"></canvas>
+    <div id="labels" class="labels"></div>
+
+    <header class="top">
+      <button class="brand" id="brand" title="Back to the campus">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="4" width="22" height="32" rx="3" fill="#15181d" stroke="#76e0b0" stroke-width="1.6"/><path d="M13 10h14M13 15h14M13 20h14M13 25h14M13 30h14" stroke="#76e0b0" stroke-width="1.6"/><circle cx="33" cy="33" r="5" fill="#ff9933"/></svg>
+        <span>AI Factory <b>India</b></span>
+      </button>
+      <nav class="stops" id="stops" aria-label="Tour stops"></nav>
+      <button class="tour" id="tour" title="Guided tour (T)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg><span>Tour</span></button>
+    </header>
+
+    <section class="readouts" id="readouts" aria-live="polite">
+      <div class="r-head">
+        <div><div class="r-time mono" id="r-time">—</div><div class="r-sub" id="r-sub">Hyderabad · IST</div></div>
+        <div class="r-wx" id="r-wx"></div>
+      </div>
+      <div class="mix" title="Power mix"><i id="mix-solar"></i></div>
+      <div class="mix-l"><span id="mix-a">Solar</span><span id="mix-b">Grid</span></div>
+      <dl class="r-grid" id="r-grid"></dl>
+    </section>
+
+    <aside class="panel" id="panel">
+      <div class="p-kicker" id="p-kicker"></div>
+      <h1 id="p-title"></h1>
+      <p id="p-text"></p>
+      <p class="p-india" id="p-india"></p>
+      <dl class="p-specs" id="p-specs"></dl>
+      <div class="p-nav">
+        <button id="prev" aria-label="Previous stop">←</button>
+        <span id="p-count" class="mono"></span>
+        <button id="next" aria-label="Next stop">→</button>
+      </div>
+    </aside>
+
+    <footer class="ctrl">
+      <button class="play" id="play" title="Play / pause the clock (Space)"><svg viewBox="0 0 24 24"><path id="play-ico" d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg></button>
+      <div class="slider">
+        <input id="hour" type="range" min="0" max="24" step="0.05" aria-label="Time of day (IST)" />
+        <div class="ticks mono"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+      </div>
+      <div class="seg" id="speed" role="group" aria-label="Clock speed"></div>
+      <div class="seg" id="season" role="group" aria-label="Season"></div>
+      <div class="seg" id="mode" role="group" aria-label="Workload">
+        <button data-m="inference" class="active">Inference</button><button data-m="training">Training</button>
+      </div>
+      <div class="toggles">
+        <button data-t="flows" class="active">Flows</button>
+        <button data-t="labels" class="active">Labels</button>
+        <button data-t="cutaway" class="active">Cutaway</button>
+      </div>
+    </footer>
+    <div class="note">Independent visualisation · rack specs from NVIDIA's public Vera Rubin NVL72 page · the site is illustrative · not affiliated with NVIDIA</div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Building the AI factory…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

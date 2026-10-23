@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Logistics Twin</title>
+  <meta name="description" content="A 3D digital twin of an e-commerce fulfilment centre: inbound trucks, forklifts and racking, AMR order picking, packing, sortation and outbound line-haul, with live KPIs, bottleneck detection and what-if scenarios." />
+  <meta name="theme-color" content="#10151b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='22' width='38' height='24' rx='2' fill='%23f2f2ef'/%3E%3Crect x='42' y='28' width='16' height='18' rx='2' fill='%23ff9f43'/%3E%3Ccircle cx='16' cy='50' r='5' fill='%23222'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%23222'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header class="top">
+      <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="13" width="24" height="16" rx="1.5" fill="#f2f2ef"/><rect x="26" y="17" width="11" height="12" rx="1.5" fill="#ff9f43"/><circle cx="10" cy="31" r="3.4" fill="#222"/><circle cx="31" cy="31" r="3.4" fill="#222"/></svg><span>Logistics <b>Twin</b></span></div>
+      <select id="scenario" aria-label="Scenario"></select>
+      <div class="seg">
+        <button id="play" class="play" title="Play / pause (Space)"><svg viewBox="0 0 24 24"><path id="play-ico" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+        <div class="speeds" role="radiogroup" aria-label="Speed"></div>
+      </div>
+      <div class="clock"><span class="mono" id="clock">06:00</span><small id="day">Day 1</small></div>
+      <div class="seg views" role="toolbar" aria-label="Camera">
+        <button data-view="overview" class="active">Overview</button><button data-view="inbound">Inbound</button><button data-view="reserve">Racking</button><button data-view="pick">Pick zone</button><button data-view="pack">Packing</button><button data-view="outbound">Outbound</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="seg toggles">
+        <button id="t-heat" title="Traffic heatmap of robots and forklifts">Heatmap</button>
+        <button id="t-labels" class="active" title="Zone labels">Labels</button>
+        <button id="t-roof" title="Show the roof and full walls">Roof</button>
+      </div>
+    </header>
+
+    <aside class="left" id="left">
+      <div id="scen-desc" class="scen"></div>
+      <h3>Demand</h3>
+      <div class="ctl" data-k="ordersPerHour"><label>Orders per hour <output></output></label><input type="range" /></div>
+      <div class="ctl" data-k="slaHours"><label>Ship within (hours) <output></output></label><input type="range" /></div>
+      <h3>Picking</h3>
+      <div class="ctl" data-k="amrs"><label>AMR robots <output></output></label><input type="range" /></div>
+      <div class="ctl sel"><label>Pick mode</label><div class="seg2" data-k="pickMode"><button data-v="single">One order per trip</button><button data-v="batch">Batch</button></div></div>
+      <div class="ctl" data-k="batch"><label>Orders per batch <output></output></label><input type="range" /></div>
+      <div class="ctl sel"><label>Slotting</label><div class="seg2" data-k="slotting"><button data-v="abc">ABC (fast movers near packing)</button><button data-v="random">Random</button></div></div>
+      <h3>Pack &amp; ship</h3>
+      <div class="ctl" data-k="packStations"><label>Pack stations <output></output></label><input type="range" /></div>
+      <h3>Inbound &amp; storage</h3>
+      <div class="ctl" data-k="inboundPerHour"><label>Inbound trucks per hour <output></output></label><input type="range" /></div>
+      <div class="ctl" data-k="palletsPerTruck"><label>Pallets per truck <output></output></label><input type="range" /></div>
+      <div class="ctl" data-k="inboundDoors"><label>Inbound doors open <output></output></label><input type="range" /></div>
+      <div class="ctl" data-k="forklifts"><label>Reach trucks <output></output></label><input type="range" /></div>
+      <div class="btnrow"><button class="btn" id="reset">↺ Restart the day</button><button class="btn" id="share">Copy link</button></div>
+      <p class="note">Changes apply live. Restart to replay the day from 06:00 with the same random seed.</p>
+    </aside>
+
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels" class="labels"></div>
+      <div class="legend" id="legend"></div>
+      <div class="inspector" id="inspector" hidden></div>
+      <div class="hint" id="hint">Click a robot, forklift or truck to follow it · drag to orbit · scroll to zoom</div>
+    </main>
+
+    <aside class="right" id="right">
+      <div class="kpis" id="kpis"></div>
+      <h3>Order flow <small id="flow-total"></small></h3>
+      <div class="flow" id="flow"></div>
+      <h3>Resource utilisation <small>last hour</small></h3>
+      <div id="util"></div>
+      <h3>Bottlenecks</h3>
+      <ul class="insights" id="insights"></ul>
+      <h3>Orders in vs shipped <small>per 15 min</small></h3>
+      <canvas class="chart" id="chart1" width="600" height="170"></canvas>
+      <h3>Open orders &amp; utilisation</h3>
+      <canvas class="chart" id="chart2" width="600" height="150"></canvas>
+      <h3>Control tower log</h3>
+      <ul class="log" id="log"></ul>
+    </aside>
+    <div class="toast" id="toast" role="status"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Opening the dock doors…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

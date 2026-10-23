@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Harit Ghar</title>
+  <meta name="description" content="A polyhouse and a vertical farm in 3D, run by IoT sensors and AI: live climate physics, fan-and-pad cooling, fogging and drip fertigation, LED racks and HVAC, a model-predictive climate controller, anomaly detection, simulated plant-health vision and yield forecasts." />
+  <meta name="theme-color" content="#14171b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M4 54V30C4 14 18 8 32 8s28 6 28 22v24z' fill='%23d8eef7' stroke='%233fcf8e' stroke-width='4'/%3E%3Cpath d='M32 50V30M32 34c-8 0-12-6-12-12 8 0 12 6 12 12zm0-4c6 0 10-5 10-10-6 0-10 5-10 10z' fill='%232f8f4e' stroke='%232f8f4e' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>Harit Ghar <i>हरित घर</i></b><span>Polyhouse and vertical farm with IoT and AI</span></div>
+      <h4>Facility</h4>
+      <div class="facs" id="facs"></div>
+      <div id="seasonBox"><h4>Season</h4><div class="seg wide" id="seasons"></div></div>
+      <h4>Crop</h4>
+      <div class="seg wide col" id="crops"></div>
+      <h4>Climate control</h4>
+      <div class="seg wide" id="modes"><button data-mode="manual">Manual</button><button data-mode="rules">Rules</button><button data-mode="ai" class="active">AI</button></div>
+      <p class="muted" id="modeNote"></p>
+      <h4>Inject a fault</h4>
+      <div class="faults" id="faults"></div>
+      <p class="fine">Generic equipment. Climate physics and crop figures are simplified and illustrative; the AI's vision detections are simulated. Follow crop advisories and makers' data.</p>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="bar">
+        <button class="btn primary" id="play">❚❚</button>
+        <div class="seg" id="speeds"><button data-s="60">1 min/s</button><button data-s="600" class="active">10 min/s</button><button data-s="3600">1 h/s</button></div>
+        <div class="seg" id="cams"></div>
+        <div class="seg" id="layers"><button data-l="iot" class="active">📡 IoT</button><button data-l="cover" class="active" id="coverBtn">Cover</button></div>
+      </header>
+      <div id="hud" class="hud"></div>
+      <div class="strip" id="strip"></div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="dash" class="active">Dashboard</button><button data-tab="ctrl">Control</button><button data-tab="ai">AI</button><button data-tab="crop">Crop</button><button data-tab="eco">Economics</button></nav>
+      <section class="tab show" id="tab-dash"></section>
+      <section class="tab" id="tab-ctrl"></section>
+      <section class="tab" id="tab-ai"></section>
+      <section class="tab" id="tab-crop"></section>
+      <section class="tab" id="tab-eco"></section>
+    </aside>
+    <div id="loader" class="loader"><div class="ring"></div><div>Warming up the greenhouse…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
