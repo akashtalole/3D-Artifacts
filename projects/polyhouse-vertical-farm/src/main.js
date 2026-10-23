@@ -260,7 +260,7 @@ function drawDetections() {
 // ── cameras ──
 const CAMS = {
   ph: { over: ['Overview', [36, 26, 44], [0, 2, 0]], inside: ['Inside', [0.6, 1.7, -17.5], [0, 2.2, 2]], pad: ['Pad wall', [7, 2.3, -18.9], [-3, 1.3, -20]], fans: ['Fan wall', [9, 3.5, 31], [0, 1.6, 20]], scout: ['Robot', null, null], iot: ['Network', [8, 62, 36], [0, 0, 4]] },
-  vf: { over: ['Overview', [12.5, 10, 17], [0, 1.2, -1]], aisle: ['Aisle', [0, 1.65, 9.2], [0, 1.3, -6]], tier: ['Rack', [-2.4, 1.55, 5.8], [-1.75, 1.0, 0]], nutrient: ['Nutrients', [-4.6, 2.8, 3.2], [-6.3, 0.9, -5.2]], scout: ['Robot', null, null], iot: ['Network', [2, 24, 9], [0, 0, -0.5]] },
+  vf: { over: ['Overview', [12.5, 10, 17], [0, 1.2, -1]], aisle: ['Aisle', [0, 1.65, 9.2], [0, 1.3, -6]], tier: ['Rack', [-2.4, 1.55, 5.8], [-1.75, 1.0, 0]], nutrient: ['Nutrients', [-4.75, 3.3, 4.6], [-6.3, 0.8, -5.4]], scout: ['Robot', null, null], iot: ['Network', [2, 24, 9], [0, 0, -0.5]] },
 };
 let camAnim = null, snap = false;
 function setCam(c, instant = false) {
@@ -450,7 +450,12 @@ function updateCtrl() {
 }
 
 // ── AI tab ──
-let cmpCache = {};
+let cmpCache = {}, yearCache = {};
+/** Average day over the three seasons, for both controllers. */
+function yearOf(ck) {
+  if (!yearCache[ck]) { const C = PH_CROPS[ck], avg = (mode) => { const r = ['summer', 'monsoon', 'winter'].map((se) => runDay('ph', mode, se, C)); return { cost: r.reduce((a, x) => a + x.cost, 0) / 3, net: r.reduce((a, x) => a + x.net, 0) / 3 }; }; yearCache[ck] = { rules: avg('rules'), ai: avg('ai') }; }
+  return yearCache[ck];
+}
 function buildAI() { $('#tab-ai').innerHTML = `<div id="aiTop"></div><h4>Alerts and detections</h4><ul class="alerts" id="alerts"></ul><h4>24-hour comparison</h4><div id="cmp"></div>`; renderCmp(); updateAI(); }
 function updateAI() {
   if (!$('#aiTop')) return;
@@ -541,12 +546,13 @@ function updateEco() {
   const key = `${state.fac}|${state.season}|${state.fac === 'ph' ? state.phCrop : state.vfCrop}`, r = cmpCache[key];
   if (state.fac === 'ph') {
     const E = eco.ph, C = crop(), A = E.area, capex = A * (E.struct + E.drip) + E.iot * 1e5, sub = Math.min(A, 4000) * E.struct * E.sub / 100, net = capex - sub;
-    const yieldKg = C.yield * A, rev = yieldKg * C.price, dayRun = r ? r.ai.cost : phCostTotal(PHS.acc) * (24 * 3600 / Math.max(3600, PHS.acc.n)), runYr = dayRun * 365 * (A / PH.area);
+    const Y = yearCache[state.phCrop];
+    if (!Y) { out.innerHTML = '<p class="muted">Simulating a day in each season…</p>'; setTimeout(() => { yearOf(state.phCrop); updateEco(); }, 30); return; }
+    const yieldKg = C.yield * A, rev = yieldKg * C.price, runYr = Y.ai.cost * 365 * (A / PH.area);
     const opex = A * (E.labour + E.inputs + E.film) + runYr, margin = rev - opex;
-    const uplift = r ? (r.ai.net - r.rules.net) * 365 * (A / PH.area) : null;
-    out.innerHTML = `<div class="kpis" style="margin-top:10px"><div><b>${fmtL(capex / 1e5)}</b><span>Capex</span></div><div><b>${fmtL(sub / 1e5)}</b><span>Subsidy</span></div><div><b>${fmtL(rev / 1e5)}</b><span>Revenue a year (${(yieldKg / 1000).toFixed(1)} t at ₹${C.price})</span></div><div><b>${fmtL(opex / 1e5)}</b><span>Operating cost a year</span></div><div class="big"><b>${fmtL(margin / 1e5)}</b><span>Margin a year · simple payback ${margin > 0 ? (net / margin).toFixed(1) : '—'} years on ${fmtL(net / 1e5)} net capex</span></div></div>
-      <h4>Value of IoT + AI</h4>${uplift === null ? '<p class="muted">Run the 24-hour comparison on the AI tab to estimate it for this season and crop.</p><button class="btn" id="ecoRun">▶ Run comparison</button>' : `<p class="lead">On this season's weather the AI adds <b>${inr(uplift / 365)}</b> a day of net value (crop value of photosynthesis minus power and water) over the rules: about <b>${fmtL(uplift / 1e5)}</b> a year for ${A.toLocaleString('en-IN')} m². The ${fmtL(E.iot)} kit pays back in <b>${uplift > 0 ? (E.iot * 1e5 / uplift * 12).toFixed(1) : '—'} months</b> if every day were like this one.</p>`}`;
-    const b = $('#ecoRun'); if (b) b.onclick = () => { out.innerHTML = '<p class="muted">Simulating…</p>'; setTimeout(() => { compute(key); updateEco(); renderCmp(); }, 30); };
+    const uplift = (Y.ai.net - Y.rules.net) * 365 * (A / PH.area);
+    out.innerHTML = `<div class="kpis" style="margin-top:10px"><div><b>${fmtL(capex / 1e5)}</b><span>Capex</span></div><div><b>${fmtL(sub / 1e5)}</b><span>Subsidy</span></div><div><b>${fmtL(rev / 1e5)}</b><span>Revenue a year (${(yieldKg / 1000).toFixed(1)} t at ₹${C.price})</span></div><div><b>${fmtL(opex / 1e5)}</b><span>Operating cost a year (power and water from the model, averaged over the three seasons)</span></div><div class="big"><b>${fmtL(margin / 1e5)}</b><span>Margin a year · simple payback ${margin > 0 ? (net / margin).toFixed(1) : '—'} years on ${fmtL(net / 1e5)} net capex</span></div></div>
+      <h4>Value of IoT + AI</h4><p class="lead">Averaged over a summer, a monsoon and a winter day, the AI adds <b>${inr(uplift / 365)}</b> a day of net value (crop value of photosynthesis minus power and water) over the rules: about <b>${fmtL(uplift / 1e5)}</b> a year for ${A.toLocaleString('en-IN')} m². The ${fmtL(E.iot)} kit pays back in <b>${uplift > 0 ? (E.iot * 1e5 / uplift * 12).toFixed(1) : '—'} months</b> on that basis.</p><p class="legendnote">The value of photosynthesis is a model index, not a measured yield; treat the payback as an order of magnitude.</p>`;
   } else {
     const E = eco.vf, C = vcrop(), kgDay = (VF.channels * VF.holes * C.g / 1000) * (VF.racks * VF.tiers) / C.days, kgYr = kgDay * 365;
     const kwhkg = r ? r.ai.kwhkg : VFS.acc.kwh / Math.max(0.1, VFS.acc.growth), costDay = r ? r.ai.cost : VFS.acc.cost * (86400 / Math.max(3600, VFS.acc.n));

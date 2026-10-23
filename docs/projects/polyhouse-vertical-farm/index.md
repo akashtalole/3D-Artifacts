@@ -142,9 +142,9 @@ For coloured capsicum in the polyhouse:
 
 | Season | Hours over 3 °C too hot | Photosynthesis vs potential | Drip water | Electricity | Net value (crop value − running cost) |
 | --- | --- | --- | --- | --- | --- |
-| Summer | 10.4 → **1.5** | 53% → **84%** | 5,320 → **3,901 L** | 90 → 121 kWh | ₹477 → **₹1,228** |
-| Monsoon | 5.9 → **5.1** | 71% → **84%** | 5,320 → **2,163 L** | 3 → 32 kWh | ₹1,787 → **₹2,050** |
-| Winter | 1.4 → **0.0** | 60% → **99%** | 5,320 → **3,227 L** | 27 → 59 kWh | ₹1,342 → **₹2,294** |
+| Summer | 9.0 → **1.6** | 59% → **79%** | 5,320 → **3,547 L** | 95 → 138 kWh | ₹2,874 → **₹3,770** |
+| Monsoon | 5.9 → **5.1** | 71% → **91%** | 5,320 → **2,376 L** | 3 → 45 kWh | ₹3,218 → **₹3,840** |
+| Winter | 1.4 → **0.0** | 60% → **98%** | 5,320 → **3,227 L** | 27 → 63 kWh | ₹2,729 → **₹4,385** |
 
 The AI spends more on fans and pad water when the crop value it protects is larger, and it uses less drip water.
 

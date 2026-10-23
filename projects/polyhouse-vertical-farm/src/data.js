@@ -8,7 +8,7 @@
 export const PH = {
   bays: 3, bay: 8, len: 40, span: 4, gutter: 4.5, ridge: 6.6, beds: 12,
   area: 3 * 8 * 40, vol: 3 * 8 * 40 * 5.2,
-  fans: 6, fanFlow: 40000, fanKW: 1.1, padPumpKW: 0.75, fogKW: 2.2, dripKW: 3.7,
+  fans: 6, fanFlow: 30000, fanKW: 1.1, padPumpKW: 0.75, fogKW: 2.2, dripKW: 3.7,
   cover: '200 µm UV-stabilised polythene', net: '40-mesh insect net', screen: '50% aluminised shade screen',
 };
 
@@ -30,7 +30,7 @@ export const SEASONS = {
  * moisture band (% vol), ec/ph = drip feed. yield = kg/m²/yr typical in a well-run NVPH.
  */
 export const PH_CROPS = {
-  capsicum: { name: 'Coloured capsicum', day: [21, 27], night: [16, 20], vpd: [0.7, 1.2], theta: [28, 38], ec: 2.4, ph: 6.0, yield: 9, price: 70, h: 1.9, fruit: ['#d61f1f', '#f2c40c'], spacing: 0.45, disease: 'Powdery mildew', dur: '9–10 months' },
+  capsicum: { name: 'Coloured capsicum', day: [21, 27], night: [16, 20], vpd: [0.7, 1.2], theta: [28, 38], ec: 2.4, ph: 6.0, yield: 9, price: 110, h: 1.9, fruit: ['#d61f1f', '#f2c40c'], spacing: 0.45, disease: 'Powdery mildew', dur: '9–10 months' },
   tomato: { name: 'Indeterminate tomato', day: [20, 27], night: [15, 18], vpd: [0.8, 1.3], theta: [28, 38], ec: 2.8, ph: 6.0, yield: 14, price: 22, h: 3.2, fruit: ['#d8321e', '#e8572a'], spacing: 0.5, disease: 'Late blight', dur: '8–9 months' },
   cucumber: { name: 'Parthenocarpic cucumber', day: [22, 28], night: [17, 20], vpd: [0.6, 1.1], theta: [30, 40], ec: 2.0, ph: 6.0, yield: 15, price: 20, h: 2.4, fruit: ['#3e7d2a', '#4c8f33'], spacing: 0.45, disease: 'Downy mildew', dur: '3 crops a year' },
 };
@@ -44,7 +44,7 @@ export const VF_CROPS = {
 
 /** Maharashtra-style time-of-day tariff, ₹/kWh (illustrative). */
 export const TARIFF = (h) => (h >= 22 || h < 6 ? 6.6 : h >= 9 && h < 12 ? 8.6 : h >= 18 && h < 22 ? 8.9 : 8.1);
-export const WATER_COST = 0.06;   // ₹ per litre, pumped and treated
+export const WATER_COST = 0.02;   // ₹ per litre, pumped from a borewell or farm pond
 
 export const FAULTS = {
   ph: [
