@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Van Maharashtra</title>
+  <meta name="description" content="Maharashtra's forest cover in 3D from 2021 to 2050: an illustrative pipeline of mines, plants, roads, dams and ports takes forest land, thins the forest around it and breaks tiger corridors, under three scenarios, with close-ups of a mine, a highway, a dam and a mangrove port." />
+  <meta name="theme-color" content="#14171b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 12 34h10L10 50h44L42 34h10z' fill='%232f8f4e'/%3E%3Crect x='29' y='50' width='6' height='10' fill='%235b4330'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>Van Maharashtra <i>वन महाराष्ट्र</i></b><span>Forest cover and industrial projects, 2021–2050</span></div>
+      <h4>Scenario</h4>
+      <div class="seg wide" id="scs"></div>
+      <p class="muted" id="scNote"></p>
+      <h4>Layers</h4>
+      <div class="seg wide" id="layers"><button data-l="trees" class="active">Trees</button><button data-l="change" class="active">Change</button><button data-l="projects" class="active">Projects</button><button data-l="wildlife" class="active">Wildlife</button><button data-l="labels" class="active">Labels</button></div>
+      <div id="siteCard"></div>
+      <p class="fine">Illustrative. The 2021 totals follow the Forest Survey of India's ISFR 2021; where the forest lies is a smoothed sketch, the projects are illustrative types placed in real forest regions (not actual proposals), and the rates are scenario assumptions.</p>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="bar">
+        <button class="btn primary" id="play">❚❚</button>
+        <div class="seg yr"><input type="range" id="yearIn" step="0.01" /><b id="yearLbl">2021</b></div>
+        <div class="seg" id="rates"><button data-r="0.5">½×</button><button data-r="1" class="active">1×</button><button data-r="2">2×</button></div>
+        <div class="seg" id="views"></div>
+        <div class="seg" id="sitesBar"></div>
+      </header>
+      <div id="hud" class="hud"></div>
+      <div class="strip"><span><i class="sq" style="background:#355f2a"></i>Dense forest</span><span><i class="sq" style="background:#7f9a47"></i>Open forest</span><span><i class="sq" style="background:#b8d85a"></i>Plantation</span><span><i class="sq" style="background:#7b6f66"></i>Industrial land</span><span><i class="sq" style="background:#d7263d"></i>Forest lost</span><span><i class="sq" style="background:#f28c28"></i>Dense forest thinned</span><span><i class="ln" style="background:#ffd166"></i>Tiger reserve</span><span><i class="ln" style="background:#5dffa0"></i>Corridor</span></div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="over" class="active">Overview</button><button data-tab="proj">Projects</button><button data-tab="reg">Regions</button><button data-tab="wild">Wildlife</button><button data-tab="about">About</button></nav>
+      <section class="tab show" id="tab-over"></section>
+      <section class="tab" id="tab-proj"></section>
+      <section class="tab" id="tab-reg"></section>
+      <section class="tab" id="tab-wild"></section>
+      <section class="tab" id="tab-about">
+        <h3>How it works</h3>
+        <p class="lead">The state is cut into 6 km cells, each with a share of very dense (canopy over 70%), moderately dense (40–70%) and open (10–40%) forest, the classes the Forest Survey of India uses. The 2021 totals match ISFR 2021 for Maharashtra; the cells are a smoothed sketch of the main forest tracts.</p>
+        <h4>Each year</h4>
+        <ul class="checks">
+          <li><b>Clearing:</b> a project takes its forest land from the cells it sits on, or along its route.</li>
+          <li><b>Thinning:</b> for ten years, the forest around a project loses density (edge effects, new access, fuelwood, grazing), and some open forest is cleared for roads and settlement.</li>
+          <li><b>Background:</b> a slow statewide thinning of dense forest; in the Avoid scenario, restoration adds open cover.</li>
+          <li><b>Compensatory afforestation:</b> an equal area is planted after a lag. Saplings are not forest cover; plantations count as open forest after 5 years (if they survive) and as moderately dense after 20.</li>
+          <li><b>Corridors</b> are scored from the forest along them, cut by linear projects (less so with wildlife crossings) and by mines and plants nearby.</li>
+        </ul>
+        <h4>The law, in brief</h4>
+        <ul class="checks">
+          <li>Using forest land for non-forest purposes needs central approval under the Forest (Conservation) Act, 1980, renamed the Van (Sanrakshan Evam Samvardhan) Adhiniyam in 2023.</li>
+          <li>User agencies pay for compensatory afforestation and the net present value of the forest lost, into funds managed under the Compensatory Afforestation Fund Act, 2016 (CAMPA).</li>
+          <li>The Forest Rights Act, 2006 recognises the rights of forest-dwelling communities; their consent is part of diversion decisions.</li>
+          <li>Tiger reserves, sanctuaries and eco-sensitive zones need wildlife clearances in addition.</li>
+        </ul>
+        <h4>What this is not</h4>
+        <p class="muted">Not a forecast and not a record of approvals. The project list is a set of illustrative types placed where such projects are often proposed, and the rates are assumptions chosen to show how the outcomes differ between scenarios. For real figures see the Forest Survey of India's reports and the PARIVESH portal.</p>
+      </section>
+    </aside>
+    <div id="loader" class="loader"><div class="ring"></div><div>Growing the forest…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

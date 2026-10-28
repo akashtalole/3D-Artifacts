@@ -242,6 +242,17 @@ HVDC link, and Mahavitaran's consumers, dispatched every 15 minutes with live fl
 [Launch app](apps/maharashtra-grid/) · [Documentation](projects/maharashtra-grid/index.md)
 </div>
 
+<div class="card" markdown>
+[![Van Maharashtra](assets/maharashtra-forests/state-2050.jpg)](apps/maharashtra-forests/)
+
+### Van Maharashtra · Forests
+
+Maharashtra's forest cover from 2021 to 2050 as mines, plants, roads, dams and ports take forest
+land, under three scenarios, with close-ups of a mine, a highway, a dam and a mangrove port.
+
+[Launch app](apps/maharashtra-forests/) · [Documentation](projects/maharashtra-forests/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

@@ -91,6 +91,7 @@ nav:
       - Krishi Yantra · Farm tractors: projects/farm-tractors/index.md
       - Harit Ghar · Polyhouse & vertical farm: projects/polyhouse-vertical-farm/index.md
       - Urja Maharashtra · State power grid: projects/maharashtra-grid/index.md
+      - Van Maharashtra · Forests: projects/maharashtra-forests/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.
