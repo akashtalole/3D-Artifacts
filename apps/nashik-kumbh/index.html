@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kumbh City · Nashik</title>
+  <meta name="description" content="A 3D crowd and transport simulator of Nashik during the Simhastha Kumbh Mela: parking hubs, shuttle buses, transfer points, the Godavari ghats, Ramkund, the akhara procession and the ICCC. Plan the city for an Amrit Snan and see what happens." />
+  <meta name="theme-color" content="#17120d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 6c6 10 14 14 14 26a14 14 0 0 1-28 0C18 20 26 16 32 6z' fill='%23ff8f1f'/%3E%3Cpath d='M32 22c3 5 7 8 7 13a7 7 0 0 1-14 0c0-5 4-8 7-13z' fill='%23ffd23f'/%3E%3Crect x='12' y='50' width='40' height='6' rx='3' fill='%2341b6ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="top">
+        <div class="brand"><b>कुंभनगरी</b><span>Kumbh City · Nashik Simhastha</span></div>
+        <div class="seg"><button data-sc="normal">Normal day</button><button data-sc="parva">Parva snan</button><button data-sc="amrit">Amrit Snan</button></div>
+        <div class="clock" id="clock"></div>
+        <div id="status"></div>
+        <button id="panel-toggle" class="btn" title="Show / hide the panel">☰</button>
+      </header>
+      <div class="views seg">
+        <button data-view="city" title="1">City</button><button data-view="ramkund" title="2">Ramkund</button><button data-view="panchavati" title="3">Panchavati</button><button data-view="tapovan" title="4">Tapovan</button><button data-view="dasak" title="5">Dasak</button><button data-view="hubs" title="6">Parking</button><button data-view="procession">🚩 Procession</button>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <div class="ctrl">
+        <button id="play" class="btn round" title="Pause (Space)">❚❚</button>
+        <div class="seg"><button data-speed="60" title="1 minute per second">1m/s</button><button data-speed="300">5m/s</button><button data-speed="900">15m/s</button><button data-speed="3600">1h/s</button></div>
+        <button id="skip" class="btn" title="Simulate the rest of the day">⏭ End of day</button>
+        <button id="heat" class="btn" title="Colour streets by crowd density">Density</button>
+        <button id="lbl" class="btn" title="Place labels">Labels</button>
+        <button id="restart" class="btn" title="Restart the day">↺</button>
+      </div>
+      <div class="timeline"><i id="pos"></i></div>
+      <div class="legend"><span><i style="background:#3fcf8e"></i>&lt;1.2</span><span><i style="background:#ffd23f"></i>1.2–2.5</span><span><i style="background:#ff9f43"></i>2.5–4</span><span><i style="background:#ff4d4d"></i>4+ people/m²</span><span><i style="background:#8c8c8c"></i>closed</span></div>
+    </main>
+    <aside class="side">
+      <nav class="tabs"><button data-tab="plan" class="active">Plan</button><button data-tab="live">Live</button><button data-tab="places">Places</button><button data-tab="about">About</button></nav>
+      <section class="tab show" id="tab-plan">
+        <div id="budget" class="budget"></div>
+        <div class="btnrow"><button class="btn primary" id="suggest">✨ Suggest a plan</button><button class="btn" id="minimal">Minimal plan</button></div>
+        <h4>Crowd</h4>
+        <label class="slider"><span>Pilgrims today <b id="crowd-v"></b></span><input type="range" id="crowd" min="1" max="80" step="1" /></label>
+        <h4>Ghats <small>frontage on the Godavari</small></h4>
+        <div id="ghat-list"></div>
+        <h4>Shuttles and services</h4>
+        <label class="slider"><span>MSRTC electric shuttles <b id="buses-v"></b></span><input type="range" id="buses" min="300" max="4500" step="100" /></label>
+        <label class="slider"><span>Toilets <b id="toilets-v"></b></span><input type="range" id="toilets" min="2000" max="30000" step="500" /></label>
+        <label class="slider"><span>Medical posts <b id="medical-v"></b></span><input type="range" id="medical" min="10" max="200" step="5" /></label>
+        <div id="toggles"></div>
+      </section>
+      <section class="tab" id="tab-live">
+        <h4>Today, hour by hour</h4>
+        <canvas id="chart" width="600" height="190"></canvas>
+        <div id="chart-legend" class="chart-legend"></div>
+        <h4>Advice</h4>
+        <ul id="insights" class="ins"></ul>
+        <h4>Critical crowding alerts</h4>
+        <ul id="alerts" class="alerts"></ul>
+      </section>
+      <section class="tab" id="tab-places"><div id="places" class="places"></div></section>
+      <section class="tab" id="tab-about">
+        <p>The <b>Simhastha Kumbh Mela</b> is held at Nashik and Trimbakeshwar every 12 years, when Jupiter is in Leo (Simha). The 2027 mela's Amrit Snan days are <b>2 August, 31 August and 11 September 2027</b> at Nashik.</p>
+        <p>This simulator follows the city's three-tier plan: pilgrims leave vehicles at <b>outer parking hubs</b> or arrive by train, ride <b>electric shuttles</b> to <b>transfer points</b>, then walk through a <b>vehicle-free zone</b> to the ghats.</p>
+        <p>Pilgrims move in groups of 250. Walking speed falls as streets get crowded (Weidmann's speed–density relation). Above 4 people/m² is treated as critical.</p>
+        <p>On Amrit Snan days the three Vaishnav akharas (Nirmohi, Digambar and Nirvani) process from Tapovan and bathe at Ramkund at dawn, and the public bathes elsewhere until 09:30.</p>
+        <p class="muted">The map is stylised and not to survey. Numbers (frontage, capacities, costs) are illustrative. The simulator is not affiliated with the Kumbh Mela Authority, the Government of Maharashtra or MSRTC.</p>
+      </section>
+    </aside>
+    <div class="toast" id="toast"></div>
+    <div class="modal" id="report"><div class="card"><h3>End of day report</h3><div id="report-body"></div><div class="btnrow"><button class="btn primary" id="report-plan">Change the plan</button><button class="btn" id="report-close">Close</button></div></div></div>
+    <div class="modal" id="busy"><div class="card small"><div class="ring"></div><p id="busy-v">Simulating…</p></div></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Preparing the mela…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1997 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Interactive three.js visualisations — real engineering, real data, modern UI.">
+      
+      
+      
+        <link rel="canonical" href="https://akashtalole.github.io/3D-Artifacts/projects/heavy-machinery/">
+      
+      
+        <link rel="prev" href="../brick-studio/">
+      
+      
+        <link rel="next" href="../pqc-road/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Earthmovers - 3D Artifacts</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#earthmovers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="3D Artifacts" class="md-header__button md-logo" aria-label="3D Artifacts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 1.75C9.3 1.25 10.62 1 12 1c6.08 0 11 4.92 11 11s-4.92 11-11 11S1 18.08 1 12c0-1.38.25-2.7.72-3.92a4.5 4.5 0 0 0 1.73 1.1C3.16 10.07 3 11 3 12a9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9c-1 0-1.93.16-2.82.45-.22-.62-.57-1.21-1.07-1.7M4.93 2.93a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            3D Artifacts
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Earthmovers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akashtalole/3D-Artifacts" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akashtalole/3D-Artifacts
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="3D Artifacts" class="md-nav__button md-logo" aria-label="3D Artifacts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 1.75C9.3 1.25 10.62 1 12 1c6.08 0 11 4.92 11 11s-4.92 11-11 11S1 18.08 1 12c0-1.38.25-2.7.72-3.92a4.5 4.5 0 0 0 1.73 1.1C3.16 10.07 3 11 3 12a9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9c-1 0-1.93.16-2.82.45-.22-.62-.57-1.21-1.07-1.7M4.93 2.93a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5"/></svg>
+
+    </a>
+    3D Artifacts
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akashtalole/3D-Artifacts" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akashtalole/3D-Artifacts
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../iss-eva-spacewalk/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ISS EVA Spacewalk
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ISS EVA Spacewalk
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/missions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Station reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crs35-launch-to-docking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRS-35 Launch to Docking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../solar-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar System Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-factory-india/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Factory India
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brick-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brick Builder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws-architecture-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Brick Architect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cad-cam-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAD/CAM Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shivaji-forts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forts of Swarajya
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proto-lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proto Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-twin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logistics Twin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot-cell-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robot Cell Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yatra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yatra · Rail & ST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nashik-kumbh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kumbh City · Nashik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../turbofan-ops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbofan Ops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brick-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brick Studio Pro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Earthmovers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Earthmovers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#showroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Showroom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-and-price" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure and price
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fleet-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fleet planner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sandbox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-a-phone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On a phone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pqc-road/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PQC Road Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../farm-tractors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Krishi Yantra · Farm tractors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../polyhouse-vertical-farm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harit Ghar · Polyhouse & vertical farm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maharashtra-grid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Urja Maharashtra · State power grid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maharashtra-forests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Van Maharashtra · Forests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#showroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Showroom
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-and-price" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure and price
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fleet-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fleet planner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sandbox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-a-phone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On a phone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="earthmovers">Earthmovers<a class="headerlink" href="#earthmovers" title="Permanent link">&para;</a></h1>
+<p>A 3D portfolio of heavy construction equipment. Eight machine classes, each a working model you can:</p>
+<ul>
+<li>inspect in a showroom;</li>
+<li>operate joint by joint;</li>
+<li>configure and price;</li>
+<li>compare with the others;</li>
+<li>plan a fleet around;</li>
+<li>dig with in a sandbox;</li>
+<li>watch on a busy job site.</li>
+</ul>
+<p><a class="md-button md-button--primary" href="../../apps/heavy-machinery/">Open Earthmovers <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.5 18.5c.54 0 1 .46 1 1s-.46 1-1 1h-12c-.54 0-1-.46-1-1s.46-1 1-1zm0-1.5h-12C5.13 17 4 18.13 4 19.5S5.13 22 6.5 22h12a2.5 2.5 0 0 0 0-5m2.5-6h-3V7h-5l-3 4v5h12zm-9.46 0 1.96-2.5H16V11zM9.76 3.41 4.76 2 2 11.83c-.34 1.28.41 2.61 1.7 2.97l1.16.32 3.29-2.83-3.88-1.08 1.88-6.75 2.79.78c.56.29 1.77 1.1 2.53 2.13L12.5 6h.44c-1.26-1.59-3.09-2.54-3.18-2.59"/></svg></span></a>
+<a class="md-button" href="https://github.com/akashtalole/3D-Artifacts/tree/main/projects/heavy-machinery">Source on GitHub</a></p>
+<p><img alt="The job site with all eight machines at work" src="../../assets/heavy-machinery/site.jpg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The machines are generic and modelled on typical machines of each class. They carry no
+manufacturer's branding. Specifications and prices are illustrative class values, not
+any manufacturer's published figures. Earthmovers is not affiliated with any equipment maker.</p>
+</div>
+<h2 id="the-machines">The machines<a class="headerlink" href="#the-machines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Machine</th>
+<th>Class</th>
+<th>Typical work</th>
+<th>Class examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backhoe loader</td>
+<td>≈8 t · 55 kW</td>
+<td>Trenching, utilities, loading</td>
+<td>JCB 3DX / 3CX, CAT 424 / 432</td>
+</tr>
+<tr>
+<td>Hydraulic excavator</td>
+<td>≈20 t · 110 kW</td>
+<td>Mass excavation, truck loading</td>
+<td>CAT 320, JCB JS205</td>
+</tr>
+<tr>
+<td>Wheel loader</td>
+<td>≈19 t · 140 kW, 3.1 m³</td>
+<td>Stockpiles, truck and hopper loading</td>
+<td>CAT 950, JCB 456</td>
+</tr>
+<tr>
+<td>Crawler dozer</td>
+<td>≈20 t · 160 kW</td>
+<td>Pushing, spreading, ripping</td>
+<td>CAT D6</td>
+</tr>
+<tr>
+<td>Rigid haul truck</td>
+<td>90 t payload · 760 kW</td>
+<td>Open-pit mines and quarries</td>
+<td>CAT 777</td>
+</tr>
+<tr>
+<td>Motor grader</td>
+<td>≈16 t · 140 kW, 3.7 m blade</td>
+<td>Roads, fine grading</td>
+<td>CAT 140</td>
+</tr>
+<tr>
+<td>Telescopic handler</td>
+<td>3.5 t · 9.5 m</td>
+<td>Lifting materials on building sites</td>
+<td>JCB 535-95, CAT TH357</td>
+</tr>
+<tr>
+<td>Skid steer loader</td>
+<td>≈3 t · 900 kg ROC</td>
+<td>Small sites, cleaning, landscaping</td>
+<td>JCB Robot, CAT 226</td>
+</tr>
+</tbody>
+</table>
+<p>Each machine is built in code, with no model files:</p>
+<ul>
+<li>extruded booms, sticks and loader arms;</li>
+<li>crawler tracks whose shoes run round the sprocket and idler;</li>
+<li>lugged tyres;</li>
+<li>cabs with an operator;</li>
+<li>lamps and beacons.</li>
+</ul>
+<p><strong>Hydraulic rams.</strong> These connect the parts the way real cylinders do. Each ram is pinned at both ends, so when a joint moves, the rod slides in or out of the barrel.</p>
+<h2 id="showroom">Showroom<a class="headerlink" href="#showroom" title="Permanent link">&para;</a></h2>
+<p><img alt="Backhoe loader in the showroom" src="../../assets/heavy-machinery/backhoe.jpg" /></p>
+<ul>
+<li><strong>Turntable and cameras:</strong> 3/4, side, front, top and a <strong>cab view</strong> from the operator's seat.</li>
+<li><strong>Hotspots:</strong> click one to fly to the cab, engine, boom, tracks, counterweight and more, with a short note on each.</li>
+<li><strong>Dimensions:</strong> overall length, width and height of the current pose.</li>
+<li><strong>Working range:</strong> a reach chart computed from the model's own linkage.<ul>
+<li>The app sweeps the boom, stick or dipper (and telescope) through their ranges and plots every tool-tip position.</li>
+<li>It reports the maximum height, reach at ground level and dig depth.</li>
+</ul>
+</li>
+<li><strong>Overview tab:</strong> a typical specification sheet, applications and an indicative price range.</li>
+</ul>
+<p><img alt="Overall dimensions" src="../../assets/heavy-machinery/dims.jpg" /></p>
+<table>
+<thead>
+<tr>
+<th><img alt="Rigid haul truck with the body raised" src="../../assets/heavy-machinery/truck.jpg" /></th>
+<th><img alt="Telescopic handler at full reach" src="../../assets/heavy-machinery/telehandler.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Motor grader, side view" src="../../assets/heavy-machinery/grader.jpg" /></td>
+<td><img alt="Excavator in the Operate tab" src="../../assets/heavy-machinery/excavator.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="operate">Operate<a class="headerlink" href="#operate" title="Permanent link">&para;</a></h2>
+<p>Every joint has a slider and two keys:</p>
+<table>
+<thead>
+<tr>
+<th>Machine</th>
+<th>Joints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excavator</td>
+<td>Swing, boom, stick, bucket. Keys follow the ISO joystick pattern: <kbd>A</kbd>/<kbd>D</kbd> swing, <kbd>W</kbd>/<kbd>S</kbd> stick, <kbd>I</kbd>/<kbd>K</kbd> boom, <kbd>J</kbd>/<kbd>L</kbd> bucket</td>
+</tr>
+<tr>
+<td>Backhoe loader</td>
+<td>Backhoe swing, boom, dipper, extending dipper, bucket; loader arms and bucket; stabilisers</td>
+</tr>
+<tr>
+<td>Wheel loader</td>
+<td>Articulation, Z-bar lift arms, bucket tilt</td>
+</tr>
+<tr>
+<td>Crawler dozer</td>
+<td>Blade lift, pitch and tilt; ripper</td>
+</tr>
+<tr>
+<td>Haul truck</td>
+<td>Body raise</td>
+</tr>
+<tr>
+<td>Motor grader</td>
+<td>Circle angle, blade lift, side shift</td>
+</tr>
+<tr>
+<td>Telehandler</td>
+<td>Boom angle, three-section telescope, carriage tilt with automatic fork levelling, stabilisers</td>
+</tr>
+<tr>
+<td>Skid steer</td>
+<td>Lift arms, tilt</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Demo cycle</strong> plays a typical work cycle for each machine. The tool-tip panel shows reach, height and height above the ground live.</p>
+<p><strong>Attachments</strong> change the tool on the end of the arm:
+- excavator: general-purpose, rock and ditching buckets, a breaker;
+- backhoe: buckets, a breaker, an auger;
+- wheel loader: buckets and forks;
+- telehandler: forks, a bucket, a jib;
+- skid steer: a bucket, forks, an auger, a sweeper.</p>
+<h2 id="configure-and-price">Configure and price<a class="headerlink" href="#configure-and-price" title="Permanent link">&para;</a></h2>
+<p><img alt="Configurator with quote and finance" src="../../assets/heavy-machinery/configure.jpg" /></p>
+<ul>
+<li><strong>Fleet livery</strong> in seven colours.</li>
+<li><strong>Attachment and options:</strong><ul>
+<li>LED work lights, which visibly light up, and a rotating beacon;</li>
+<li>an air-conditioned cab and telematics;</li>
+<li>cameras and fire suppression;</li>
+<li>grade control, payload weighing and an extended warranty.</li>
+</ul>
+</li>
+<li><strong>Quote:</strong> base price, attachment, options, GST at 18% and an on-road estimate.</li>
+<li><strong>Finance:</strong> down payment, interest rate and tenure give the EMI. An owning-and-operating cost per hour is also shown.</li>
+<li><strong>Download</strong> the quote as a text file.</li>
+</ul>
+<h2 id="compare">Compare<a class="headerlink" href="#compare" title="Permanent link">&para;</a></h2>
+<p><img alt="Compare tab" src="../../assets/heavy-machinery/compare.jpg" /></p>
+<p>Bar charts compare operating weight, engine power, indicative price, fuel tank, top speed and power-to-weight. A side-by-side table follows. Click a bar to open that machine.</p>
+<h2 id="fleet-planner">Fleet planner<a class="headerlink" href="#fleet-planner" title="Permanent link">&para;</a></h2>
+<p><img alt="Fleet planner" src="../../assets/heavy-machinery/fleet.jpg" /></p>
+<p>Plan a cut-and-haul job. Pick:</p>
+<ul>
+<li>a loading machine (excavator, wheel loader, backhoe or skid steer) with its current bucket;</li>
+<li>a material: common earth, wet clay, sand and gravel, or blasted rock;</li>
+<li>a hauler: a 16 m³ road tipper, a 30 t articulated dump truck or the 90 t haul truck;</li>
+<li>the haul distance, job volume and hours per day.</li>
+</ul>
+<p>The planner works out:</p>
+<ul>
+<li><strong>passes per load:</strong> the bucket's loose volume after its fill factor, limited by the hauler's volume or payload;</li>
+<li>the <strong>hauler cycle:</strong> spot, load, haul loaded, dump, return, shown as a timeline;</li>
+<li>the <strong>haulers needed</strong> to keep the loader busy;</li>
+<li><strong>production</strong> in bank m³/h, with a 50-minute working hour and the material's swell;</li>
+<li><strong>days</strong> for the job, <strong>cost per bank m³</strong> from owning-and-operating rates, and <strong>fleet fuel</strong> with its CO₂.</li>
+</ul>
+<p>It warns when the pass count falls outside the usual 3–6, which means the loader and hauler are mismatched.</p>
+<h2 id="sandbox">Sandbox<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h2>
+<p><img alt="Excavator loading a dump truck in the sandbox" src="../../assets/heavy-machinery/sandbox.jpg" /></p>
+<p>Drive any machine on a 56 m × 56 m deformable ground. Use <kbd>↑</kbd>/<kbd>↓</kbd> to drive and <kbd>←</kbd>/<kbd>→</kbd> to steer:
+- tracked machines counter-rotate their tracks;
+- the wheel loader articulates;
+- the others steer their wheels.</p>
+<p>The ground is a heightfield with a 0.25 m grid.</p>
+<ul>
+<li><strong>Buckets</strong> cut the ground wherever their teeth go below it and carry the soil, which shows in the bucket.<ul>
+<li>When the bucket's opening turns downward, the soil pours out.</li>
+<li>Over the dump truck it fills the body. Anywhere else it piles up and slumps to a 38° angle of repose.</li>
+</ul>
+</li>
+<li><strong>Blades:</strong><ul>
+<li>The dozer pushes a growing pile ahead of its blade.</li>
+<li>The grader rolls a windrow off the trailing end of its moldboard.</li>
+<li>A blade cuts at most 0.3 m below the tracks, so a dozer cannot bury itself.</li>
+</ul>
+</li>
+<li><strong>The auger</strong> drills a hole.</li>
+<li>The HUD shows the bucket load, the dump truck's payload, the volume dug and the speed. <strong>Reset ground</strong> restores the terrain.</li>
+</ul>
+<p>The dump truck here is the haul truck at 65% scale (≈16 m³, ≈26–30 t). That size suits a 20 t excavator: a 90 t truck is loaded by excavators of 70 t or more.</p>
+<p><img alt="Dozer pushing a pile" src="../../assets/heavy-machinery/dozer.jpg" /></p>
+<h2 id="job-site">Job site<a class="headerlink" href="#job-site" title="Permanent link">&para;</a></h2>
+<p>All eight machines work at once on looping cycles:</p>
+<ul>
+<li><strong>Excavator and dump trucks:</strong> the excavator digs at a face and loads two dump trucks in turn, four passes each. Between trucks it trims the face.</li>
+<li><strong>Haul road:</strong> the trucks drive a loop to a dump, tip their bodies, and return.</li>
+<li><strong>Dozer:</strong> spreads the dump pile.</li>
+<li><strong>Wheel loader:</strong> works a V-pattern between an aggregate stockpile and a crusher feed hopper.</li>
+<li><strong>Motor grader:</strong> trims the access road with its blade angled, then backs up.</li>
+<li><strong>Backhoe loader:</strong> digs a trench, with its stabilisers down.</li>
+<li><strong>Telehandler:</strong> lifts pallets of blocks onto the first floor of a building under construction.</li>
+<li><strong>Skid steer:</strong> cleans up and stockpiles spoil.</li>
+</ul>
+<p>Counters track the shift clock, truck loads, tonnes hauled, crusher feed, pallets lifted, trench dug and fleet fuel. Run time at 1×, 4× or 12×, or pause it. Click any machine's label to follow it with the camera.</p>
+<p><img alt="Excavator and dump truck at the face" src="../../assets/heavy-machinery/follow.jpg" /></p>
+<h2 id="on-a-phone">On a phone<a class="headerlink" href="#on-a-phone" title="Permanent link">&para;</a></h2>
+<p><img alt="Earthmovers on a phone" src="../../assets/heavy-machinery/phone.jpg" width="320" /></p>
+<h2 id="deep-links">Deep links<a class="headerlink" href="#deep-links" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Hash</th>
+<th>Opens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#m=excavator</code></td>
+<td>A machine: <code>backhoe</code>, <code>excavator</code>, <code>loader</code>, <code>dozer</code>, <code>truck</code>, <code>grader</code>, <code>telehandler</code>, <code>skid</code></td>
+</tr>
+<tr>
+<td><code>&amp;mode=sand</code> / <code>&amp;mode=site</code></td>
+<td>The sandbox or the job site</td>
+</tr>
+<tr>
+<td><code>&amp;tab=op</code></td>
+<td>A tab: <code>over</code>, <code>op</code>, <code>cfg</code>, <code>cmp</code>, <code>fleet</code></td>
+</tr>
+<tr>
+<td><code>&amp;tool=breaker</code></td>
+<td>An attachment</td>
+</tr>
+<tr>
+<td><code>&amp;paint=orange</code></td>
+<td>A livery</td>
+</tr>
+<tr>
+<td><code>&amp;cam=cab</code></td>
+<td>A camera: <code>iso</code>, <code>side</code>, <code>front</code>, <code>top</code>, <code>cab</code></td>
+</tr>
+<tr>
+<td><code>&amp;demo=1</code>, <code>&amp;dims=1</code></td>
+<td>Start the demo cycle; show dimensions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/kit.js</code></td>
+<td>Materials, extruded profiles and beams, tyres, tracks, cabs, the <code>Ram</code> class and attachments</td>
+</tr>
+<tr>
+<td><code>src/machines.js</code></td>
+<td>The eight machines: joints, rams, hotspots, attachments and demo cycles</td>
+</tr>
+<tr>
+<td><code>src/data.js</code></td>
+<td>Specifications, liveries, options, materials and haulers</td>
+</tr>
+<tr>
+<td><code>src/terrain.js</code></td>
+<td>The sandbox heightfield: cut, deposit and slump</td>
+</tr>
+<tr>
+<td><code>src/site.js</code></td>
+<td>The job site layout and every machine's work cycle</td>
+</tr>
+<tr>
+<td><code>src/main.js</code></td>
+<td>Scene, modes, panels, sandbox physics, quote and fleet maths</td>
+</tr>
+</tbody>
+</table>
+<p>The rams are calibrated when a machine is built. The app sweeps the joints each ram depends on to find its shortest and longest pin-to-pin distance, then sizes the barrel and rod so the rod never leaves the barrel.</p>
+<p>The demo cycles and the job-site cycles were checked in the browser:
+- the tool tip stays near the ground when digging;
+- bucket openings face up when carrying and down when dumping;
+- the dumped soil lands in the truck.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../brick-studio/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Brick Studio Pro">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Brick Studio Pro
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../pqc-road/" class="md-footer__link md-footer__link--next" aria-label="Next: PQC Road Works">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                PQC Road Works
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MIT licensed · Earth imagery NASA (via three.js examples)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.footer", "content.code.copy", "search.highlight"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>

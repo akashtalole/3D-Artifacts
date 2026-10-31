@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CAD/CAM Studio</title>
+  <meta name="description" content="Browser CAD/CAM: model a machined part from parametric features (CSG solids), generate 2.5D milling toolpaths, simulate material removal and export G-code and STL." />
+  <meta name="theme-color" content="#11151d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='30' width='52' height='24' rx='3' fill='%23c9ced6'/%3E%3Crect x='20' y='30' width='24' height='10' fill='%2311151d'/%3E%3Crect x='28' y='4' width='8' height='30' rx='2' fill='%2341b6ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js",
+      "three-bvh-csg": "https://cdn.jsdelivr.net/npm/three-bvh-csg@0.0.17/build/index.module.js"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app" class="mode-design">
+    <header class="top">
+      <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="20" width="34" height="15" rx="2" fill="#c9ced6"/><rect x="13" y="20" width="14" height="6" fill="#11151d"/><rect x="17" y="3" width="6" height="20" rx="1.5" fill="#41b6ff"/></svg><span>CAD/CAM <b>Studio</b></span></div>
+      <div class="tabs" role="tablist">
+        <button data-mode="design" class="active" role="tab">Design</button>
+        <button data-mode="manufacture" role="tab">Manufacture</button>
+      </div>
+      <select id="project" aria-label="Project">
+        <option value="">Open…</option>
+        <option value="plate">Sample: Motor mounting plate (aluminium)</option>
+        <option value="coaster">Sample: Oak coaster</option>
+        <option value="new">New blank part</option>
+        <option value="file">Open project file (.json)…</option>
+      </select>
+      <div class="seg">
+        <button id="undo" title="Undo (Ctrl+Z)"><svg viewBox="0 0 24 24"><path d="M9 7H4v5M4 12a8 8 0 1 1 3 6"/></svg></button>
+        <button id="redo" title="Redo (Ctrl+Y)"><svg viewBox="0 0 24 24"><path d="M15 7h5v5M20 12a8 8 0 1 0-3 6"/></svg></button>
+      </div>
+      <div class="seg views">
+        <button data-view="iso" title="Isometric (1)">Iso</button><button data-view="top" title="Top (2)">Top</button><button data-view="front" title="Front (3)">Front</button><button data-view="right" title="Right (4)">Right</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="seg">
+        <button id="save" title="Save project (.json)"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6"/></svg><span>Save</span></button>
+        <button id="stl" title="Export the part as STL"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span>STL</span></button>
+        <button id="gcode" class="accent" title="Export G-code (.nc)"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>G-code</span></button>
+      </div>
+      <input type="file" id="file" accept=".json,application/json" hidden />
+    </header>
+
+    <aside class="left" id="left"></aside>
+
+    <main class="view" id="view">
+      <canvas id="scene"></canvas>
+      <div class="hud" id="hud"></div>
+      <div class="legend" id="legend"></div>
+      <div class="simbar" id="simbar">
+        <button id="sim-play" class="play" title="Play / pause (Space)"><svg viewBox="0 0 24 24"><path id="play-ico" d="M8 5v14l11-7z"/></svg></button>
+        <button id="sim-reset" title="Rewind"><svg viewBox="0 0 24 24"><path d="M6 5v14M19 5L9 12l10 7z"/></svg></button>
+        <div class="sim-main">
+          <div class="sim-row"><span id="sim-op" class="sim-op">—</span><span class="mono" id="sim-time">0:00 / 0:00</span></div>
+          <input type="range" id="sim-slider" min="0" max="1000" value="0" step="1" aria-label="Simulation position" />
+        </div>
+        <select id="sim-speed" aria-label="Simulation speed"><option value="1">1×</option><option value="5">5×</option><option value="20" selected>20×</option><option value="100">100×</option><option value="500">500×</option></select>
+        <div class="seg small">
+          <button id="t-stock" class="active" title="Show stock simulation">Stock</button>
+          <button id="t-compare" title="Compare with the design: green on size, amber stock left, red gouge">Compare</button>
+          <button id="t-paths" class="active" title="Show toolpaths">Paths</button>
+          <button id="t-code" title="Show G-code">G-code</button>
+        </div>
+      </div>
+      <div class="gpanel" id="gpanel" hidden><div class="ghead">G-code <span class="mono" id="g-count"></span></div><pre class="glist mono" id="glist"></pre></div>
+    </main>
+
+    <aside class="right" id="right"></aside>
+    <div class="toast" id="toast" role="status"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Booting the geometry kernel…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,2300 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Interactive three.js visualisations — real engineering, real data, modern UI.">
+      
+      
+      
+        <link rel="canonical" href="https://akashtalole.github.io/3D-Artifacts/projects/polyhouse-vertical-farm/">
+      
+      
+        <link rel="prev" href="../farm-tractors/">
+      
+      
+        <link rel="next" href="../maharashtra-grid/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Harit Ghar · Polyhouse & vertical farm - 3D Artifacts</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#harit-ghar-polyhouse-and-vertical-farm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="3D Artifacts" class="md-header__button md-logo" aria-label="3D Artifacts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 1.75C9.3 1.25 10.62 1 12 1c6.08 0 11 4.92 11 11s-4.92 11-11 11S1 18.08 1 12c0-1.38.25-2.7.72-3.92a4.5 4.5 0 0 0 1.73 1.1C3.16 10.07 3 11 3 12a9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9c-1 0-1.93.16-2.82.45-.22-.62-.57-1.21-1.07-1.7M4.93 2.93a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            3D Artifacts
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Harit Ghar · Polyhouse & vertical farm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akashtalole/3D-Artifacts" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akashtalole/3D-Artifacts
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="3D Artifacts" class="md-nav__button md-logo" aria-label="3D Artifacts" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.11 1.75C9.3 1.25 10.62 1 12 1c6.08 0 11 4.92 11 11s-4.92 11-11 11S1 18.08 1 12c0-1.38.25-2.7.72-3.92a4.5 4.5 0 0 0 1.73 1.1C3.16 10.07 3 11 3 12a9 9 0 0 0 9 9 9 9 0 0 0 9-9 9 9 0 0 0-9-9c-1 0-1.93.16-2.82.45-.22-.62-.57-1.21-1.07-1.7M4.93 2.93a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5"/></svg>
+
+    </a>
+    3D Artifacts
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akashtalole/3D-Artifacts" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akashtalole/3D-Artifacts
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../iss-eva-spacewalk/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ISS EVA Spacewalk
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ISS EVA Spacewalk
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/missions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Station reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iss-eva-spacewalk/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crs35-launch-to-docking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRS-35 Launch to Docking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../solar-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solar System Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-factory-india/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Factory India
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brick-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brick Builder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws-architecture-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Brick Architect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cad-cam-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAD/CAM Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shivaji-forts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forts of Swarajya
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proto-lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proto Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-twin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logistics Twin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot-cell-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robot Cell Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yatra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yatra · Rail & ST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nashik-kumbh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kumbh City · Nashik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../turbofan-ops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Turbofan Ops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brick-studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brick Studio Pro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heavy-machinery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Earthmovers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pqc-road/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PQC Road Works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../farm-tractors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Krishi Yantra · Farm tractors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harit Ghar · Polyhouse & vertical farm
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harit Ghar · Polyhouse & vertical farm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-facilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two facilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-climate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The climate model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-ways-to-run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three ways to run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-predictive-climate-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-predictive climate control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-based-irrigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensor-based irrigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plant-health-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plant-health vision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photoperiod-optimiser-and-forecasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Photoperiod optimiser and forecasts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-against-ai-over-24-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules against AI over 24 hours
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IoT network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views-and-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views and panels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maharashtra-grid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Urja Maharashtra · State power grid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maharashtra-forests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Van Maharashtra · Forests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-facilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two facilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-climate-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The climate model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-ways-to-run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three ways to run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-predictive-climate-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-predictive climate control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-based-irrigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensor-based irrigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plant-health-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plant-health vision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#photoperiod-optimiser-and-forecasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Photoperiod optimiser and forecasts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-against-ai-over-24-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules against AI over 24 hours
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iot-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IoT network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views-and-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views and panels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="harit-ghar-polyhouse-and-vertical-farm">Harit Ghar · Polyhouse and vertical farm<a class="headerlink" href="#harit-ghar-polyhouse-and-vertical-farm" title="Permanent link">&para;</a></h1>
+<p>A polyhouse and a vertical farm in 3D, run by IoT sensors and AI. A live climate model drives both. You can run them by hand, with the fixed rules of a typical controller, or with an AI that plans ahead, catches faults and spots disease early.</p>
+<p><a class="md-button md-button--primary" href="../../apps/polyhouse-vertical-farm/">Open Harit Ghar <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 22v-2s5-2 10-2 10 2 10 2v2zm9.3-12.9c-1.2-3.9-7.3-3-7.3-3s.2 7.8 5.9 6.6C9.5 9.8 8 9 8 9c2.8 0 3 3.4 3 3.4V17h2v-4.2s0-3.9 3-4.9c0 0-2 3-2 5 7 .7 7-8.9 7-8.9s-8.9-1-9.7 5.1"/></svg></span></a>
+<a class="md-button" href="https://github.com/akashtalole/3D-Artifacts/tree/main/projects/polyhouse-vertical-farm">Source on GitHub</a></p>
+<p><img alt="The polyhouse at midday in summer, with the AI running fan-and-pad cooling" src="../../assets/polyhouse-vertical-farm/ph-over.jpg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The equipment is generic. The climate physics and crop figures are simplified and
+illustrative, and the AI's vision detections are simulated. Crop advisories, makers' data and
+current scheme guidelines govern.</p>
+</div>
+<h2 id="two-facilities">Two facilities<a class="headerlink" href="#two-facilities" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Polyhouse</th>
+<th>Vertical farm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Naturally ventilated polyhouse (NVPH) with fan-and-pad cooling</td>
+<td>Insulated indoor room with NFT racks under LEDs</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>3 bays × 8 m × 40 m = 960 m², gutter 4.5 m, ridge 6.6 m</td>
+<td>14 × 20 m room; 4 racks × 6 tiers × 16 m = 461 m² growing area</td>
+</tr>
+<tr>
+<td>Crops</td>
+<td>Coloured capsicum, indeterminate tomato, parthenocarpic cucumber</td>
+<td>Butterhead lettuce, Genovese basil, baby spinach</td>
+</tr>
+<tr>
+<td>Climate kit</td>
+<td>Roll-up side curtains behind 40-mesh net, ridge vent flaps, 50% aluminised shade screen, 6 exhaust fans and a 23 m cellulose pad wall, 6 fogging lines</td>
+<td>LEDs at 2.8 µmol/J, 60 kW HVAC, dehumidifier, CO₂ dosing, rack fans</td>
+</tr>
+<tr>
+<td>Water</td>
+<td>Drip on 12 beds; fertigation with stock tanks A, B and acid</td>
+<td>NFT channels; dosing pumps, UV steriliser, chiller; condensate recovered</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>LoRaWAN to a gateway on a pole</td>
+<td>Wi-Fi to an edge gateway, MQTT</td>
+</tr>
+</tbody>
+</table>
+<p>The two facilities run on the same clock all the time. Switch between them from the left panel.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Inside the polyhouse" src="../../assets/polyhouse-vertical-farm/ph-inside.jpg" /></th>
+<th><img alt="The vertical farm" src="../../assets/polyhouse-vertical-farm/vf-over.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-climate-model">The climate model<a class="headerlink" href="#the-climate-model" title="Permanent link">&para;</a></h2>
+<p>Both facilities step forward one simulated minute at a time. The models are deliberately simple, but each effect pushes the right way.</p>
+<p><strong>Polyhouse:</strong> an energy, water-vapour and CO₂ balance per m² of floor.</p>
+<ul>
+<li><strong>Sun:</strong> solar gain through the 200 µm cover (72% transmission), cut by up to half when the shade screen is closed.</li>
+<li><strong>Natural ventilation:</strong> through the side curtains and ridge vents, driven by wind and by the inside-outside temperature difference.</li>
+<li><strong>Fan-and-pad cooling:</strong> air leaves the wet pad 80% of the way from the outside temperature to the wet-bulb temperature, picking up moisture. Open vents short-circuit the pad.</li>
+<li><strong>Fogging:</strong> evaporates only while the air is dry enough. The rest wets the leaves.</li>
+<li><strong>Crop:</strong> transpiration rises with light and VPD. Photosynthesis responds to light, CO₂, temperature and VPD.</li>
+<li><strong>Beds:</strong> substrate moisture is tracked per bed, with drainage. Feed EC is tracked for the fertigation.</li>
+</ul>
+<p><strong>Vertical farm:</strong></p>
+<ul>
+<li><strong>Heat and water:</strong> LED heat splits into sensible heat and transpiration.</li>
+<li><strong>HVAC:</strong> cooling with a COP that falls as it gets hotter outside. The coil and dehumidifier remove water, and the condensate goes back to the tank.</li>
+<li><strong>CO₂:</strong> dosed to the setpoint while lit; lost through leakage.</li>
+<li><strong>Nutrients:</strong> EC drifts up as plants drink, and the doser corrects it.</li>
+<li><strong>Growth:</strong> each tier grows on a logistic curve driven by DLI, CO₂ and temperature.</li>
+</ul>
+<p><strong>Weather:</strong> a typical day near Pune for each season.</p>
+<table>
+<thead>
+<tr>
+<th>Season</th>
+<th>Outside</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Summer (April)</td>
+<td>22–38 °C, dry</td>
+<td>Clear</td>
+</tr>
+<tr>
+<td>Monsoon (July)</td>
+<td>22–28 °C, humid</td>
+<td>Cloudy, with rain</td>
+</tr>
+<tr>
+<td>Winter (December)</td>
+<td>12–30 °C</td>
+<td>Clear</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img alt="Monsoon afternoon in the rain" src="../../assets/polyhouse-vertical-farm/ph-monsoon.jpg" /></th>
+<th><img alt="Winter evening" src="../../assets/polyhouse-vertical-farm/ph-night.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="three-ways-to-run-it">Three ways to run it<a class="headerlink" href="#three-ways-to-run-it" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td>You set the vents, shade, fans, pad pump, fogging and irrigation in the polyhouse, and the lights, dimming, HVAC setpoint, CO₂ and dehumidifier in the vertical farm.</td>
+</tr>
+<tr>
+<td><strong>Rules</strong></td>
+<td>A typical controller. Thresholds with hysteresis: vents by temperature, shade above 650 W/m² or 30 °C, fan-and-pad above 30 °C until 27 °C, fogging below 55% RH. Irrigation on a timer, five 10-minute shots a day. Lights 06:00–22:00 at fixed setpoints. Only plain alarms.</td>
+</tr>
+<tr>
+<td><strong>AI</strong></td>
+<td>Model-predictive control, sensor-based irrigation, anomaly detection, vision, forecasts and the photoperiod optimiser, described below.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img alt="Control tab" src="../../assets/polyhouse-vertical-farm/ph-ctrl.jpg" /></th>
+<th><img alt="Dashboard and fan wall" src="../../assets/polyhouse-vertical-farm/ph-fans.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-ai">The AI<a class="headerlink" href="#the-ai" title="Permanent link">&para;</a></h2>
+<h3 id="model-predictive-climate-control">Model-predictive climate control<a class="headerlink" href="#model-predictive-climate-control" title="Permanent link">&para;</a></h3>
+<p>Every 10 minutes the AI simulates <strong>51 candidate plans</strong> one hour ahead, using the house model and the weather forecast. Each plan combines vents, shade, fans with or without the pad, and fogging.</p>
+<p>Each plan gets a score in ₹-equivalent points: heat stress + VPD stress + leaf wetness + power and water − the crop value of the photosynthesis it allows. The lowest score wins.</p>
+<p>The AI tab shows the chosen plan, the predicted temperature and VPD in an hour, and why it won. The explanation compares it with the best plan that changes only one setting.</p>
+<p><img alt="AI tab: the climate plan" src="../../assets/polyhouse-vertical-farm/ph-ai.jpg" /></p>
+<h3 id="sensor-based-irrigation">Sensor-based irrigation<a class="headerlink" href="#sensor-based-irrigation" title="Permanent link">&para;</a></h3>
+<p>Each bed's valve opens on its own probe: when moisture falls near the bottom of the band, or after 0.5 MJ/m² of light since the bed's last pulse. That matches water to demand and to each bed.</p>
+<h3 id="anomaly-detection">Anomaly detection<a class="headerlink" href="#anomaly-detection" title="Permanent link">&para;</a></h3>
+<p>Inject a fault from the left panel and watch the AI find it. The Rules mode has plain alarms only.</p>
+<table>
+<thead>
+<tr>
+<th>Fault</th>
+<th>How the AI finds it</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pad pump failure</td>
+<td>Measured temperature is far above what the model expects with wet pads</td>
+<td>Closes the screen, re-plans without the pad, raises a maintenance alert</td>
+</tr>
+<tr>
+<td>Sensor drift on TH-3</td>
+<td>The node disagrees with the other three by more than 1.5 °C after allowing for the pad-to-fan gradient</td>
+<td>Drops it from control (the Rules mode averages it in)</td>
+</tr>
+<tr>
+<td>Clogged drippers, bed 7</td>
+<td>The bed dries faster, or needs its valve open far longer, than its neighbours</td>
+<td>Flags the bed for flushing</td>
+</tr>
+<tr>
+<td>Dosing pump B stuck</td>
+<td>Feed EC well above target</td>
+<td>Pauses dosing, flushes with clear water</td>
+</tr>
+<tr>
+<td>Gateway offline</td>
+<td>Uplink lost</td>
+<td>Edge controller falls back to local rules and buffers data</td>
+</tr>
+<tr>
+<td>HVAC compressor trip</td>
+<td>Room warming fast while cooling is demanded</td>
+<td>Dims the LEDs to 40% to cut heat</td>
+</tr>
+<tr>
+<td>NFT pump failure</td>
+<td>Rack return flow falls to zero</td>
+<td>Switches to the standby pump</td>
+</tr>
+<tr>
+<td>Rack fans failed</td>
+<td>Air speed sensor on the rack</td>
+<td>Schedules a repair; vision watches for tipburn</td>
+</tr>
+<tr>
+<td>LED driver failure</td>
+<td>PAR reads zero on a lit tier</td>
+<td>Raises a driver-swap ticket</td>
+</tr>
+<tr>
+<td>EC probe drift</td>
+<td>Probe disagrees with the dosing balance</td>
+<td>Recalibrates against the reference probe</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img alt="Pad pump failure caught" src="../../assets/polyhouse-vertical-farm/ph-padfault.jpg" /></th>
+<th><img alt="HVAC trip in the vertical farm" src="../../assets/polyhouse-vertical-farm/vf-hvac.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="plant-health-vision">Plant-health vision<a class="headerlink" href="#plant-health-vision" title="Permanent link">&para;</a></h3>
+<p>In the polyhouse a scouting robot drives every path. Cameras on its mast look at both rows, and a detector flags disease before it is obvious to the eye. Each find gets a spot spray over 2 m of the bed.</p>
+<p>Without the AI, a worker scouts by eye at 09:00 each morning and finds only visible symptoms.</p>
+<p>In the model's test the outbreak was found about 1.7 hours after onset and held to the 6 first plants. Under the rules it was found the next morning, after it had spread to 9 plants.</p>
+<p>In the vertical farm a camera AGV photographs every tier for tipburn and wilting.</p>
+<p>The detections are simulated; no image model runs in the browser.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Disease detected by the robot" src="../../assets/polyhouse-vertical-farm/ph-disease.jpg" /></th>
+<th><img alt="The scouting robot" src="../../assets/polyhouse-vertical-farm/ph-robot.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="photoperiod-optimiser-and-forecasts">Photoperiod optimiser and forecasts<a class="headerlink" href="#photoperiod-optimiser-and-forecasts" title="Permanent link">&para;</a></h3>
+<p>The vertical farm's lights run 16 hours a day for lettuce. The optimiser tries every start hour against the time-of-day tariff and the outdoor temperature (cooler night air raises the HVAC's COP). For a summer day it picks 22:00–14:00 instead of 06:00–22:00. In the 24-hour comparison that cuts the day's power and CO₂ cost by about 8%.</p>
+<p>The AI tab also shows:</p>
+<ul>
+<li>a polyhouse <strong>yield forecast</strong> from the climate index (photosynthesis against its light-limited potential) and disease losses;</li>
+<li>a <strong>7-day harvest forecast</strong> from each tier's growth curve.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Vertical farm AI tab" src="../../assets/polyhouse-vertical-farm/vf-ai.jpg" /></th>
+<th><img alt="Lights off at night" src="../../assets/polyhouse-vertical-farm/vf-night.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rules-against-ai-over-24-hours">Rules against AI over 24 hours<a class="headerlink" href="#rules-against-ai-over-24-hours" title="Permanent link">&para;</a></h3>
+<p>The AI tab runs the same day twice on the model, once under the rules and once under the AI, with no faults.</p>
+<p>For coloured capsicum in the polyhouse:</p>
+<table>
+<thead>
+<tr>
+<th>Season</th>
+<th>Hours over 3 °C too hot</th>
+<th>Photosynthesis vs potential</th>
+<th>Drip water</th>
+<th>Electricity</th>
+<th>Net value (crop value − running cost)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Summer</td>
+<td>9.0 → <strong>1.6</strong></td>
+<td>59% → <strong>79%</strong></td>
+<td>5,320 → <strong>3,547 L</strong></td>
+<td>95 → 138 kWh</td>
+<td>₹2,874 → <strong>₹3,770</strong></td>
+</tr>
+<tr>
+<td>Monsoon</td>
+<td>5.9 → <strong>5.1</strong></td>
+<td>71% → <strong>91%</strong></td>
+<td>5,320 → <strong>2,376 L</strong></td>
+<td>3 → 45 kWh</td>
+<td>₹3,218 → <strong>₹3,840</strong></td>
+</tr>
+<tr>
+<td>Winter</td>
+<td>1.4 → <strong>0.0</strong></td>
+<td>60% → <strong>98%</strong></td>
+<td>5,320 → <strong>3,227 L</strong></td>
+<td>27 → 63 kWh</td>
+<td>₹2,729 → <strong>₹4,385</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The AI spends more on fans and pad water when the crop value it protects is larger, and it uses less drip water.</p>
+<p>In the monsoon it trades VPD for cooling at midday. The comparison shows that as well: VPD stays in band for less of the day than under the rules.</p>
+<p>For lettuce in the vertical farm, the AI cuts the day's power and CO₂ cost by about 8% (₹8,327 → ₹7,620 in summer). It also keeps humidity in band most of the day, against about half the day under the rules, for the same growth.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Polyhouse comparison" src="../../assets/polyhouse-vertical-farm/ph-compare.jpg" /></th>
+<th><img alt="Vertical farm comparison" src="../../assets/polyhouse-vertical-farm/vf-compare.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="iot-network">IoT network<a class="headerlink" href="#iot-network" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Polyhouse node</th>
+<th>Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TH-1 … TH-4</td>
+<td>Air temperature and RH from the pad end to the fan end; CO₂ or PAR</td>
+</tr>
+<tr>
+<td>SM-1 … SM-12</td>
+<td>Substrate moisture and temperature, one per bed</td>
+</tr>
+<tr>
+<td>FERT</td>
+<td>Feed EC, pH and flow</td>
+</tr>
+<tr>
+<td>PAD</td>
+<td>Pad pump current and sump level</td>
+</tr>
+<tr>
+<td>WS</td>
+<td>Outside temperature, RH, solar radiation and wind</td>
+</tr>
+<tr>
+<td>CAM</td>
+<td>The scouting robot's detections</td>
+</tr>
+</tbody>
+</table>
+<p>The vertical farm has RK-1 … RK-4 (air, CO₂, PAR, air speed), NUT (EC, pH, DO, water temperature), FLOW-1 … FLOW-4, HVAC and CAM.</p>
+<p>Every node reports every 5 minutes. The packets fly to the gateway in 3D, and the Dashboard lists each node's battery, signal and last report with a live MQTT feed (<code>haritghar/ph/TH-2 {"t":26.8,"rh":68,"co2":412}</code>). When the gateway goes offline, messages are buffered at the edge.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Network view" src="../../assets/polyhouse-vertical-farm/ph-iot.jpg" /></th>
+<th><img alt="Vertical farm network" src="../../assets/polyhouse-vertical-farm/vf-iot.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="views-and-panels">Views and panels<a class="headerlink" href="#views-and-panels" title="Permanent link">&para;</a></h2>
+<p>Cameras:</p>
+<ul>
+<li><strong>Polyhouse:</strong> Overview, Inside, Pad wall, Fan wall, Robot (follows the scouting robot), Network (top view).</li>
+<li><strong>Vertical farm:</strong> Overview, Aisle, Rack, Nutrients, Robot, Network.</li>
+</ul>
+<p>The <strong>IoT</strong> button hides the network and labels. <strong>Cover</strong> or <strong>Walls</strong> fades the polythene or hides the room walls.</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dashboard</td>
+<td>Live tiles with in-band status, 24-hour charts (temperature, VPD, bed moisture and CO₂ for the polyhouse; temperature, RH, power and CO₂ for the vertical farm), the node table and the MQTT feed</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>Actuators (live under Rules and AI, editable in Manual), drip valves with each bed's moisture, crop setpoints or the light recipe, and the kit</td>
+</tr>
+<tr>
+<td>AI</td>
+<td>The climate plan or photoperiod optimiser, irrigation, vision, forecasts, alerts and detections, and the 24-hour comparison</td>
+</tr>
+<tr>
+<td>Crop</td>
+<td>Bed moisture and disease, or the tier grid with head weight and days to harvest and the harvest log</td>
+</tr>
+<tr>
+<td>Economics</td>
+<td>Polyhouse: capex, subsidy, revenue, operating cost, margin, payback and the yearly value of IoT + AI. Vertical farm: yield, kWh/kg, cost per kg, margin and payback</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img alt="Tomato" src="../../assets/polyhouse-vertical-farm/ph-tomato.jpg" /></th>
+<th><img alt="Cucumber" src="../../assets/polyhouse-vertical-farm/ph-cucumber.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Rack aisle" src="../../assets/polyhouse-vertical-farm/vf-aisle.jpg" /></td>
+<td><img alt="Basil" src="../../assets/polyhouse-vertical-farm/vf-basil.jpg" /></td>
+</tr>
+<tr>
+<td><img alt="Nutrient room" src="../../assets/polyhouse-vertical-farm/vf-nutrient.jpg" /></td>
+<td><img alt="Tier grid" src="../../assets/polyhouse-vertical-farm/vf-crop.jpg" /></td>
+</tr>
+<tr>
+<td><img alt="Pad wall" src="../../assets/polyhouse-vertical-farm/ph-pad.jpg" /></td>
+<td><img alt="Economics" src="../../assets/polyhouse-vertical-farm/ph-eco.jpg" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
+<p>The URL hash opens a view directly:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fac</code></td>
+<td><code>ph</code>, <code>vf</code></td>
+</tr>
+<tr>
+<td><code>season</code></td>
+<td><code>summer</code>, <code>monsoon</code>, <code>winter</code></td>
+</tr>
+<tr>
+<td><code>crop</code></td>
+<td><code>capsicum</code>, <code>tomato</code>, <code>cucumber</code>, <code>lettuce</code>, <code>basil</code>, <code>spinach</code></td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>manual</code>, <code>rules</code>, <code>ai</code></td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td><code>60</code>, <code>600</code>, <code>3600</code> (simulated seconds per second)</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>start hour, e.g. <code>15</code></td>
+</tr>
+<tr>
+<td><code>cam</code></td>
+<td><code>over</code>, <code>inside</code>, <code>pad</code>, <code>fans</code>, <code>scout</code>, <code>iot</code>, <code>aisle</code>, <code>tier</code>, <code>nutrient</code></td>
+</tr>
+<tr>
+<td><code>tab</code></td>
+<td><code>dash</code>, <code>ctrl</code>, <code>ai</code>, <code>crop</code>, <code>eco</code></td>
+</tr>
+<tr>
+<td><code>fault</code></td>
+<td>comma list: <code>pad</code>, <code>drift</code>, <code>clog</code>, <code>ec</code>, <code>gateway</code>, <code>disease</code>, <code>hvac</code>, <code>pump</code>, <code>airflow</code>, <code>led</code></td>
+</tr>
+</tbody>
+</table>
+<p>For example, <a href="../../apps/polyhouse-vertical-farm/#season=monsoon&amp;t=15"><code>#season=monsoon&amp;t=15</code></a> or <a href="../../apps/polyhouse-vertical-farm/#fac=vf&amp;tab=ai&amp;fault=hvac"><code>#fac=vf&amp;tab=ai&amp;fault=hvac</code></a>.</p>
+<p>On a phone the panels stack below the scene.</p>
+<p><img alt="Phone" src="../../assets/polyhouse-vertical-farm/p-phone.jpg" width="300" /></p>
+<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/data.js</code></td>
+<td>Facilities, seasons, crops, tariff and faults</td>
+</tr>
+<tr>
+<td><code>src/sim.js</code></td>
+<td>Weather, psychrometrics, both climate models, rule and AI controllers, anomaly detection and the 24-hour comparison</td>
+</tr>
+<tr>
+<td><code>src/polyhouse.js</code></td>
+<td>The polyhouse, its crop and the scouting robot</td>
+</tr>
+<tr>
+<td><code>src/vfarm.js</code></td>
+<td>The vertical farm, its heads, lifts, airflow and camera AGV</td>
+</tr>
+<tr>
+<td><code>src/iot.js</code></td>
+<td>Sensor nodes, gateways, packets and labels</td>
+</tr>
+<tr>
+<td><code>src/charts.js</code></td>
+<td>Canvas line charts with a target band and hover readout</td>
+</tr>
+<tr>
+<td><code>src/main.js</code></td>
+<td>The simulation loop, disease and vision, cameras and panels</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../farm-tractors/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Krishi Yantra · Farm tractors">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Krishi Yantra · Farm tractors
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../maharashtra-grid/" class="md-footer__link md-footer__link--next" aria-label="Next: Urja Maharashtra · State power grid">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Urja Maharashtra · State power grid
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MIT licensed · Earth imagery NASA (via three.js examples)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "navigation.footer", "content.code.copy", "search.highlight"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>

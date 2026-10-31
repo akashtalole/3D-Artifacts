@@ -1,0 +1,88 @@
+/* Brand: cyan accent shared with the apps */
+[data-md-color-scheme="default"] {
+  --md-accent-fg-color: #0aa5b0;
+  --md-typeset-a-color: #087f88;
+}
+[data-md-color-scheme="slate"] {
+  --md-accent-fg-color: #5ce1e6;
+  --md-typeset-a-color: #5ce1e6;
+  --md-default-bg-color: #0b0f17;
+  --md-code-bg-color: #121826;
+}
+.md-typeset .md-button {
+  border-radius: 10px;
+  color: var(--md-typeset-a-color);
+  border-color: currentColor;
+}
+.md-typeset .md-button--primary,
+.md-typeset .md-button--primary:hover {
+  background: #5ce1e6;
+  border-color: #5ce1e6;
+  color: #04131a;
+}
+.md-typeset .md-button:hover {
+  background: rgba(92, 225, 230, 0.12);
+  color: var(--md-typeset-a-color);
+}
+.md-typeset .md-button--primary:hover {
+  background: #7ae9ed;
+  color: #04131a;
+}
+
+.hero {
+  padding: 2.2rem 0 1rem;
+}
+.hero h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+.hero p {
+  font-size: 1.05rem;
+  max-width: 42rem;
+  opacity: 0.85;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+.gallery .card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 14px;
+  padding: 0.9rem 1rem 1rem;
+  background: var(--md-code-bg-color);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.gallery .card:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-2px);
+}
+.gallery .card img {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.gallery .card h3 {
+  margin: 0.8rem 0 0.3rem;
+}
+.gallery .card p {
+  margin: 0.3rem 0;
+  font-size: 0.78rem;
+}
+.gallery .card--soon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-style: dashed;
+  opacity: 0.8;
+}
+
+.md-typeset img {
+  border-radius: 10px;
+}

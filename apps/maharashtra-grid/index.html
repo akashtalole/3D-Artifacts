@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Urja Maharashtra</title>
+  <meta name="description" content="Maharashtra's power grid in 3D: Mahagenco's coal, hydro, gas and solar stations, wind and solar parks, Mahapareshan's 765/400/220 kV network and the Chandrapur–Padghe HVDC link, and Mahavitaran's distribution to homes, industry and farm pumps, dispatched every 15 minutes." />
+  <meta name="theme-color" content="#14171b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M36 4 14 36h14l-4 24 26-36H35z' fill='%23f2a541'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>Urja Maharashtra <i>ऊर्जा महाराष्ट्र</i></b><span>The state power grid, from plant to plug</span></div>
+      <div class="chain"><span style="--c:#f28c28">Mahagenco<small>generation</small></span><i>→</i><span style="--c:#f0b429">Mahapareshan<small>transmission</small></span><i>→</i><span style="--c:#3fcf8e">Mahavitaran<small>distribution</small></span></div>
+      <h4>Season</h4>
+      <div class="seg wide" id="seasons"></div>
+      <h4>Scenarios</h4>
+      <div class="faults" id="scens"></div>
+      <div id="siteCard"></div>
+      <p class="fine">Simplified and illustrative: capacities, locations, costs and the network are approximate. SLDC, MERC and the companies' own reports govern.</p>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="bar">
+        <button class="btn primary" id="play">❚❚</button>
+        <div class="seg" id="speeds"><button data-s="60">1 min/s</button><button data-s="600" class="active">10 min/s</button><button data-s="3600">1 h/s</button></div>
+        <div class="seg" id="views"></div>
+        <div class="seg" id="sitesBar"></div>
+        <div class="seg"><button id="lblBtn" class="active">Labels</button></div>
+      </header>
+      <div id="hud" class="hud"></div>
+      <div class="strip" id="strip"><span><i class="ln" style="background:#e66767"></i>765 kV</span><span><i class="ln" style="background:#f0b429"></i>400 kV</span><span><i class="ln" style="background:#d6a2ff"></i>220 kV</span><span><i class="ln" style="background:#9b6bff"></i>HVDC</span><span><i class="dt" style="background:#5dffa0"></i>&lt;60%</span><span><i class="dt" style="background:#ffd166"></i>60–90%</span><span><i class="dt" style="background:#ff5a5a"></i>&gt;90% loaded</span></div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="over" class="active">Overview</button><button data-tab="gen">Mahagenco</button><button data-tab="tx">Mahapareshan</button><button data-tab="dist">Mahavitaran</button><button data-tab="sys">System</button></nav>
+      <section class="tab show" id="tab-over"></section>
+      <section class="tab" id="tab-gen"></section>
+      <section class="tab" id="tab-tx"></section>
+      <section class="tab" id="tab-dist"></section>
+      <section class="tab" id="tab-sys"></section>
+    </aside>
+    <div id="loader" class="loader"><div class="ring"></div><div>Synchronising with the grid…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
