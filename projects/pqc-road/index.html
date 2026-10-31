@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>PQC Road Works</title>
+  <meta name="description" content="Animated construction of a jointed plain concrete (PQC) road as per IRC:15, IRC:58 and MoRTH Section 600: subgrade, GSB, DLC, separation membrane, stringlines, slip-form paving with dowel and tie-bar inserters, texturing and curing, saw-cut joints, wet curing, joint sealing and opening to traffic." />
+  <meta name="theme-color" content="#14171b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M4 50 L24 14 H40 L60 50Z' fill='%23b9b6ad'/%3E%3Cpath d='M30 18h4v6h-4zM30 30h4v8h-4zM29 44h6v6h-6z' fill='%23ffb020'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>PQC Road Works</b><span>Jointed plain concrete pavement · as per IRC:15 / IRC:58</span></div>
+      <ol id="stages" class="stages"></ol>
+      <p class="fine">Typical values from IRC:15, IRC:58 and MoRTH Section 600. The contract specification and current code editions govern.</p>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="bar">
+        <div class="seg" id="views"><button data-v="follow" class="active" title="Follow the work front">🎥 Follow</button><button data-v="overview">Overview</button><button data-v="section">Section</button><button data-v="close">Close-up</button></div>
+        <div class="seg" id="toggles"><button data-t="xray" title="See dowels and tie bars through the slab">X-ray steel</button><button data-t="labels" class="active">Labels</button></div>
+      </header>
+      <div id="hud" class="hud"></div>
+      <div class="timeline">
+        <button id="play" class="btn primary" aria-label="Play">▶</button>
+        <div class="seg" id="speeds"><button data-s="1" class="active">1×</button><button data-s="2">2×</button><button data-s="4">4×</button></div>
+        <div id="track" class="track"><div id="segs" class="segs"></div><div id="head" class="head"></div></div>
+      </div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="stage" class="active">Stage</button><button data-tab="draw">Drawings</button><button data-tab="calc">Calculator</button><button data-tab="qc">QC log</button><button data-tab="ref">Codes</button></nav>
+      <section class="tab show" id="tab-stage"></section>
+      <section class="tab" id="tab-draw"></section>
+      <section class="tab" id="tab-calc"></section>
+      <section class="tab" id="tab-qc"></section>
+      <section class="tab" id="tab-ref"></section>
+    </aside>
+    <div id="loader" class="loader"><div class="ring"></div><div>Setting out the road…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -33,6 +33,226 @@ battery swaps and Nauka outfitting.
 [Launch app](apps/iss-eva-spacewalk/) · [Documentation](projects/iss-eva-spacewalk/index.md)
 </div>
 
+<div class="card" markdown>
+[![CRS-35 launch to docking](assets/crs35-launch-to-docking/pad.jpg)](apps/crs35-launch-to-docking/)
+
+### CRS-35: Launch to Docking
+
+NASA's SpaceX CRS-35 in three acts: pre-dawn Falcon 9 launch and booster landing,
+51 hours of orbit phasing, and Dragon's autonomous docking to Harmony.
+
+[Launch app](apps/crs35-launch-to-docking/) · [Documentation](projects/crs35-launch-to-docking/index.md)
+</div>
+
+<div class="card" markdown>
+[![Solar System Explorer](assets/solar-system/home.jpg)](apps/solar-system/)
+
+### Solar System Explorer
+
+A true-scale, real-time Solar System in the style of NASA's Eyes. Every planet is
+where it really is today. Fly between worlds and run time forwards or backwards.
+
+[Launch app](apps/solar-system/) · [Documentation](projects/solar-system/index.md)
+</div>
+
+<div class="card" markdown>
+[![AI Factory India](assets/ai-factory-india/campus.jpg)](apps/ai-factory-india/)
+
+### AI Factory India
+
+A 100 MW Vera Rubin NVL72 AI factory near Hyderabad, from the 220 kV grid and the
+dry coolers down to an exploded compute tray, with the live Indian sun and climate.
+
+[Launch app](apps/ai-factory-india/) · [Documentation](projects/ai-factory-india/index.md)
+</div>
+
+<div class="card" markdown>
+[![Brick Builder](assets/brick-builder/cottage.jpg)](apps/brick-builder/)
+
+### Brick Builder
+
+Snap interlocking bricks onto a baseplate in 3D, in the real 8 mm stud system: bricks,
+plates, tiles, slopes and rounds in 24 colours, with undo, replay and export.
+
+[Launch app](apps/brick-builder/) · [Documentation](projects/brick-builder/index.md)
+</div>
+
+<div class="card" markdown>
+[![Cloud Brick Architect](assets/aws-architecture-builder/ha-chaos.jpg)](apps/aws-architecture-builder/)
+
+### Cloud Brick Architect
+
+Build AWS architectures like bricks: six missions with live goal checks, budgets and
+stars, animated traffic, and an Availability Zone failure test.
+
+[Launch app](apps/aws-architecture-builder/) · [Documentation](projects/aws-architecture-builder/index.md)
+</div>
+
+<div class="card" markdown>
+[![CAD/CAM Studio](assets/cad-cam-studio/compare.jpg)](apps/cad-cam-studio/)
+
+### CAD/CAM Studio
+
+Design a machined part from parametric features, then generate toolpaths, simulate the
+cut against the design and export G-code and STL.
+
+[Launch app](apps/cad-cam-studio/) · [Documentation](projects/cad-cam-studio/index.md)
+</div>
+
+<div class="card" markdown>
+[![Forts of Swarajya](assets/shivaji-forts/raigad.jpg)](apps/shivaji-forts/)
+
+### गडकिल्ले · Forts of Swarajya
+
+Fourteen forts of Chhatrapati Shivaji Maharaj on real terrain, from Shivneri and Raigad
+to Sindhudurg, with walls traced from the cliffs and a timeline of his life.
+
+[Launch app](apps/shivaji-forts/) · [Documentation](projects/shivaji-forts/index.md)
+</div>
+
+<div class="card" markdown>
+[![Proto Lab](assets/proto-lab/parking.jpg)](apps/proto-lab/)
+
+### Proto Lab
+
+Prototype electronics in 3D: Arduino, ESP32 and Raspberry Pi boards, breadboards and 65
+sensors and modules, with a circuit check, simulation and generated firmware.
+
+[Launch app](apps/proto-lab/) · [Documentation](projects/proto-lab/index.md)
+</div>
+
+<div class="card" markdown>
+[![Logistics Twin](assets/logistics-twin/overview.jpg)](apps/logistics-twin/)
+
+### Logistics Twin
+
+A live digital twin of a fulfilment centre: supplier trucks, reach trucks and racking,
+AMR order picking, packing, a sorter and line-haul trucks, with KPIs and bottleneck advice.
+
+[Launch app](apps/logistics-twin/) · [Documentation](projects/logistics-twin/index.md)
+</div>
+
+<div class="card" markdown>
+[![Robot Cell Studio](assets/robot-cell-studio/six-palletize.jpg)](apps/robot-cell-studio/)
+
+### Robot Cell Studio
+
+Build an industrial robot joint by joint, check its reach, payload and motor loads,
+program it in a 3D factory cell and export URDF.
+
+[Launch app](apps/robot-cell-studio/) · [Documentation](projects/robot-cell-studio/index.md)
+</div>
+
+<div class="card" markdown>
+[![Yatra · Rail & ST](assets/yatra/viaduct-aerial.jpg)](apps/yatra/)
+
+### यात्रा · Yatra: Rail & ST
+
+Mumbai to Pune by Indian Railways through the Bhor Ghat tunnels and viaducts, or by MSRTC
+ST bus up the Khandala Ghat. Choose the vehicle, camera, weather and time of day.
+
+[Launch app](apps/yatra/) · [Documentation](projects/yatra/index.md)
+</div>
+
+<div class="card" markdown>
+[![Kumbh City](assets/nashik-kumbh/ramkund-plan.jpg)](apps/nashik-kumbh/)
+
+### कुंभनगरी · Kumbh City
+
+Plan Nashik for the Simhastha Kumbh Mela: parking hubs, shuttles, ghats, one-way routes,
+holding areas and the ICCC, then simulate 40 lakh pilgrims on an Amrit Snan day.
+
+[Launch app](apps/nashik-kumbh/) · [Documentation](projects/nashik-kumbh/index.md)
+</div>
+
+<div class="card" markdown>
+[![Turbofan Ops](assets/turbofan-ops/toga.jpg)](apps/turbofan-ops/)
+
+### Turbofan Ops
+
+Start, run and reverse a high-bypass turbofan in a 3D cutaway: FADEC auto-start, a live
+thermodynamic cycle, cockpit gauges and failures from hot starts to engine fires.
+
+[Launch app](apps/turbofan-ops/) · [Documentation](projects/turbofan-ops/index.md)
+</div>
+
+<div class="card" markdown>
+[![Brick Studio Pro](assets/brick-studio/cottage.jpg)](apps/brick-studio/)
+
+### Brick Studio Pro
+
+An advanced brick builder: 69 parts that snap by their studs, selection editing, a
+stability check, automatic building instructions, generators, photo mosaics and LDraw export.
+
+[Launch app](apps/brick-studio/) · [Documentation](projects/brick-studio/index.md)
+</div>
+
+<div class="card" markdown>
+[![Earthmovers](assets/heavy-machinery/site.jpg)](apps/heavy-machinery/)
+
+### Earthmovers
+
+A heavy-equipment portfolio: eight machines with working hydraulics. Operate, configure and
+price them, plan a fleet, dig in a sandbox and watch a job site at work.
+
+[Launch app](apps/heavy-machinery/) · [Documentation](projects/heavy-machinery/index.md)
+</div>
+
+<div class="card" markdown>
+[![PQC Road Works](assets/pqc-road/paving.jpg)](apps/pqc-road/)
+
+### PQC Road Works
+
+A concrete road built step by step as per IRC:15 and IRC:58: subgrade, GSB, DLC, slip-form
+paving with dowel and tie-bar inserters, saw-cut joints, curing, sealing and opening.
+
+[Launch app](apps/pqc-road/) · [Documentation](projects/pqc-road/index.md)
+</div>
+
+<div class="card" markdown>
+[![Krishi Yantra](assets/farm-tractors/harvest.jpg)](apps/farm-tractors/)
+
+### Krishi Yantra · Farm tractors
+
+Tractors with working linkages and PTO, and eleven animated implements: ploughs, harrow,
+rotavator, laser leveller, seed drill, sprayer, reaper, thresher and trolley, through a wheat season.
+
+[Launch app](apps/farm-tractors/) · [Documentation](projects/farm-tractors/index.md)
+</div>
+
+<div class="card" markdown>
+[![Harit Ghar](assets/polyhouse-vertical-farm/ph-over.jpg)](apps/polyhouse-vertical-farm/)
+
+### Harit Ghar · Polyhouse & vertical farm
+
+A polyhouse and a vertical farm on a live climate model, run by IoT sensors and AI:
+model-predictive control, fault detection, plant-health vision and a rules-vs-AI comparison.
+
+[Launch app](apps/polyhouse-vertical-farm/) · [Documentation](projects/polyhouse-vertical-farm/index.md)
+</div>
+
+<div class="card" markdown>
+[![Urja Maharashtra](assets/maharashtra-grid/state.jpg)](apps/maharashtra-grid/)
+
+### Urja Maharashtra · State power grid
+
+Mahagenco's coal, Koyna hydro, solar and wind, Mahapareshan's 765/400 kV network and the
+HVDC link, and Mahavitaran's consumers, dispatched every 15 minutes with live flows.
+
+[Launch app](apps/maharashtra-grid/) · [Documentation](projects/maharashtra-grid/index.md)
+</div>
+
+<div class="card" markdown>
+[![Van Maharashtra](assets/maharashtra-forests/state-2050.jpg)](apps/maharashtra-forests/)
+
+### Van Maharashtra · Forests
+
+Maharashtra's forest cover from 2021 to 2050 as mines, plants, roads, dams and ports take forest
+land, under three scenarios, with close-ups of a mine, a highway, a dam and a mangrove port.
+
+[Launch app](apps/maharashtra-forests/) · [Documentation](projects/maharashtra-forests/index.md)
+</div>
+
 <div class="card card--soon" markdown>
 ### More on the way
 

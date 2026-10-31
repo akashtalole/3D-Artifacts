@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Turbofan Ops</title>
+  <meta name="description" content="Operate a high-bypass turbofan in 3D: APU bleed, auto-start, light-off, idle, TOGA, reverse thrust and shutdown, with a live thermodynamic cycle, cutaway airflow, cockpit gauges and failures from hot starts to engine fires." />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23263340'/%3E%3Cg fill='%2339d0ff'%3E%3Cpath d='M32 32 L32 6 Q42 12 36 30z'/%3E%3Cpath d='M32 32 L58 32 Q52 42 34 36z'/%3E%3Cpath d='M32 32 L32 58 Q22 52 28 34z'/%3E%3Cpath d='M32 32 L6 32 Q12 22 30 28z'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='6' fill='%23e8ebee'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="top">
+        <div class="brand"><b>Turbofan Ops</b><span>High-bypass engine · ≈130 kN class</span></div>
+        <div class="hud" id="hud"></div>
+        <button id="panel-toggle" class="btn" title="Show / hide the cockpit">☰</button>
+      </header>
+      <div class="bottom">
+        <div class="seg views"><button data-view="three">3/4</button><button data-view="side">Side</button><button data-view="front">Inlet</button><button data-view="core">Core</button><button data-view="comb">Combustor</button><button data-view="rear">Exhaust</button><button data-view="rev">Reverser</button></div>
+        <div class="row">
+          <button id="cut" class="btn active" title="Quarter cutaway">✂ Cutaway</button>
+          <button id="xray" class="btn" title="See-through casings">X-ray</button>
+          <button id="flowbtn" class="btn active" title="Airflow particles">Airflow</button>
+          <button id="lblbtn" class="btn active">Labels</button>
+          <label class="mini">Exploded <input type="range" id="explode" min="0" max="1" step="0.01" value="0" /></label>
+          <label class="mini">Rotors <input type="range" id="slow" min="0.005" max="0.2" step="0.005" /><em id="slow-v"></em></label>
+          <div class="seg"><button data-speed="1" class="active">1×</button><button data-speed="2">2×</button><button data-speed="5">5×</button></div>
+          <button id="snd" class="btn" title="Sound">🔊</button>
+        </div>
+      </div>
+    </main>
+    <aside class="side">
+      <nav class="tabs"><button data-tab="cockpit" class="active">Cockpit</button><button data-tab="data">Engine data</button><button data-tab="learn">Learn</button></nav>
+      <section class="tab show" id="tab-cockpit">
+        <canvas id="eicas" width="370" height="345"></canvas>
+        <div id="ecam" class="ecam"></div>
+        <div class="panel">
+          <h4>Overhead</h4>
+          <div class="sw"><button id="apu" class="pb">APU BLEED</button><button id="contign" class="pb">CONT IGN</button><button id="autostart" class="pb on">AUTO START</button></div>
+          <h4>Engine start panel</h4>
+          <div class="seg wide mode"><button data-mode="crank">CRANK</button><button data-mode="norm">NORM</button><button data-mode="start">IGN / START</button></div>
+          <div class="masterrow"><span>ENG 1 MASTER</span><button id="master" class="master">OFF</button></div>
+          <h4>Thrust lever</h4>
+          <div class="leverbox">
+            <input type="range" id="lever" min="0" max="100" step="1" value="22" orient="vertical" />
+            <div class="detents"><button data-detent="100">TOGA</button><button data-detent="82">FLX / MCT</button><button data-detent="62">CL</button><button data-detent="22">IDLE</button><button data-detent="10">REV IDLE</button><button data-detent="0">MAX REV</button></div>
+          </div>
+          <div class="leverv" id="lever-v"></div>
+          <h4>Fire</h4>
+          <div class="firepanel"><button id="firehandle" class="fire">ENG 1<br />FIRE<small>pull</small></button><button id="agent1" class="agent">AGENT 1<small>DISCH</small></button><button id="agent2" class="agent">AGENT 2<small>DISCH</small></button></div>
+          <h4>Flight condition</h4>
+          <select id="phase"></select>
+          <label class="slider"><span>Temperature <b id="oat-v">ISA+0 °C</b></span><input type="range" id="oat" min="-30" max="40" step="1" value="0" /></label>
+          <h4>Training</h4>
+          <div class="faultrow"><select id="fault"></select><button id="fault-go" class="btn">Inject</button></div>
+          <div class="btnrow"><button id="quick" class="btn">⚡ Quick start to idle</button><button id="reset" class="btn">↺ Cold engine</button></div>
+          <h4>Start checklist</h4>
+          <ol id="check" class="check"></ol>
+          <h4>Event log</h4>
+          <ul id="log" class="log"></ul>
+        </div>
+      </section>
+      <section class="tab" id="tab-data">
+        <h4>Gas path stations</h4>
+        <table id="stations" class="tbl"></table>
+        <h4>Performance</h4>
+        <table id="perf" class="tbl perf"></table>
+        <h4>Last 3 minutes</h4>
+        <canvas id="hist" width="600" height="170"></canvas>
+        <div class="legend"><span><i style="background:#3dff8f"></i>N1</span><span><i style="background:#39d0ff"></i>N2</span><span><i style="background:#ff9f43"></i>EGT</span><span><i style="background:#e9e4dc"></i>Fuel flow</span></div>
+        <p class="muted">The cycle is a quasi-steady Brayton model. Spool speeds and fuel flow set the airflow, pressure ratios and temperatures; thrust comes from the bypass and core jet velocities. The numbers are illustrative and do not describe any certified engine.</p>
+      </section>
+      <section class="tab" id="tab-learn">
+        <h4>Inside the engine</h4>
+        <div id="info" class="info"></div>
+        <h4>Procedures</h4>
+        <div class="proc">
+          <p><b>Engine start:</b> APU bleed on, ENG MODE IGN/START, ENG MASTER ON. The FADEC opens the starter valve and turns on an igniter at 16% N2. At 22% it opens the fuel valve, expecting light-off within 15 s. It closes the starter at 50% N2. Idle comes at about 58% N2. The FADEC aborts a hot, hung or failed start by itself and dry-cranks the engine. In <i>manual</i> start you must do that yourself.</p>
+          <p><b>Take-off:</b> advance the thrust lever to TOGA. N1 should reach its target in about 6–8 s with EGT below 1,060 °C. On a hot day the flat rating ends and the EGT limiter reduces N1.</p>
+          <p><b>Landing:</b> with the aircraft on the ground (landing roll), pull the lever below idle. The sleeve slides aft, the blocker doors close and the cascades throw the fan air forwards.</p>
+          <p><b>Shutdown:</b> idle for about 3 minutes to cool, then ENG MASTER OFF.</p>
+          <p><b>Engine fire:</b> thrust lever idle, ENG MASTER OFF, pull the fire handle, discharge agent 1. If the fire is still burning after 30 s, discharge agent 2.</p>
+          <p><b>Flameout in flight:</b> select IGN or continuous ignition. Ram air keeps the core windmilling, and the engine relights within the envelope.</p>
+        </div>
+        <p class="muted">An illustrative training model of a generic high-bypass turbofan, not any certified engine's figures or procedures. For learning only, not for real operations.</p>
+      </section>
+    </aside>
+    <div class="toast" id="toast"></div>
+    <div id="loader" class="loader"><div class="ring"></div><div>Assembling the engine…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -72,6 +72,26 @@ nav:
           - Operations: projects/iss-eva-spacewalk/missions.md
           - Station reference: projects/iss-eva-spacewalk/reference.md
           - How it works: projects/iss-eva-spacewalk/architecture.md
+      - CRS-35 Launch to Docking: projects/crs35-launch-to-docking/index.md
+      - Solar System Explorer: projects/solar-system/index.md
+      - AI Factory India: projects/ai-factory-india/index.md
+      - Brick Builder: projects/brick-builder/index.md
+      - Cloud Brick Architect: projects/aws-architecture-builder/index.md
+      - CAD/CAM Studio: projects/cad-cam-studio/index.md
+      - Forts of Swarajya: projects/shivaji-forts/index.md
+      - Proto Lab: projects/proto-lab/index.md
+      - Logistics Twin: projects/logistics-twin/index.md
+      - Robot Cell Studio: projects/robot-cell-studio/index.md
+      - Yatra · Rail & ST: projects/yatra/index.md
+      - Kumbh City · Nashik: projects/nashik-kumbh/index.md
+      - Turbofan Ops: projects/turbofan-ops/index.md
+      - Brick Studio Pro: projects/brick-studio/index.md
+      - Earthmovers: projects/heavy-machinery/index.md
+      - PQC Road Works: projects/pqc-road/index.md
+      - Krishi Yantra · Farm tractors: projects/farm-tractors/index.md
+      - Harit Ghar · Polyhouse & vertical farm: projects/polyhouse-vertical-farm/index.md
+      - Urja Maharashtra · State power grid: projects/maharashtra-grid/index.md
+      - Van Maharashtra · Forests: projects/maharashtra-forests/index.md
   - Contributing: contributing.md
 
 # Links into the bundled apps (site/apps/…) are not MkDocs pages.

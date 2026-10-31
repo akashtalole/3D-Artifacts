@@ -6,6 +6,26 @@ and is published at `/apps/<name>/` next to its documentation.
 | Project | Live app | What it shows |
 | --- | --- | --- |
 | [ISS EVA Spacewalk](iss-eva-spacewalk/index.md) | [Launch](../apps/iss-eva-spacewalk/) | International Space Station spacewalks — real dimensions, orbit, Sun and EVA timelines |
+| [CRS-35 Launch to Docking](crs35-launch-to-docking/index.md) | [Launch](../apps/crs35-launch-to-docking/) | Falcon 9 launch, booster landing, 51 h orbit phasing and Dragon docking for NASA's CRS-35 |
+| [Solar System Explorer](solar-system/index.md) | [Launch](../apps/solar-system/) | True-scale, real-time Solar System in the style of NASA's Eyes: real planet positions, time controls, flood or natural lighting |
+| [AI Factory India](ai-factory-india/index.md) | [Launch](../apps/ai-factory-india/) | Illustrative 100 MW Vera Rubin NVL72 AI factory near Hyderabad, from the grid and dry coolers down to the Rubin GPU |
+| [Brick Builder](brick-builder/index.md) | [Launch](../apps/brick-builder/) | Build with interlocking bricks in 3D: real dimensions, 34 parts, 24 colours, snapping, undo, replay, save |
+| [Cloud Brick Architect](aws-architecture-builder/index.md) | [Launch](../apps/aws-architecture-builder/) | 2D AWS architecture building game: snap official AWS icons into VPCs and subnets, run traffic, fail an AZ |
+| [CAD/CAM Studio](cad-cam-studio/index.md) | [Launch](../apps/cad-cam-studio/) | Parametric CSG part design, 2.5D milling toolpaths, material-removal simulation, G-code and STL export |
+| [Forts of Swarajya](shivaji-forts/index.md) | [Launch](../apps/shivaji-forts/) | 14 forts of Chhatrapati Shivaji Maharaj on real terrain, with a Sahyadri relief map and a 1630–1680 timeline |
+| [Proto Lab](proto-lab/index.md) | [Launch](../apps/proto-lab/) | Electronics prototyping with 8 boards, breadboards and 65 sensors and modules: circuit check, simulation and Arduino/MicroPython/Python code |
+| [Logistics Twin](logistics-twin/index.md) | [Launch](../apps/logistics-twin/) | Fulfilment-centre digital twin: inbound, putaway, AMR picking, packing, sortation and outbound trucks, with live KPIs, bottleneck detection and scenarios |
+| [Robot Cell Studio](robot-cell-studio/index.md) | [Launch](../apps/robot-cell-studio/) | Modular industrial robot builder: kinematics, payload and joint loads, IK teaching, task programs in a work cell, URDF export |
+| [Yatra · Rail & ST](yatra/index.md) | [Launch](../apps/yatra/) | Mumbai–Pune by Indian Railways (Vande Bharat, express, local, freight) through the Bhor Ghat, or by MSRTC ST bus up the Khandala Ghat: stations, signals, level crossings, monsoon, night |
+| [Kumbh City · Nashik](nashik-kumbh/index.md) | [Launch](../apps/nashik-kumbh/) | Simhastha Kumbh Mela crowd and transport simulator: parking hubs, shuttles, ghats and Ramkund, the akhara procession, holding areas and the ICCC, with a costed plan and an end-of-day grade |
+| [Turbofan Ops](turbofan-ops/index.md) | [Launch](../apps/turbofan-ops/) | Operate a high-bypass turbofan in a 3D cutaway: auto-start, TOGA, reverse, a live Brayton cycle, EICAS gauges and eight failure scenarios |
+| [Brick Studio Pro](brick-studio/index.md) | [Launch](../apps/brick-studio/) | An advanced 3D brick builder: 69 parts with stud snapping, selection editing, a stability check, automatic instructions, generators, photo mosaics, parts lists and LDraw / BrickLink export |
+| [Earthmovers](heavy-machinery/index.md) | [Launch](../apps/heavy-machinery/) | A 3D portfolio of eight heavy machines with working hydraulics: showroom, operating controls, configurator and quote, comparison, fleet planner, a digging sandbox and a job site |
+| [PQC Road Works](pqc-road/index.md) | [Launch](../apps/pqc-road/) | Animated construction of a jointed plain concrete road as per IRC:15 / IRC:58 / MoRTH 600, from subgrade to opening, with joint drawings, a quantities calculator and a QC log |
+| [Krishi Yantra · Farm tractors](farm-tractors/index.md) | [Launch](../apps/farm-tractors/) | Tractors with a working three-point linkage, PTO and drawbar and eleven animated implements, working a field and following a wheat season from stubble to mandi, with a field calculator |
+| [Harit Ghar · Polyhouse & vertical farm](polyhouse-vertical-farm/index.md) | [Launch](../apps/polyhouse-vertical-farm/) | A naturally ventilated polyhouse and an LED vertical farm on a live climate model, run by IoT sensors and AI: model-predictive climate control, anomaly detection, simulated plant-health vision, forecasts and a 24-hour rules-vs-AI comparison |
+| [Urja Maharashtra · State power grid](maharashtra-grid/index.md) | [Launch](../apps/maharashtra-grid/) | Maharashtra's grid from plant to plug: Mahagenco, private, central and renewable stations, Mahapareshan's 765/400/220 kV network and HVDC link, and Mahavitaran's consumers, with 15-minute merit-order dispatch, live line flows, N-1, frequency and six close-up sites |
+| [Van Maharashtra · Forests](maharashtra-forests/index.md) | [Launch](../apps/maharashtra-forests/) | Maharashtra's forest cover from 2021 to 2050 as an illustrative pipeline of industrial projects clears and thins forest and breaks tiger corridors, under three scenarios, with mine, highway, dam and mangrove close-ups |
 
 ## Shared conventions
 

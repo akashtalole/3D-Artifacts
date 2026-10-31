@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Krishi Yantra</title>
+  <meta name="description" content="Farm tractors and their implements in 3D: a tractor with a working three-point linkage and PTO, eleven implements from the plough and rotavator to the seed drill, sprayer, reaper and thresher, field work pass by pass, and a full wheat crop cycle." />
+  <meta name="theme-color" content="#14171b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='18' cy='44' r='13' fill='%23222'/%3E%3Ccircle cx='18' cy='44' r='6' fill='%23efe6cf'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%23222'/%3E%3Cpath d='M10 30h16V16h12v14h20v12H10z' fill='%23c4241b'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <aside class="left">
+      <div class="brand"><b>Krishi Yantra <i>कृषि यंत्र</i></b><span>Farm tractors and their implements</span></div>
+      <h4>Tractor</h4>
+      <div class="seg wide" id="hps"><button data-hp="35">35 HP</button><button data-hp="50" class="active">50 HP</button><button data-hp="75">75 HP 4WD</button></div>
+      <div class="swatches" id="colours"></div>
+      <h4>Implements</h4>
+      <div id="cards" class="cards"></div>
+      <p class="fine">Generic machines. Figures are typical of Indian farm practice and illustrative; follow the maker's manual and local agricultural advice.</p>
+    </aside>
+    <main class="view">
+      <canvas id="scene"></canvas>
+      <div id="labels"></div>
+      <header class="bar">
+        <div class="seg" id="modes"><button data-mode="show" class="active">🚜 Showroom</button><button data-mode="field">🌾 Field work</button><button data-mode="cycle">📅 Crop cycle</button></div>
+        <div class="seg" id="cams"><button data-cam="follow" class="active">Follow</button><button data-cam="side">Side</button><button data-cam="rear">Rear</button><button data-cam="over">Overview</button><button data-cam="cab">Cab</button></div>
+      </header>
+      <div id="hud" class="hud"></div>
+      <div class="ctrl" id="ctrl"></div>
+    </main>
+    <aside class="right">
+      <nav class="tabs"><button data-tab="imp" class="active">Implement</button><button data-tab="calc">Calculator</button><button data-tab="cycle">Crop cycle</button><button data-tab="tractor">Tractor</button></nav>
+      <section class="tab show" id="tab-imp"></section>
+      <section class="tab" id="tab-calc"></section>
+      <section class="tab" id="tab-cycle"></section>
+      <section class="tab" id="tab-tractor"></section>
+    </aside>
+    <div id="loader" class="loader"><div class="ring"></div><div>Starting the tractor…</div></div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
